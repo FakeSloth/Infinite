@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
  * @param {String} db
  */
 
-exports.connect_database = function(db) {
+exports.connect = function(db) {
     if (!db) db = 'mongodb://localhost:27017/ps';
     var url = process.env.MONGODB || db;
     mongoose.connect(url);
