@@ -388,6 +388,7 @@ exports.BattleScripts = {
 			hitResult = true;
 		}
 		if (!hitResult) {
+			if (hitResult === false) this.add('-fail', target);
 			return false;
 		}
 
@@ -3591,6 +3592,12 @@ exports.BattleScripts = {
 				baseSignatureMove: 'waterfall', signatureMove: "Water Bomb",
 				evs: {hp:252, atk:252, def:4}, nature: 'Adamant'
 			},
+			'@xfix': {
+				species: 'Xatu', ability: 'Magic Bounce', item: 'Focus Sash', gender: 'M',
+				moves: ['thunderwave', 'substitute', 'roost'],
+				baseSignatureMove: 'metronome', signatureMove: "(Super Glitch)",
+				evs: {hp:252, spd:252, def:4}, nature: 'Calm'
+			},
 			'@zdrup': {
 				species: 'Slowking', ability: 'Slow Start', item: 'Leftovers', gender: 'M',
 				moves: ['psystrike', 'futuresight', 'originpulse', 'slackoff', 'destinybond'],
@@ -3718,7 +3725,7 @@ exports.BattleScripts = {
 			},
 			'%QuoteCS': {
 				species: 'Skarmory', ability: 'Adaptability', item: 'Life Orb', gender: 'M',
-				moves: ['meteormash', ['bravebird', 'dragonascent'][this.random(2)], 'roost'],
+				moves: ['meteormash', 'bravebird', 'roost'],
 				baseSignatureMove: 'spikes', signatureMove: "Diversify",
 				evs: {hp:248, atk:252, spe:8}, nature: 'Adamant'
 			},
@@ -3733,12 +3740,6 @@ exports.BattleScripts = {
 				moves: ['explosion', 'stringshot', 'stickyweb', 'spiderweb', 'mist'],
 				baseSignatureMove: 'bulletpunch', signatureMove: "Ranting",
 				evs: {atk:252, def:4, spe:252}, nature: 'Jolly'
-			},
-			'%xfix': {
-				species: 'Xatu', ability: 'Magic Bounce', item: 'Focus Sash', gender: 'M',
-				moves: ['thunderwave', 'substitute', 'roost'],
-				baseSignatureMove: 'metronome', signatureMove: "(Super Glitch)",
-				evs: {hp:252, spd:252, def:4}, nature: 'Calm'
 			},
 			// Voices.
 			'+Aldaron': {
@@ -3764,12 +3765,6 @@ exports.BattleScripts = {
 				moves: ['psywave', ['poisonfang', 'shadowstrike'][this.random(2)], ['uturn', 'rapidspin'][this.random(2)]],
 				baseSignatureMove: 'healingwish', signatureMove: "Be Thankful I Sacrificed Myself",
 				evs: {hp:252, def:136, spd:120}, nature: 'Impish'
-			},
-			'+imanalt': {
-				species: 'Rhydon', ability: 'Prankster', item: 'Eviolite', gender: 'M',
-				moves: ['heartswap', 'rockblast', 'stealthrock', 'substitute', 'batonpass'],
-				baseSignatureMove: 'naturepower', signatureMove: "FREE GENV BH",
-				evs: {hp:252, atk:252, spd:4}, nature: 'Adamant'
 			},
 			'+Limi': {
 				species: 'Primeape', ability: 'Poison Heal', item: 'Leftovers', gender: 'M',

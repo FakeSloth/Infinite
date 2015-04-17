@@ -1375,6 +1375,21 @@ exports.Formats = [
 			if (name === 'waterbomb') {
 				this.add('c|@WaterBomb|Get off my lawn! *shakes cane*');
 			}
+			if (name === 'xfix') {
+				var hazards = {stealthrock: 1, spikes: 1, toxicspikes: 1, stickyweb: 1};
+				var hasHazards = false;
+				for (var hazard in hazards) {
+					if (pokemon.side.getSideCondition(hazard)) {
+						hasHazards = true;
+						break;
+					}
+				}
+				if (hasHazards) {
+					this.add('c|@xfix|(no haz... too late)');
+				} else {
+					this.add('c|@xfix|(no hazards, attacks only, final destination)');
+				}
+			}
 			if (name === 'zdrup') {
 				this.add('c|@zdrup|Wait for it...');
 			}
@@ -1464,21 +1479,6 @@ exports.Formats = [
 				sentences = ['huehuehuehue', 'PIZA', 'SPAGUETI', 'RAVIOLI RAVIOLI GIVE ME THE FORMUOLI', 'get ready for PUN-ishment'];
 				this.add('c|%useless trainer|' + sentences[this.random(5)]);
 			}
-			if (name === 'xfix') {
-				var hazards = {stealthrock: 1, spikes: 1, toxicspikes: 1, stickyweb: 1};
-				var hasHazards = false;
-				for (var hazard in hazards) {
-					if (pokemon.side.getSideCondition(hazard)) {
-						hasHazards = true;
-						break;
-					}
-				}
-				if (hasHazards) {
-					this.add('c|%xfix|(no haz... too late)');
-				} else {
-					this.add('c|%xfix|(no hazards, attacks only, final destination)');
-				}
-			}
 
 			// Voices.
 			if (name === 'aldaron') {
@@ -1558,9 +1558,6 @@ exports.Formats = [
 			}
 			if (name === 'diatom') {
 				this.add('-message', pokemon.side.foe.name + ' was banned by Diatom. (you should be thankful you are banned and not permabanned)');
-			}
-			if (name === 'imanalt') {
-				this.add('c|+imanalt|muh bulk');
 			}
 			if (name === 'mattl') {
 				this.add('c|+MattL|The annoyance I will cause is not well-defined.');
@@ -1943,6 +1940,17 @@ exports.Formats = [
 			if (name === 'waterbomb') {
 				this.add('c|@WaterBomb|brb getting more denture cream');
 			}
+			if (name === 'xfix') {
+				var foe = pokemon.side.foe.active[0];
+				if (foe.name === '@xfix') {
+					this.add('c|@xfix|(annoying Dittos...)');
+				} else if (foe.ability === 'magicbounce') {
+					this.add('c|@xfix|(why ' + foe.name + ' has Magic Bounce...)');
+					this.add('c|@xfix|(gg... why...)');
+				} else {
+					this.add('c|@xfix|(gg... I guess)');
+				}
+			}
 			if (name === 'zdrup') {
 				this.add('c|@zdrup|... keep waiting for it ...');
 			}
@@ -2026,17 +2034,6 @@ exports.Formats = [
 				sentences = ['MATTERED', 'CAIO', 'ima repr0t', 'one day i\'ll turn into a beautiful butterfly'];
 				this.add('c|%useless trainer|' + sentences[this.random(4)]);
 			}
-			if (name === 'xfix') {
-				var foe = pokemon.side.foe.active[0];
-				if (foe.name === '%xfix') {
-					this.add('c|%xfix|(annoying Dittos...)');
-				} else if (foe.ability === 'magicbounce') {
-					this.add('c|%xfix|(why ' + foe.name + ' has Magic Bounce...)');
-					this.add('c|%xfix|(gg... why...)');
-				} else {
-					this.add('c|%xfix|(gg... I guess)');
-				}
-			}
 
 			// Ex-staff or honorary voice.
 			if (name === 'bmelts') {
@@ -2047,9 +2044,6 @@ exports.Formats = [
 			}
 			if (name === 'diatom' && !pokemon.hasBeenThanked) {
 				this.add('c|★' + pokemon.side.foe.name + '|Thanks Diatom...');
-			}
-			if (name === 'imanalt') {
-				this.add('c|+imanalt|bshax imo');
 			}
 			if (name === 'mattl') {
 				this.add('c|+MattL|Finish him! You used "Finals week!" Fatality!');
@@ -3274,6 +3268,48 @@ exports.Formats = [
 				move.ignoreDefensive = true;
 				move.ignoreEvasion = true;
 			}
+			if (move.id === 'metronome' && name === 'xfix') {
+				if (pokemon.moveset[3] && pokemon.moveset[3].pp) {
+					pokemon.moveset[3].pp = Math.round(pokemon.moveset[3].pp * 10 + 6) / 10;
+				}
+				move.name = '(Super Glitch)';
+				move.multihit = [2, 5];
+				move.onTryHit = function (target, source) {
+					if (!source.isActive) return null;
+				};
+				move.onModifyMove = function (source) {
+					if (this.random(777) !== 42) return;
+					var opponent = pokemon.side.foe.active[0];
+					opponent.setStatus('brn');
+					var possibleStatuses = ['confusion', 'flinch', 'attract', 'focusenergy', 'foresight', 'healblock'];
+					for (var i = 0; i < possibleStatuses.length; i++) {
+						if (this.random(3) === 1) {
+							opponent.addVolatile(possibleStatuses[i]);
+						}
+					}
+
+					function generateNoise() {
+						var noise = '';
+						var random = this.random(40, 81);
+						for (var i = 0; i < random; i++) {
+							if (this.random(4) !== 0) {
+								// Non-breaking space
+								noise += '\u00A0';
+							} else {
+								noise += String.fromCharCode(this.random(0xA0, 0x3040));
+							}
+						}
+						return noise;
+					}
+					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER " + opponent.name + " is frozen solid?)");
+					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER " + opponent.name + " is hurt by its burn!)");
+					this.damage(opponent.maxhp * this.random(42, 96) * 0.01, opponent, opponent);
+					var exclamation = source.status === 'brn' ? '!' : '?';
+					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER @xfix is hurt by its burn" + exclamation + ")");
+					this.damage(source.maxhp * this.random(24, 48) * 0.01, source, source);
+					return null;
+				};
+			}
 			if (move.id === 'detect' && name === 'zebraiken') {
 				move.name = 'bzzt';
 				move.self = {boosts: {spa:1, atk:1}};
@@ -3454,7 +3490,7 @@ exports.Formats = [
 				move.onHit = function (target, source) {
 					var result = this.random(100);
 					var chance = source.hasAbility('serenegrace') ? 60 : 30;
-					var triggerFlinch = result < chance;
+					// If the result is less than 60 or 30, then Kibitz will flinch the target.
 					if (this.willMove(target) && result < chance) {
 						target.addVolatile('flinch');
 					} else if (target.hp !== 0 && !target.newlySwitched) {
@@ -3539,48 +3575,6 @@ exports.Formats = [
 				move.multihit = [2, 5];
 				move.self = {volatileStatus: 'mustrecharge'};
 				move.accuracy = 95;
-			}
-			if (move.id === 'metronome' && name === 'xfix') {
-				if (pokemon.moveset[3] && pokemon.moveset[3].pp) {
-					pokemon.moveset[3].pp = Math.round(pokemon.moveset[3].pp * 10 + 6) / 10;
-				}
-				move.name = '(Super Glitch)';
-				move.multihit = [2, 5];
-				move.onTryHit = function (target, source) {
-					if (!source.isActive) return null;
-				};
-				move.onModifyMove = function (source) {
-					if (this.random(777) !== 42) return;
-					var opponent = pokemon.side.foe.active[0];
-					opponent.setStatus('brn');
-					var possibleStatuses = ['confusion', 'flinch', 'attract', 'focusenergy', 'foresight', 'healblock'];
-					for (var i = 0; i < possibleStatuses.length; i++) {
-						if (this.random(3) === 1) {
-							opponent.addVolatile(possibleStatuses[i]);
-						}
-					}
-
-					function generateNoise() {
-						var noise = '';
-						var random = this.random(40, 81);
-						for (var i = 0; i < random; i++) {
-							if (this.random(4) !== 0) {
-								// Non-breaking space
-								noise += '\u00A0';
-							} else {
-								noise += String.fromCharCode(this.random(0xA0, 0x3040));
-							}
-						}
-						return noise;
-					}
-					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER " + opponent.name + " is frozen solid?)");
-					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER " + opponent.name + " is hurt by its burn!)");
-					this.damage(opponent.maxhp * this.random(42, 96) * 0.01, opponent, opponent);
-					var exclamation = source.status === 'brn' ? '!' : '?';
-					this.add('-message', "(Enemy " + generateNoise.call(this) + " TMTRAINER %xfix is hurt by its burn" + exclamation + ")");
-					this.damage(source.maxhp * this.random(24, 48) * 0.01, source, source);
-					return null;
-				};
 			}
 
 			// Voices signature moves.
@@ -3691,12 +3685,6 @@ exports.Formats = [
 						this.add('c|@Diatom|you should be thankful my psywave doesn\'t always hit');
 					};
 				}
-			}
-			if (move.id === 'naturepower' && name === 'imanalt') {
-				move.name = 'FREE GENV BH';
-				move.onHit = function (target, source) {
-					this.useMove('earthquake', source, target);
-				};
 			}
 			if (move.id === 'growl' && name === 'limi') {
 				move.name = 'Resilience';
