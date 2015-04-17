@@ -3,13 +3,9 @@ var Economy = require('./economy');
 
 mongo.connect();
 
-Economy.get('creaturephil')
-.then(function(money) {
-    console.log(money);
-    return Economy.get('micheal');
-})
-.then(function(money) {
-    console.log(money);
+Economy.get('craturephil')
+.then(function(result) {
+    console.log(result);
 }, function(err) {
     console.log(err);
 });

@@ -1,3 +1,4 @@
+var Q = require('q');
 var mongoose = require('mongoose');
 
 /**
@@ -22,4 +23,35 @@ var userSchema = new mongoose.Schema({
     seen: Date
 });
 
-exports.User = mongoose.model('user', userSchema);
+var User = exports.userModel = mongoose.model('user', userSchema);
+
+exports.User = {
+    /**
+     * Promise wrapper for User.findOne.
+     * 
+     * @param {Object} query
+     * @return {Promise}
+     */
+    findOne: function(query) {
+        var deferred = Q.defer();
+        User.findOne(query, function(err, result) {
+            if (err) return deferred.reject(new Error(err));
+            deferred.resolve(result);
+        });
+        return deferred.promise;
+    },
+    /**
+     * Promise wrapper for User.find.
+     * 
+     * @param {Object} query
+     * @return {Promise}
+     */
+    find: function(query) {
+        var deferred = Q.defer();
+        User.find(query, function(err, result) {
+            if (err) return deferred.reject(new Error(err));
+            deferred.resolve(result);
+        });
+        return deferred.promise;
+    }
+};
