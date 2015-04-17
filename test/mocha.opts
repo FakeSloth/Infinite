@@ -1,3 +1,4 @@
 test/*.js test/application/*.js
 -R dot
 -u bdd
+--timeout 10000

@@ -1,9 +1,10 @@
 var assert = require('assert');
-var mongo = require('../mongo');
-var User = mongo.User;
-var userModel = mongo.userModel;
+var Economy = require('../economy');
+var Mongo = require('../mongo');
+var User = Mongo.User;
+var userModel = Mongo.userModel;
 
-mongo.connect();
+Mongo.connect();
 
 var testUser = toId('test-user name');
 describe('User Model', function() {
@@ -41,6 +42,53 @@ describe('User Model', function() {
         .then(function(users) {
             assert.deepEqual(users.constructor, Array);
             done();
+        }, function(err) {
+            if (err) done(err);
+        });
+    });
+
+    it('should delete a user', function(done) {
+        userModel.remove({name: testUser}, function(err) {
+            if (err) return done(err);
+            done();
+        });
+    });
+});
+
+describe('User in economy', function() {
+    it('should create a new user', function(done) {
+        var user = new userModel({name: testUser});
+        userModel.save(function(err) {
+            if (err) return done(err);
+            done();
+        });
+    });
+
+    it('should get user by name', function(done) {
+        Economy.get(testUser)
+        .then(function(money) {
+            assert.deepEqual(typeof money, 'number');
+            assert.deepequal(money, 0);
+        }, function(err) {
+            if (err) done(err);
+        });
+    });
+
+    it('should give user money', function(done) {
+        Economy.give(testUser, 10)
+        .then(function(money) {
+            assert.deepEqual(typeof money, 'number');
+            assert.deepequal(money, 10);
+        }, function(err) {
+            if (err) done(err);
+        });
+    });
+
+    it('should take user money', function(done) {
+        Economy.take(testUser, 10)
+        .then(function(money) {
+            assert.deepEqual(typeof money, 'number');
+            assert.deepequal(money, 0);
         }, function(err) {
             if (err) done(err);
         });
