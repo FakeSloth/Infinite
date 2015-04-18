@@ -26,8 +26,20 @@ exports.Formats = [
 		name: "OU",
 		section: "ORAS Singles",
 
+		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Swagger Clause', 'Baton Pass Clause'],
 		banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Salamencite']
+	},
+	{
+		name: "OU (suspect test)",
+		section: "ORAS Singles",
+
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Swagger Clause', 'Baton Pass Clause'],
+		banlist: ['Soul Dew', 'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Salamencite',
+			'Arceus', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Defense', 'Deoxys-Speed', 'Dialga',
+			'Genesect', 'Giratina', 'Giratina-Origin', 'Greninja', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-White',
+			'Lugia', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Xerneas', 'Yveltal', 'Zekrom'
+		]
 	},
 	{
 		name: "OU (no Mega)",
@@ -70,15 +82,6 @@ exports.Formats = [
 		name: "NU",
 		section: "ORAS Singles",
 
-		searchShow: false,
-		ruleset: ['RU'],
-		banlist: ['RU', 'BL3', 'Glalitite', 'Steelixite']
-	},
-	{
-		name: "NU (suspect test)",
-		section: "ORAS Singles",
-
-		challengeShow: false,
 		ruleset: ['RU'],
 		banlist: ['RU', 'BL3', 'Glalitite', 'Steelixite']
 	},
@@ -3276,8 +3279,6 @@ exports.Formats = [
 				move.multihit = [2, 5];
 				move.onTryHit = function (target, source) {
 					if (!source.isActive) return null;
-				};
-				move.onModifyMove = function (source) {
 					if (this.random(777) !== 42) return;
 					var opponent = pokemon.side.foe.active[0];
 					opponent.setStatus('brn');
