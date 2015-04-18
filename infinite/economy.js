@@ -3,6 +3,17 @@ var User = require('./mongo').User;
 
 module.exports = {
     /**
+     * Get economy's currency name.
+     * 
+     * @param {Number} amount
+     * @return {String} currency name
+     */
+    currency: function(amount) {
+        var name = ' buck';
+        return amount === 1 ? name : name + 's';
+    },
+
+    /**
      * Get a user money amount.
      *
      * @param {String} name

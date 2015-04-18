@@ -419,3 +419,9 @@ fs.readFile('./config/ipbans.txt', function (err, data) {
  *********************************************************/
 
 require('./repl.js').start('app', function (cmd) { return eval(cmd); });
+
+require('./infinite/mongo').connect();
+
+fs.readdirSync('./infinite/commands').forEach(function (file) {
+	if (file.substr(-3) === '.js') Object.merge(CommandParser.commands, require('./infinite/commands/' + file));
+});
