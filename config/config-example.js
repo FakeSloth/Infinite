@@ -320,3 +320,11 @@ exports.grouplist = [
 		alts: 's'
 	}
 ];
+
+// Maximum number of concurrent connections a single ip may have
+exports.maxConnections = 5;
+
+// Whitelist to bypass the maximum number of concurrent connections
+exports.connectionWhitelist = {
+	'127.0.0.1': 20
+};
