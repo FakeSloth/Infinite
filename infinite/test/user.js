@@ -27,25 +27,25 @@ describe('User Model', function() {
 
     it('should find user by name', function(done) {
         User.findOne({name: testUser})
-        .then(function(user) {
-            assert.deepEqual(typeof user.name, 'string');
-            assert.deepEqual(typeof user.money, 'number');
-            assert.deepEqual(user.name, testUser);
-            assert.deepEqual(user.money, 0);
-            done();
-        }, function(err) {
-            if (err) done(err);
-        });
+            .then(function(user) {
+                assert.deepEqual(typeof user.name, 'string');
+                assert.deepEqual(typeof user.money, 'number');
+                assert.deepEqual(user.name, testUser);
+                assert.deepEqual(user.money, 0);
+                done();
+            }, function(err) {
+                if (err) done(err);
+            });
     });
 
     it('should find users', function(done) {
         User.find({})
-        .then(function(users) {
-            assert.deepEqual(users.constructor, Array);
-            done();
-        }, function(err) {
-            if (err) done(err);
-        });
+            .then(function(users) {
+                assert.deepEqual(users.constructor, Array);
+                done();
+            }, function(err) {
+                if (err) done(err);
+            });
     });
 
     it('should delete a user', function(done) {
@@ -71,47 +71,47 @@ describe('User in economy', function() {
 
     it('should get user by name', function(done) {
         Economy.get(testUser)
-        .then(function(money) {
-            assert.deepEqual(typeof money, 'number');
-            assert.deepequal(money, 0);
-        }, function(err) {
-            if (err) done(err);
-        });
+            .then(function(money) {
+                assert.deepEqual(typeof money, 'number');
+                assert.deepequal(money, 0);
+            }, function(err) {
+                if (err) done(err);
+            });
     });
 
     it('should take user money', function(done) {
         Economy.take(testUser, 10)
-        .then(function(money) {
-            assert.deepEqual(typeof money, 'number');
-            assert.deepequal(money, 0);
-        }, function(err) {
-            if (err) done(err);
-        });
+            .then(function(money) {
+                assert.deepEqual(typeof money, 'number');
+                assert.deepequal(money, 0);
+            }, function(err) {
+                if (err) done(err);
+            });
     });
 
     it('should transfer user money', function(done) {
         var amount = 5;
         Economy.get(testUser)
-        .then(function(money) {
-            assert.deepEqual(amount > money, false);
-            assert.deepEqual(money, 10);
-            return [Economy.give(testUser2, amount), Economy.take(testUser, amount)];
-        })
-        .spread(function(targetTotal, userTotal) {
-            assert.deepEqual(targetTotal, 5);
-            assert.deepEqual(userTotal, 5);
-            done();
-        }).done();
+            .then(function(money) {
+                assert.deepEqual(amount > money, false);
+                assert.deepEqual(money, 10);
+                return [Economy.give(testUser2, amount), Economy.take(testUser, amount)];
+            })
+            .spread(function(targetTotal, userTotal) {
+                assert.deepEqual(targetTotal, 5);
+                assert.deepEqual(userTotal, 5);
+                done();
+            }).done();
     });
 
     it('should give user money', function(done) {
         Economy.give(testUser, 5)
-        .then(function(money) {
-            assert.deepEqual(typeof money, 'number');
-            assert.deepequal(money, 5);
-        }, function(err) {
-            if (err) done(err);
-        });
+            .then(function(money) {
+                assert.deepEqual(typeof money, 'number');
+                assert.deepequal(money, 5);
+            }, function(err) {
+                if (err) done(err);
+            });
     });
 
     it('should delete a users', function(done) {

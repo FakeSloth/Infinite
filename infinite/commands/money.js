@@ -82,15 +82,15 @@ module.exports = {
 
         var self = this;
         Economy.get(user.name)
-        .then(function(money) {
-            if (amount > money) return self.sendReply('You cannot transfer more money than what you have.');
-            return [Economy.give(targetName, amount), Economy.take(user.name, amount)];
-        })
-        .spread(function(targetTotal, userTotal) {
-            self.sendReply('You have successfully transferred ' + currency + '. You now have ' + userTotal + Economy.currency(userTotal) + '.');
-            if (Users.get(targetName)) {
-                Users.get(targetName).send(user.name + ' has transferred ' + currency + '. You now have ' + targetTotal + Economy.currency(targetTotal) + '.');
-            }
-        }).done();
+            .then(function(money) {
+                if (amount > money) return self.sendReply('You cannot transfer more money than what you have.');
+                return [Economy.give(targetName, amount), Economy.take(user.name, amount)];
+            })
+            .spread(function(targetTotal, userTotal) {
+                self.sendReply('You have successfully transferred ' + currency + '. You now have ' + userTotal + Economy.currency(userTotal) + '.');
+                if (Users.get(targetName)) {
+                    Users.get(targetName).send(user.name + ' has transferred ' + currency + '. You now have ' + targetTotal + Economy.currency(targetTotal) + '.');
+                }
+            }).done();
     }
 };
