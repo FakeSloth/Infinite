@@ -1,5 +1,7 @@
 var Q = require('q');
-var User = require('./mongo').User;
+var Mongo = require('./mongo');
+var User = Mongo.User;
+var userModel = Mongo.userModel;
 
 module.exports = {
     /**
@@ -22,12 +24,12 @@ module.exports = {
     get: function(name) {
         var deferred = Q.defer();
         User.findOne({name: toId(name)})
-        .then(function(user) {
-            if (!user) return deferred.resolve(0);
-            deferred.resolve(user.money);
-        }, function(err) {
-            if (err) return deferred.reject(new Error(err));
-        });
+            .then(function(user) {
+                if (!user) return deferred.resolve(0);
+                deferred.resolve(user.money);
+            }, function(err) {
+                if (err) return deferred.reject(new Error(err));
+            });
         return deferred.promise;
     },
 
@@ -41,25 +43,25 @@ module.exports = {
     give: function(name, amount) {
         var deferred = Q.defer();
         User.findOne({name: toId(name)})
-        .then(function(user) {
-            if (!user) {
-                user = new userModel({
-                    name: toId(name),
-                    money: amount
-                });
-                return user.save(function(err) {
+            .then(function(user) {
+                if (!user) {
+                    user = new userModel({
+                        name: toId(name),
+                        money: amount
+                    });
+                    return user.save(function(err) {
+                        if (err) return deferred.reject(new Error(err));
+                        deferred.resolve(user.money);
+                    });
+                }
+                user.money += amount;
+                user.save(function(err) {
                     if (err) return deferred.reject(new Error(err));
                     deferred.resolve(user.money);
                 });
-            }
-            user.money += amount;
-            user.save(function(err) {
+            }, function(err) {
                 if (err) return deferred.reject(new Error(err));
-                deferred.resolve(user.money);
             });
-        }, function(err) {
-            if (err) return deferred.reject(new Error(err));
-        });
         return deferred.promise;
     },
 
@@ -73,15 +75,25 @@ module.exports = {
     take: function(name, amount) {
         var deferred = Q.defer();
         User.findOne({name: toId(name)})
-        .then(function(user) {
-            user.money -= amount;
-            user.save(function(err) {
+            .then(function(user) {
+                if (!user) {
+                    user = new userModel({
+                        name: toId(name),
+                        money: amount
+                    });
+                    return user.save(function(err) {
+                        if (err) return deferred.reject(new Error(err));
+                        deferred.resolve(user.money);
+                    });
+                }
+                user.money -= amount;
+                user.save(function(err) {
+                    if (err) return deferred.reject(new Error(err));
+                    deferred.resolve(user.money);
+                });
+            }, function(err) {
                 if (err) return deferred.reject(new Error(err));
-                deferred.resolve(user.money);
-            })
-        }, function(err) {
-            if (err) return deferred.reject(new Error(err));
-        });
+            });
         return deferred.promise;
     }
 };
