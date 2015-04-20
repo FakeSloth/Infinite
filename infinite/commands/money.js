@@ -91,6 +91,8 @@ module.exports = {
                 if (Users.get(targetName)) {
                     Users.get(targetName).send(user.name + ' has transferred ' + currency + '. You now have ' + targetTotal + Economy.currency(targetTotal) + '.');
                 }
+            }, function(err) {
+                if (err) console.error(err);
             }).done();
     }
 };
