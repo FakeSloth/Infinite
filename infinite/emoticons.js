@@ -11,13 +11,19 @@ module.exports = (function() {
         'feelspink': 'http://i.imgur.com/jqfB8Di.png',
         'feelsrs': 'http://i.imgur.com/qGEot0R.png',
         'feelssc': 'http://i.imgur.com/cm6oTZ1.png',
-        'Kappa': 'http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-ddc6e3a8732cb50f-25x28.png',
+        'fukya': 'http://i.imgur.com/ampqCZi.gif',
         'funnylol': 'http://i.imgur.com/SlzCghq.png',
+        'hmmface': 'http://i.imgur.com/Z5lOwfZ.png',
+        'Kappa': 'http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-ddc6e3a8732cb50f-25x28.png',
+        'noface': 'http://i.imgur.com/H744eRE.png',
         'Obama': 'http://i.imgur.com/rBA9M7A.png',
         'oshet': 'http://i.imgur.com/yr5DjuZ.png',
         'PJSalt': 'http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-18be1a297459453f-36x30.png',
+        'Sanic': 'http://i.imgur.com/Y6etmna.png',
         'wtfman': 'http://i.imgur.com/kwR8Re9.png',
-        'xD': 'http://i.imgur.com/V728AvL.png'
+        'xD': 'http://i.imgur.com/V728AvL.png',
+        'yayface': 'http://i.imgur.com/anY1jf8.png',
+        'yesface': 'http://i.imgur.com/k9YCF6K.png'
     };
 
     var emotesKeys = Object.keys(emotes);

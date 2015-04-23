@@ -17,7 +17,6 @@ CommandParser.parse = function(message, room, user, connection, levelsDeep) {
     message = CommandParser.originalParse(message, room, user, connection, levelsDeep);
     if (!message) return message;
 
-
     var match = false;
     var len = emotesKeys.length;
 
