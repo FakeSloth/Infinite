@@ -11,8 +11,12 @@ if (!CommandParser.originalParse) {
 }
 
 CommandParser.parse = function(message, room, user, connection, levelsDeep) {
+    if (message.charAt(0) === '/' && message.charAt(1) !== '/') {
+        return CommandParser.originalParse(message, room, user, connection, levelsDeep + 1);
+    }
     message = CommandParser.originalParse(message, room, user, connection, levelsDeep);
     if (!message) return message;
+
 
     var match = false;
     var len = emotesKeys.length;
