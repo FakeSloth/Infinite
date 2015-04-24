@@ -118,16 +118,37 @@ module.exports = {
         if (!target) return this.sendReply('/buy [command] - Buys an item from the shop.');
         var self = this;
         Economy.get(user.name).then(function(money) {
-            var item = findItem(target, money);
-            if (!item.success) self.sendReply(item.message);
-            Economy.take(user.name, item.cost).then(function(total) {
-                self.sendReply('You have bought ' + target + ' for ' + item.cost + 
-                    Economy.currency(item.cost) + '. You now have ' + total + 
+            var cost = findItem.call(self, target, money);
+            if (!cost) return room.update();
+
+            Economy.take(user.name, cost).then(function(total) {
+                self.sendReply('You have bought ' + target + ' for ' + cost + 
+                    Economy.currency(cost) + '. You now have ' + total + 
                     Economy.currency(total) + ' left.');
-                room.add(user.name + ' has bought ' + target + ' from the shop.');
+                room.addRaw(user.name + ' has bought <b>' + target + '</b> from the shop.');
+                handleBoughtItem.call(self, target.toLowerCase(), user);
                 room.update();
             });
         });
+    },
+
+    customsymbol: function(target, room, user) {
+        if (!user.canCustomSymbol) return this.sendReply('You need to buy this item from the shop.');
+        if (!target || target.length > 1) return this.sendReply('/customsymbol [symbol] - Get a custom symbol.');
+        if (target.match(/[A-Za-z\d]+/g) || '?!+%@\u2605&~#'.indexOf(target) >= 0) return this.sendReply('Sorry, but you cannot change your symbol to this for safety/stability reasons.');
+        user.customSymbol = target;
+        user.updateIdentity();
+        user.canCustomSymbol = false;
+        user.hasCustomSymbol = true;
+    },
+
+    resetcustomsymbol: 'resetsymbol',
+    resetsymbol: function(target, room, user) {
+        if (!user.hasCustomSymbol) return this.sendReply('You don\'t have a custom symbol.');
+        user.customSymbol = null;
+        user.updateIdentity();
+        user.hasCustomSymbol = false;
+        this.sendReply('Your symbol has been reset.');
     }
 };
 
@@ -169,29 +190,40 @@ function getShopDisplay(shop) {
 
 function findItem(item, money) {
     var len = shop.length;
-    var match = false;
     var price = 0;
     var amount = 0;
     while(len--) {
         if (item.toLowerCase() !== shop[len][0].toLowerCase()) continue;
-        match = true;
         price = shop[len][2];
         if (price > money) {
             amount = price - money;
-            return {
-                success: false,
-                message:'You don\'t have you enough money for this. You need ' + amount + Economy.currency(amount) + ' more to buy ' + item + '.'
-            };
+            this.sendReply('You don\'t have you enough money for this. You need ' + amount + Economy.currency(amount) + ' more to buy ' + item + '.');
+            return false;
         }
-        return {
-            success: true,
-            cost: price
-        };
+        return price;
     }
-    if (!match) {
-        return {
-            success: false,
-            message: item + ' not found in shop.'
-        };
-    }
+    this.sendReply(item + ' not found in shop.');
+}
+
+/**
+ * Handling the bought item from the shop.
+ * 
+ * @param {String} item
+ * @param {Object} user
+ */
+
+function handleBoughtItem(item, user) {
+    if (item === 'symbol') {
+        user.canCustomSymbol = true;
+        this.sendReply('You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.');
+        this.sendReply('You will have this until you log off for more than an hour.');
+        this.sendReply('If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.'); 
+   } else {
+        var msg = user.name + ' has bought ' + item + '.';
+        for (var i in Users.users) {
+            if (Users.users[i].group === '~') {
+                Users.users[i].send('|pm|~Shop Alert|' + Users.users[i].getIdentity() + '|' + msg);
+            }
+        } 
+   }
 }

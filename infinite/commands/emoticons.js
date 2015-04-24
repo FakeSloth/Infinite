@@ -34,7 +34,7 @@ function create_table() {
         var emote1 = emotes_list[i],
             emote2 = emotes_list_right[i];
         if (emote2) {
-            emotes_group_list.push('<tr>' + emote1 + ' ' + emote2 + '</tr>');
+            emotes_group_list.push('<tr>' + emote1 + emote2 + '</tr>');
         } else {
             emotes_group_list.push('<tr>' + emote1 + '</tr>');
         }
