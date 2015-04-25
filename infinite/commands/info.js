@@ -31,7 +31,7 @@ module.exports = {
         if (!this.canBroadcast()) return;
         if (!target) return this.sendReply('/regdate [username] - Get the registration date of a user.');
         var name = toId(target);
-        if (regdateCache[name]) return this.sendReplyBox(name + ' was registered on ' + regdateCache[name]);
+        if (regdateCache[name]) return this.sendReplyBox(name + ' was registered on ' + regdateCache[name] + '.');
 
         request('http://pokemonshowdown.com/users/' + name, function(error, response, body) {
             if (error) console.log(error);
