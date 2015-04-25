@@ -14,7 +14,7 @@ exports.connect = function(db) {
     mongoose.connection.on('error', function() {
         console.error('MongoDB Connection Error. Make sure MongoDB is running.');
     });
-}
+};
 
 var userSchema = new mongoose.Schema({
     name: { type: String, lowercase: true, unique: true },

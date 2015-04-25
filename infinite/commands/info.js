@@ -85,11 +85,12 @@ module.exports = {
 
     u: 'ud',
     ud: function(target, room, user, connection, cmd) {
+        var random;
         if (!target) {
-            var target = '';
-            var random = true;
+            target = '';
+            random = true;
         } else {
-            var random = false;
+            random = false;
         }
         if (target.toString().length > 50) return this.sendReply('/ud - <phrase> can not be longer than 50 characters.');
         if (!this.canBroadcast()) return;

@@ -62,12 +62,12 @@ module.exports = {
 
         var options = {};
 
-        for (var i in Poll[room.id].optionList) {
-            options[Poll[room.id].optionList[i]] = 0;
+        for (var l in Poll[room.id].optionList) {
+            options[Poll[room.id].optionList[l]] = 0;
         }
 
-        for (var i in Poll[room.id].options) {
-            options[Poll[room.id].options[i]]++;
+        for (var o in Poll[room.id].options) {
+            options[Poll[room.id].options[o]]++;
         }
 
         var data = [];

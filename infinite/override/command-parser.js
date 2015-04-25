@@ -35,9 +35,7 @@ CommandParser.parse = function(message, room, user, connection, levelsDeep) {
     // emoticons
     message = message.replace(patternRegex, function(match) {
         var emote = emotes[match];
-        return typeof emote === 'string' 
-            ? '<img src="' + emote + '" title="' + match + '" />'
-            : match;
+        return typeof emote === 'string' ? '<img src="' + emote + '" title="' + match + '" />' : match;
     });
 
     // __italics__

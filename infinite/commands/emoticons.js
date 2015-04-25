@@ -30,7 +30,7 @@ function create_table() {
 
     var emotes_list_right = emotes_list.splice(len / 2, len / 2);
 
-    for (var i = 0; i < len / 2; i++) {
+    for (i = 0; i < len / 2; i++) {
         var emote1 = emotes_list[i],
             emote2 = emotes_list_right[i];
         if (emote2) {
@@ -40,10 +40,5 @@ function create_table() {
         }
     }
 
-    return '<center><b><u>List of Emoticons</u></b></center>' +
-        '<table border="1" cellspacing="0" cellpadding="5" width="100%">' +
-            '<tbody>' +
-                emotes_group_list.join('')
-            '</tbody>' +
-        '</table>';
+    return '<center><b><u>List of Emoticons</u></b></center>' + '<table border="1" cellspacing="0" cellpadding="5" width="100%">' + '<tbody>' + emotes_group_list.join('') + '</tbody>' + '</table>';
 }

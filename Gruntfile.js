@@ -5,18 +5,15 @@ module.exports = function(grunt) {
     grunt.initConfig({
 
         jshint: {
-            files: ['Gruntfile.js', 'infinite/**/*.js']
-        },
-
-        jscs: {
-            src: ['Gruntfile.js', 'infinite/**/*.js'],
+            files: ['Gruntfile.js', 'infinite/**/*.js'],
             options: {
-                config: '.jscsrc'
+                multistr: true,
+                sub: true
             }
         }
 
     });
 
-    grunt.registerTask('default', ['jshint', 'jscs']);
+    grunt.registerTask('default', ['jshint']);
 
 };

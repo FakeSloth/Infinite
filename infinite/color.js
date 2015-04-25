@@ -1,3 +1,5 @@
+/* jshint ignore:start */
+
 'use strict';
 
 module.exports = hashColor;
@@ -139,3 +141,5 @@ function hashColor(e) {
     colorCache[e] = "#" + rgbToHex(s.r, s.g, s.b);
     return colorCache[e];
 }
+
+/* jshint ignore:end */

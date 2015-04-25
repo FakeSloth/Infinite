@@ -131,7 +131,7 @@ Users.socketConnect = function (worker, workerid, socketid, ip) {
 Users.Connection.prototype.onDisconnect = function () {
     delete connections[this.id];
     connectedIps[this.ip]--;
-    if (connectedIps[this.ip] == 0) delete connectedIps[this.ip];
+    if (connectedIps[this.ip] === 0) delete connectedIps[this.ip];
     if (this.user) this.user.onDisconnect(this);
     this.user = null;
 };
