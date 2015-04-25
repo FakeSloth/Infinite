@@ -43,3 +43,15 @@ To make the username look normal when using emoticons, put this in your css:
   font-size: 9pt;
 }
 ```
+
+Contributing
+------------
+
+To test infinite's code, use `grunt && mocha`:
+
+```bash
+$ grunt && mocha
+```
+
+Try to all your code inside of either `infinite` or `chat-plugins` folder to
+avoid merge conflicts with the main Pokemon-Showdown repository.
