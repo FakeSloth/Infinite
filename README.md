@@ -28,3 +28,18 @@ another command prompt or terminal:
 ```bash
 $ mongod
 ```
+
+Emoticons
+---------
+
+To make the username look normal when using emoticons, put this in your css:
+
+```css
+.emote-chat {
+  background: none;
+  border: 0;
+  padding: 0 5px 0 0;
+  font-family: Verdana;
+  font-size: 9pt;
+}
+```

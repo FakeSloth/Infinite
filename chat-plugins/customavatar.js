@@ -1,3 +1,4 @@
+// jscs:disable
 var fs = require('fs');
 
 function reloadCustomAvatars() {
