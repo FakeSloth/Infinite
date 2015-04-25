@@ -29,7 +29,7 @@ module.exports = {
     givebuck: 'givemoney',
     givebucks: 'givemoney',
     givemoney: function(target, room, user) {
-        if (!user.can('givemoney')) return this.sendReply('/givemoney - Access denied.');
+        if (!user.can('givemoney')) return false;
         if (!target || target.indexOf(',') < 0) {
             return this.sendReply('/givemoney [user], [amount] - Give a user a certain amount of money.');
         }
@@ -51,10 +51,10 @@ module.exports = {
     },
 
 
-    givebuck: 'takemoney',
-    givebucks: 'takemoney',
+    takebuck: 'takemoney',
+    takebucks: 'takemoney',
     takemoney: function(target, room, user) {
-        if (!user.can('takemoney')) this.sendReply('/takemoney - Access denied.');
+        if (!user.can('takemoney')) return false;
         if (!target || target.indexOf(',') < 0) {
             return this.sendReply('/takemoney [user], [amount] - Take a certain amount of money from a user.'); 
         }

@@ -1,4 +1,4 @@
-// Custom symbol
+// Custom symbol and hiding
 
 Users.User.prototype.getIdentity = function(roomid) {
     if (this.locked) {
@@ -15,6 +15,9 @@ Users.User.prototype.getIdentity = function(roomid) {
             }
             if (room.isPrivate === true) return ' ' + this.name;
         }
+    }
+    if (this.hiding) {
+      return ' ' + this.name;
     }
     if (this.customSymbol) {
         return this.customSymbol + this.name;
