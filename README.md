@@ -53,5 +53,5 @@ To test infinite's code, use `grunt && mocha`:
 $ grunt && mocha
 ```
 
-Try to all your code inside of either `infinite` or `chat-plugins` folder to
+Try to keep all code inside of either `infinite` or `chat-plugins` folder to
 avoid merge conflicts with the main Pokemon-Showdown repository.
