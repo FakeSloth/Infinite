@@ -47,6 +47,7 @@ module.exports = {
         }
     },
 
+    pmroom: 'rmall',
     rmall: function (target, room, user) {
         if(!this.can('ban')) return false;
         if (!target) return this.sendReply('/rmall [message] - Sends a pm to all users in the room.');
