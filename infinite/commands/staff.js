@@ -1,3 +1,6 @@
+var fs = require('fs');
+var path = require('path');
+
 /**
  * Staff required and staff related commands.
  */
@@ -54,5 +57,48 @@ module.exports = {
             var message = '|pm|' + pmName + '|' + room.users[i].getIdentity() + '|' + target;
             room.users[i].send(message);
         }
+    },
+
+    stafflist: function (target, room, user) {
+        var buffer = {
+            admins: [],
+            leaders: [],
+            mods: [],
+            drivers: [],
+            voices: []
+        };
+
+        var staffList = fs.readFileSync(path.join(__dirname, '../../', 'config/usergroups.csv'), 'utf8').split('\n');
+        var numStaff = 0;
+        var staff;
+
+        var len = staffList.length;
+        while (len--) {
+            staff = staffList[len].split(',');
+            if (staff.length >= 2) numStaff++;
+            if (staff[1] === '~') {
+                buffer.admins.push(staff[0]);
+            }
+            if (staff[1] === '&') {
+                buffer.leaders.push(staff[0]);
+            }
+            if (staff[1] === '@') {
+                buffer.mods.push(staff[0]);
+            }
+            if (staff[1] === '%') {
+                buffer.drivers.push(staff[0]);
+            }
+            if (staff[1] === '+') {
+                buffer.voices.push(staff[0]);
+            }
+        }
+
+        buffer.admins = buffer.admins.join(', ');
+        buffer.leaders = buffer.leaders.join(', ');
+        buffer.mods = buffer.mods.join(', ');
+        buffer.drivers = buffer.drivers.join(', ');
+        buffer.voices = buffer.voices.join(', ');
+
+        this.popupReply('Administrators:\n--------------------\n' + buffer.admins + '\n\nLeaders:\n-------------------- \n' + buffer.leaders + '\n\nModerators:\n-------------------- \n' + buffer.mods + '\n\nDrivers:\n--------------------\n' + buffer.drivers + '\n\nVoices:\n-------------------- \n' + buffer.voices + '\n\n\t\t\t\tTotal Staff Members: ' + numStaff);
     }
 };
