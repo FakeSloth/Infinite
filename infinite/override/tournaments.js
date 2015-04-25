@@ -2,7 +2,7 @@ var Economy = require('../economy');
 
 // Tournament winnings
 
-var color='#088cc7';
+var color = '#088cc7';
 var sizeRequiredToEarn = 3;
 var Tournament = Tournaments.Tournament;
 
