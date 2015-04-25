@@ -25,7 +25,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "gulp && mocha"
+    "test": "gulp && mocha && grunt"
   },
   "bin": "./app.js",
   "homepage": "http://play.pokemonshowdown.com",
@@ -53,14 +53,19 @@
   "private": true,
   "devDependencies": {
     "cache-swap": "~0.2.0",
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.2",
+    "grunt-jscs": "^1.6.0",
     "gulp": "~3.8.7",
     "gulp-cache": "~0.2.8",
+    "gulp-jscs": "~1.6.0",
     "gulp-jshint": "git://github.com/spalger/gulp-jshint#c18df3a11",
-    "gulp-jscs": "~1.4.0",
     "gulp-replace": "~0.5.1",
     "jshint-stylish": "~1.0.0",
-    "mocha": "~2.2.1",
     "lazypipe": "~0.2.2",
-    "merge-stream": "~0.1.7"
+    "load-grunt-tasks": "^3.1.0",
+    "merge-stream": "~0.1.7",
+    "mocha": "~2.2.1"
   }
 }
