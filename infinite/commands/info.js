@@ -1,5 +1,5 @@
+var cheerio = require('cheerio');
 var fs = require('fs');
-var http = require('http');
 var path = require('path');
 var request = require('request');
 
@@ -29,49 +29,19 @@ function cacheRegdate (user, date) {
 module.exports = {
     regdate: function(target, room, user, connection) {
         if (!this.canBroadcast()) return;
-        if (!target) target = user.name;
-        var username = target;
-        var userid = toId(target);
-        username = Tools.escapeHTML(username);
-        if (userid == '') return this.sendReplyBox(username+' is not a valid username.');
-        if (regdateCache[userid]) return this.sendReplyBox(username + " was registered on " + regdateCache[userid]);
+        if (!target) return this.sendReply('/regdate [username] - Get the registration date of a user.');
+        var name = toId(target);
+        if (regdateCache[name]) return this.sendReplyBox(username + ' was registered on ' + regdateCache[name]);
 
-        var options = {
-            host: "www.pokemonshowdown.com",
-            port: 80,
-            path: "/users/" + userid
-        };
-
-        var content = "";
-        var self = this;
-        var req = http.request(options, function(res) {
-
-            res.setEncoding("utf8");
-            res.on("data", function (chunk) {
-                content += chunk;
-            });
-            res.on("end", function () {
-                self.sendReply(content);
-                content = content.split("<em");
-                if (content[1]) {
-                    content = content[1].split("</p>");
-                    if (content[0]) {
-                        content = content[0].split("</em>");
-                        if (content[1]) {
-                            regdate = content[1].trim();
-                            data = username+' was registered on '+regdate+'.';
-                            cacheRegdate(userid, regdate);
-                        }
-                    }
-                }
-                else {
-                    data = username+' is not registered.';
-                }
-                self.sendReplyBox(data);
-                room.update();
-            });
-        });
-        req.end();
+        request('http://pokemonshowdown.com/users/' + name, function(error, response, body) {
+            if (error) console.log(error);
+            if (response.statusCode !== 200) return this.sendReply(target + ' is not registered.');
+            var $ = cheerio.load(body);
+            var date = $('small').first().text().split(': ')[1];
+            cacheRegdate(name, date);
+            this.sendReplyBox(target + ' was registered on ' + date + '.');
+            room.update();
+        }.bind(this));
     },
 
     def: 'define',

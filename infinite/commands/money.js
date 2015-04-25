@@ -21,7 +21,7 @@ module.exports = {
         if (!this.canBroadcast()) return;
         if (!target) target = user.name;
         Economy.get(target).then(function(amount) {
-            this.sendReplyBox(target + ' has ' + amount + Economy.currency(amount) + '.');
+            this.sendReplyBox(Tools.escapeHTML(target) + ' has ' + amount + Economy.currency(amount) + '.');
             room.update();
         }.bind(this));
     },
