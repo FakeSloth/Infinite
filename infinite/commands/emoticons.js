@@ -13,7 +13,7 @@ module.exports = {
     toggleemoticons: function(target, room, user) {
         if (!user.can('toggleemoticons')) return false;
         room.allowEmoticons = !room.allowEmoticons;
-        this.sendReply('Allowing emoticons is set to ' + room.allowEmoticons);
+        this.sendReply('Allowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
     }    
 };
 
