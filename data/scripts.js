@@ -1403,8 +1403,8 @@ exports.BattleScripts = {
 					if (!isSetup && moveid !== 'rest' && moveid !== 'sleeptalk') rejected = true;
 				}
 
-				// Hidden Power isn't good enough
-				if (counter.setupType === 'Special' && move.id === 'hiddenpower' && counter['Special'] <= 2 && (!hasMove['shadowball'] || move.type !== 'Fighting')) {
+				// Hidden Power isn't good enough for most cases with Special setup
+				if (counter.setupType === 'Special' && move.id === 'hiddenpower' && counter['Special'] <= 2 && (!hasMove['shadowball'] || move.type !== 'Fighting') && (!hasType['Electric'] || move.type !== 'Ice') && template.species !== 'Lilligant') {
 					rejected = true;
 				}
 
@@ -1637,6 +1637,11 @@ exports.BattleScripts = {
 			ivs.spe = 0;
 			evs.hp += evs.spe;
 			evs.spe = 0;
+		} else if (template.species === 'Shedinja') {
+			evs.atk = 252;
+			evs.hp = 0;
+			evs.def = 0;
+			evs.spd = 0;
 		}
 
 		item = 'Leftovers';
@@ -2751,7 +2756,7 @@ exports.BattleScripts = {
 				evs.spa = 0;
 			}
 		}
-		if (template.baseStats.spe > 80) {
+		if (template.baseStats.spe > 80 || template.species === 'Shedinja') {
 			evs.spe = 252;
 			evs.hp = 4;
 		} else {

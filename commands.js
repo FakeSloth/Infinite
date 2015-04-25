@@ -5,8 +5,10 @@
  * These are system commands - commands required for Pokemon Showdown
  * to run. A lot of these are sent by the client.
  *
- * If you'd like to modify commands, please go to config/commands.js,
- * which also teaches you how to use commands.
+ * System commands should not be modified, added, or removed. If you'd
+ * like to modify or add commands, add or edit files in chat-plugins/
+ *
+ * For the API, see chat-plugins/COMMANDS.md
  *
  * @license MIT license
  */
@@ -692,6 +694,10 @@ var commands = exports.commands = {
 			if (!user.named) {
 				return connection.sendTo(target, "|noinit|namerequired|You must have a name in order to join the room '" + target + "'.");
 			}
+		}
+
+		if (toId(target) in Rooms.aliases) {
+			connection.send(">" + toId(target) + "\n|deinit");
 		}
 
 		var joinResult = user.joinRoom(targetRoom, connection);
