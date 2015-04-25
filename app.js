@@ -428,6 +428,8 @@ require('./infinite/mongo').connect();
 
 global.Poll = require('./infinite/poll');
 
+require('./infinite/emoticons').enableEmoticons();
+
 fs.readdirSync('./infinite/override').forEach(function (file) {
 	if (file.substr(-3) === '.js') require('./infinite/override/' + file);
 });

@@ -37,10 +37,18 @@ module.exports = (function() {
     }
     var patternRegex = new RegExp(patterns.join('|'), 'g');
 
+    var enableEmoticons = function() {
+        for (var id in Rooms.rooms) {
+            if (Rooms.rooms[id].type === 'chat') {
+                Rooms.rooms[id].allowEmoticons = true;
+            }
+        }
+    };
 
     return {
         emotes: emotes,
         emotesKeys: emotesKeys,
-        patternRegex: patternRegex        
+        patternRegex: patternRegex,
+        enableEmoticons: enableEmoticons
     };
 })();
