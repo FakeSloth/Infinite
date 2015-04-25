@@ -1,25 +1,25 @@
 // Custom symbol
 
 Users.User.prototype.getIdentity = function(roomid) {
-  if (this.locked) {
-      return '‽' + this.name;
-  }
-  if (roomid) {
-      if (this.mutedRooms[roomid]) {
-          return '!' + this.name;
-      }
-      var room = Rooms.rooms[roomid];
-      if (room && room.auth) {
-          if (room.auth[this.userid]) {
-              return room.auth[this.userid] + this.name;
-          }
-          if (room.isPrivate === true) return ' ' + this.name;
-      }
-  }
-  if (this.customSymbol) {
-      return this.customSymbol + this.name;
-  }
-  return this.group + this.name;
+    if (this.locked) {
+        return '‽' + this.name;
+    }
+    if (roomid) {
+        if (this.mutedRooms[roomid]) {
+            return '!' + this.name;
+        }
+        var room = Rooms.rooms[roomid];
+        if (room && room.auth) {
+            if (room.auth[this.userid]) {
+                return room.auth[this.userid] + this.name;
+            }
+            if (room.isPrivate === true) return ' ' + this.name;
+        }
+    }
+    if (this.customSymbol) {
+        return this.customSymbol + this.name;
+    }
+    return this.group + this.name;
 };
 
 // Limit the number of concurrent connections a user can have.
