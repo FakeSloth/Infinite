@@ -165,8 +165,8 @@ BattlePokemon = (function () {
 		if (typeof set === 'string') set = {name: set};
 
 		// "pre-bound" functions for nicer syntax (avoids repeated use of `bind`)
-		this.getHealth = this.getHealth || BattlePokemon.getHealth.bind(this);
-		this.getDetails = this.getDetails || BattlePokemon.getDetails.bind(this);
+		this.getHealth = (this.getHealth || BattlePokemon.getHealth).bind(this);
+		this.getDetails = (this.getDetails || BattlePokemon.getDetails).bind(this);
 
 		this.set = set;
 
@@ -3904,7 +3904,7 @@ Battle = (function () {
 
 				var dataArr = [0, 1, 2, 3, 4, 5].slice(0, pokemonLength);
 				var slotMap = dataArr.slice(); // Inverse of `dataArr` (slotMap[dataArr[x]] === x)
-				var oldSlot, tempSlot;
+				var tempSlot;
 
 				for (var j = 0; j < data.length; j++) {
 					var slot = parseInt(data.charAt(j), 10) - 1;
@@ -3917,10 +3917,8 @@ Battle = (function () {
 					dataArr[slotMap[slot]] = tempSlot;
 
 					// Update its inverse
-					oldSlot = tempSlot;
-					tempSlot = slotMap[slot];
+					slotMap[tempSlot] = slotMap[slot];
 					slotMap[slot] = j;
-					slotMap[oldSlot] = tempSlot;
 				}
 
 				decisions.push({

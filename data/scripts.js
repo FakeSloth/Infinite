@@ -388,7 +388,6 @@ exports.BattleScripts = {
 			hitResult = true;
 		}
 		if (!hitResult) {
-			if (hitResult === false) this.add('-fail', target);
 			return false;
 		}
 
@@ -3654,6 +3653,12 @@ exports.BattleScripts = {
 				moves: ['recover', 'freezedry', 'trick', 'substitute'],
 				baseSignatureMove: 'surf', signatureMove: "Shot For Shot",
 				evs: {hp:252, def:4, spd:252}, nature: 'Calm'
+			},
+			'%Kayo': {
+				species: 'Gourgeist-Super', ability: 'Magic Bounce', item: 'Leftovers', gender: 'M', shiny: true,
+				moves: ['leechseed', 'shadowforce', 'spore', 'recover'],
+				baseSignatureMove: 'vinewhip', signatureMove: "Beard of Zeus Bomb",
+				evs: {hp:252, def:252, spd:4}, nature: 'Impish'
 			},
 			'%LJDarkrai': {
 				species: 'Garchomp', ability: 'Compound Eyes', item: 'Life Orb', gender: 'M',
