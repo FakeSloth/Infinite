@@ -1,6 +1,7 @@
 module.exports = {
     poll: function(target, room, user) {
         if (!this.can('broadcast', null, room)) return;
+        if (!Poll[room.id]) Poll.reset(room.id);
         if (Poll[room.id].question) return this.sendReply('There is currently a poll going on already.');
         if (!this.canTalk()) return;
 
@@ -25,6 +26,7 @@ module.exports = {
     },   
 
     vote: function(target, room, user) {
+        if (!Poll[room.id]) Poll.reset(room.id);
         if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
         if (!this.canTalk()) return;
         if (!target) return this.sendReply('/vote [option] - Vote for an option in the poll.');
@@ -38,6 +40,7 @@ module.exports = {
 
     pr: 'pollremind',
     pollremind: function(target, room, user) {
+        if (!Poll[room.id]) Poll.reset(room.id);
         if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
         if (!this.canBroadcast()) return;
         this.sendReplyBox(Poll[room.id].display);
@@ -45,12 +48,14 @@ module.exports = {
 
     votes: function(target, room, user) {
         if (!this.canBroadcast()) return;
+        if (!Poll[room.id]) Poll.reset(room.id);
         if (!Poll[room.id].question) return this.sendReply('There is no poll currently going on in this room.');
         this.sendReply('NUMBER OF VOTES: ' + Object.keys(Poll[room.id].options).length);
     },
 
     endpoll: function(target, room, user) {
         if (!this.can('broadcast', null, room)) return;
+        if (!Poll[room.id]) Poll.reset(room.id);
         if (!Poll[room.id].question) return this.sendReply('There is no poll to end in this room.');
 
         var votes = Object.keys(Poll[room.id].options).length;
