@@ -221,6 +221,7 @@ exports.replsocketmode = 0600;
 //     - tournaments: creating tournaments (/tour new, settype etc.)
 //     - tournamentsmoderation: /tour dq, autodq, end etc.
 //     - tournamentsmanagement: enable/disable tournaments.
+//     - eztc: /eztc commands.
 exports.grouplist = [
 	{
 		symbol: '~',
@@ -243,7 +244,8 @@ exports.grouplist = [
 		potd: true,
 		disableladder: true,
 		globalonly: true,
-		tournamentsmanagement: true
+		tournamentsmanagement: true,
+		eztc: true
 	},
 	{
 		symbol: '#',
