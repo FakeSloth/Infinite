@@ -38,7 +38,10 @@ module.exports = {
 
         request('http://pokemonshowdown.com/users/' + name, function(error, response, body) {
             if (error) console.log(error);
-            if (response.statusCode !== 200) return this.sendReply(target + ' is not registered.');
+            if (response.statusCode !== 200) {
+                this.sendReplyBox(target + ' is not registered.');
+                return room.update();
+            }
             var $ = cheerio.load(body);
             var date = $('small').first().text().split(': ')[1];
             cacheRegdate(name, date);
