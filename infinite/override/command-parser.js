@@ -44,8 +44,11 @@ CommandParser.parse = function(message, room, user, connection, levelsDeep) {
     // **bold**
     message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<b>$1</b>');
 
+    var group = user.getIdentity().charAt(0);
+    if (room.auth) group = room.auth[user.userid] || user.getIdentity().charAt(0);
+
     room.addRaw(
-        '<div class="chat"><small>' + user.getIdentity().charAt(0) + '</small>' +
+        '<div class="chat"><small>' + group + '</small>' +
         '<button name="parseCommand" value="/user ' + user.name + '" class="emote-chat">' +
         '<b><font color="' + color(user.userid) + '">' + user.name + ':</font></b></button>' +
         '<em class="mine">' + message + '</em></div>'
