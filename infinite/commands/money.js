@@ -9,7 +9,7 @@ var shop = [
     ['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)"', 40],
     ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 50],
     ['Revenge', 'Fender will lock a staff member of your choice for a day', 100],
-    ['Club', 'A life time membership to Club Oasis and all the perks that come with it', 250]
+    ['Club', 'A life time membership to Club Oasis and all the perks that come with it.', 250]
 ];
 
 var shopDisplay = getShopDisplay(shop);
