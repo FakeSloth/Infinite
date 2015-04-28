@@ -3,13 +3,13 @@ var Economy = require('../economy');
 
 var shop = [
     ['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-    ['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 10],
-    ['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 50],
-    ['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 50],
-    ['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)"', 50],
-    ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100],
-    ['Tacosaur', 'Your name gets added to /tacosaur.', 150],
-    ['PM', 'Backdoor Access: Félicette! Back by popular demand!', 300]
+    ['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 5],
+    ['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 10],
+    ['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 30],
+    ['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)"', 40],
+    ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 50],
+    ['Revenge', 'Fender will lock a staff member of your choice for a day', 150],
+    ['Club', 'A life time membership to Club Oasis and all the perks that come with it', 300]
 ];
 
 var shopDisplay = getShopDisplay(shop);
