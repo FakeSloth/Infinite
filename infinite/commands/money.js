@@ -8,8 +8,8 @@ var shop = [
     ['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 30],
     ['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)"', 40],
     ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 50],
-    ['Revenge', 'Fender will lock a staff member of your choice for a day', 150],
-    ['Club', 'A life time membership to Club Oasis and all the perks that come with it', 300]
+    ['Revenge', 'Fender will lock a staff member of your choice for a day', 100],
+    ['Club', 'A life time membership to Club Oasis and all the perks that come with it', 250]
 ];
 
 var shopDisplay = getShopDisplay(shop);
