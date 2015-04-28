@@ -17,6 +17,29 @@ module.exports = {
         Rooms.global.writeChatRoomData();
     },
 
+    roomdefounder: 'deroomfounder',
+    deroomfounder: function (target, room, user) {
+        if (!room.auth) {
+            return this.sendReply("/roomdeowner - This room isn't designed for per-room moderation");
+        }
+        target = this.splitTarget(target, true);
+        var targetUser = this.targetUser;
+        var name = this.targetUsername;
+        var userid = toId(name);
+        if (!userid || userid === '') return this.sendReply("User '" + name + "' does not exist.");
+
+        if (room.auth[userid] !== '#') return this.sendReply("User '" + name + "' is not a room founder.");
+        if (!this.can('makeroom', null, room)) return false;
+
+        delete room.auth[userid];
+        delete room.founder;
+        this.sendReply("(" + name + " is no longer Room Founder.)");
+        if (targetUser) targetUser.updateIdentity();
+        if (room.chatRoomData) {
+            Rooms.global.writeChatRoomData();
+        }
+    },
+
     roomowner: function (target, room, user) {
         if (!room.chatRoomData) {
             return this.sendReply("/roomowner - This room isn't designed for per-room moderation to be added");
