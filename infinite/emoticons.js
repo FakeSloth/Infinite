@@ -1,5 +1,6 @@
 module.exports = (function() {
     var emotes = {
+        '#freewolf': 'http://i.imgur.com/ybxWXiG.png',
         'feelsbd': 'http://i.imgur.com/YyEdmwX.png',
         'feelsdd': 'http://i.imgur.com/fXtdLtV.png',
         'feelsgd': 'http://i.imgur.com/Jf0n4BL.png',
