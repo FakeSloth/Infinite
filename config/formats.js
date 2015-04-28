@@ -3872,6 +3872,17 @@ exports.Formats = [
 		]
 	},
 	{
+		name: "Tier Shift Monotype",
+		section: "Other Metagames",
+
+		mod: 'tiershift',
+		ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Swagger Clause', 'Same Type Clause', 'Team Preview'],
+		banlist: ['Arceus', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh',
+			'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Talonflame', 'Xerneas', 'Yveltal', 'Zekrom',
+			'Gengarite', 'Kangaskhanite', 'Lucarionite', 'Mawilite', 'Salamencite', 'Shaymin-Sky', 'Slowbronite', 'Soul Dew'
+		]
+	},
+	{
 		name: "Tier Shift",
 		section: "Other Metagames",
 
@@ -4044,7 +4055,7 @@ exports.Formats = [
 		banlist: ['Uber']
 	},
 	{
-		name: "Monotype Random Battle",
+		name: "Random Monotype",
 		section: "Other Metagames",
 
 		team: 'randomMonotype',
