@@ -24,6 +24,7 @@ var cards = {
         'carvanha': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_51.png', points: 50},
         'electrike': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_52.png', points: 60},
         'gulpin': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX14/EX14_EN_33.png', points: 90},
+        'jigglypuff': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_87.png', points: 70},
         'koffing': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_54.png', points: 75},
         'mudkip': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_59.png', points: 60},
         'ralts': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_68.png', points: 90},
@@ -73,9 +74,86 @@ var cards = {
 
 exports.cards = cards;
 
+var common = generate(cards.common, 'common');
+var uncommon = generate(cards.uncommon, 'uncommon');
+var rare = generate(cards.rare, 'rare');
+var epic = generate(cards.epic, 'epic');
+var legendary = generate(cards.legendary, 'legendary');
+
+var packs = {
+   /**
+    * 10 iterations of common cards
+    * 5 uncommon cards
+    * 3 rare cards
+    * 1 epic card
+    * 1 legendary card
+    */
+    poke: function() {
+        var pile = base(common, 10);
+        for (var i = 0; i < 5; i++) {
+            pile.push(uncommon[randIndex(uncommon)]);
+        }
+        for (i = 0; i < 3; i++) {
+            pile.push(rare[randIndex(rare)]);
+        }
+        pile.push(epic[randIndex(epic)]);
+        pile.push(legendary[randIndex(legendary)]);
+
+        var pack = [];
+        for (i = 0; i < 10; i++) {
+            pack.push(pile[randIndex(pack)]);
+        } 
+        return pack;
+        // ^ note this is the model
+        // do the view
+    }
+};
+console.log(packs.poke());
+
+
+/**
+ * Generate a group of cards in the same rarity.
+ * Set name and rarity for each card.
+ *
+ * @param {Object} cards
+ * @param {String} rarity
+ * @return {Array} group
+ */
+
 function generate(cards, rarity) {
-    cards.forEach(function(card) {
-        card.rarity = rarity;
-    });
-    return cards;
+    var group = [];
+    for (var i in cards) {
+        cards[i].name = i;
+        cards[i].rarity = rarity;
+        group.push(cards[i]);
+    }
+    return group;
+}
+
+/**
+ * Get base amount of cards for a pack.
+ *
+ * @param {Array} group
+ * @param {Number} iterations
+ * @return {Array} pack
+ */
+function base(group, iterations) {
+    var pack = [];
+    for (var i = 0; i < iterations; i++) {
+        group.forEach(function(card) {
+            pack.push(card);
+        });
+    }
+    return pack;
+}
+
+/**
+ * Picks a random index from the array.
+ *
+ * @param {Array} arr
+ * @return {Number}
+ */
+
+function randIndex(arr) {
+    return Math.floor(Math.random() * arr.length);
 }
