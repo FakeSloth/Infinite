@@ -163,8 +163,8 @@ var packs = {
         return create(pile);
     }
 };
-console.log(packs.infinite());
 
+exports.packs = packs;
 
 /**
  * Generate a group of cards in the same rarity.
@@ -226,4 +226,8 @@ function create(pile) {
         pack.push(pile[randIndex(pile)]);
     } 
     return pack;
+}
+
+function createPackDisplay(pack) {
+
 }
