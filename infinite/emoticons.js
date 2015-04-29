@@ -21,6 +21,7 @@ module.exports = (function() {
         'oshet': 'http://i.imgur.com/yr5DjuZ.png',
         'PJSalt': 'http://static-cdn.jtvnw.net/jtv_user_pictures/chansub-global-emoticon-18be1a297459453f-36x30.png',
         'Sanic': 'http://i.imgur.com/Y6etmna.png',
+        'trumpW': 'https://static-cdn.jtvnw.net/emoticons/v1/35218/1.0',
         'wtfman': 'http://i.imgur.com/kwR8Re9.png',
         'xD': 'http://i.imgur.com/V728AvL.png',
         'yayface': 'http://i.imgur.com/anY1jf8.png',
