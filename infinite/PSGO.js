@@ -228,6 +228,3 @@ function create(pile) {
     return pack;
 }
 
-function createPackDisplay(pack) {
-
-}

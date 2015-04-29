@@ -7,6 +7,14 @@ module.exports = {
         this.sendReplyBox('<img src="'+cards.legendary.lucario.card+'" align="left"><center><h1><b>Lucario</b></h1><br><br>Legendary<br><br>'+cards.legendary.lucario.points+'</center><br clear="all">');
     },
     openpack: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        if (!target) {
+            this.sendReply('/openpack [pack]');
+            this.sendReply('note this is just for testing, you can open any pack');
+            this.sendReply('availiable packs:');
+            this.sendReply(Object.keys(packs).join(', '));
+            return;
+        }
         var pack = packs[target]();
         var cardIndex = pack.length - 1;
         var card = pack[cardIndex];
@@ -20,6 +28,7 @@ module.exports = {
         });
         setTimeout(function() {
             this.sendReplyBox(createCardDisplay(card));
+            room.add(user.name + ' got ' + card.name + ' from a ' + target + ' pack.');
             room.update();
         }.bind(this), 1000 * 20);
         this.sendReplyBox(display);
