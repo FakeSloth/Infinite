@@ -99,16 +99,71 @@ var packs = {
         pile.push(epic[randIndex(epic)]);
         pile.push(legendary[randIndex(legendary)]);
 
-        var pack = [];
-        for (i = 0; i < 10; i++) {
-            pack.push(pile[randIndex(pack)]);
-        } 
-        return pack;
+        return create(pile);
         // ^ note this is the model
-        // do the view
+        // do the view with some function like createView()!
+        // or do this logic in the command, probably best in the command
+        // do 3-5 second time delay before popping up cards got after the marquee
+    },
+
+   /**
+    * 6 iterations of common cards
+    * 3 iterations of uncommon cards
+    * 5 rare cards
+    * 1 epic card
+    * 1 legendary card
+    */
+    great: function() {
+        var pile = base(common, 6).concat(base(uncommon, 3));
+        for (i = 0; i < 5; i++) {
+            pile.push(rare[randIndex(rare)]);
+        }
+        pile.push(epic[randIndex(epic)]);
+        pile.push(legendary[randIndex(legendary)]);
+
+        return create(pile);
+    },
+
+    ultra: function() {
+        var pile = base(common, 5)
+                    .concat(base(uncommon, 5))
+                    .concat(base(rare, 5))
+                    .concat(base(epic, 1));
+        for (i = 0; i < 3; i++) {
+            pile.push(legendary[randIndex(legendary)]);
+        }
+
+        return create(pile);
+    },
+
+    master: function() {
+        var pile = base(common, 1)
+                    .concat(base(uncommon, 2))
+                    .concat(base(rare, 5))
+                    .concat(base(epic, 7))
+                    .concat(base(legendary, 1));
+
+        return create(pile);
+    },
+
+    smogon: function() {
+        var pile = base(uncommon, 1)
+                    .concat(base(rare, 2))
+                    .concat(base(epic, 3))
+                    .concat(base(legendary, 4));
+
+        return create(pile);
+    },
+
+    infinite: function() {
+        var pile = base(rare, 1)
+                    .concat(base(epic, 1))
+                    .concat(base(legendary, 5));
+
+        return create(pile);
     }
 };
-console.log(packs.poke());
+console.log(packs.infinite());
 
 
 /**
@@ -156,4 +211,19 @@ function base(group, iterations) {
 
 function randIndex(arr) {
     return Math.floor(Math.random() * arr.length);
+}
+
+/**
+ * Create a pack from a pile of cards.
+ *
+ * @param {Array} pile
+ * @return {Array} pack
+ */
+
+function create(pile) {
+    var pack = [];
+    for (i = 0; i < 10; i++) {
+        pack.push(pile[randIndex(pile)]);
+    } 
+    return pack;
 }
