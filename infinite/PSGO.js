@@ -5,7 +5,7 @@
  *
  * A Card's worth is based on it's rarity and points.
  *
- * To calculus a card's point multiply it's Rarity Points and HP and then add 
+ * To calculate a card's point multiply it's Rarity Points and HP and then add 
  * it's attacks.
  *
  * A deck total points is measure without duplicates.
