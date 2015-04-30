@@ -134,9 +134,9 @@ var packs = {
 
     master: function() {
         var pile = base(common, 1)
-                    .concat(base(uncommon, 2))
+                    .concat(base(uncommon, 1))
                     .concat(base(rare, 5))
-                    .concat(base(epic, 7))
+                    .concat(base(epic, 5))
                     .concat(base(legendary, 1));
 
         return create(pile);

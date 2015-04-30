@@ -39,6 +39,21 @@ module.exports = {
         this.sendReplyBox(createCardDisplay(cardInstance));
     },
 
+    packs: 'pack',
+    pack: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        if (!users[user.userid]) return this.sendReply('You have no packs.');
+        var packs = {};
+        users[user.userid].forEach(function(pack) {
+            packs[pack] = (packs[pack] || 0) + 1;
+        });
+        var pKeys = Object.keys(packs);
+        this.sendReply('|raw|<u><b>List of packs:</b></u>');
+        pKeys.forEach(function(pack, index) {
+            this.sendReply(toTitleCase(pKeys[index]) + ': ' + packs[pKeys[index]]);
+        }.bind(this));
+    },
+
     openpack: function(target, room, user) {
         if (!this.canBroadcast()) return;
         if (!target) {
@@ -52,7 +67,10 @@ module.exports = {
         console.log(JSON.stringify(users));
         if (!users[user.userid] || users[user.userid].length === 0) return this.sendReply('You have no packs.');
 
-        var packId = users[user.userid].splice(target.toLowerCase(), 1);
+        var packId = users[user.userid].splice(users[user.userid].indexOf(target.toLowerCase()), 1)[0];
+        console.log('========');
+        console.log(packId);
+        console.log('========');
         console.log(JSON.stringify(users));
         var pack = packs[packId]();
         var cardIndex = pack.length - 1;
