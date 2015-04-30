@@ -124,6 +124,13 @@ var packs = {
         return create(pile);
     },
 
+   /**
+    * 3 iterations of common cards
+    * 5 iterations of uncommon cards
+    * 5 iterations of rare cards
+    * 2 iterations of epic cards
+    * 3 legendary cards
+    */
     ultra: function() {
         var pile = base(common, 3)
                     .concat(base(uncommon, 5))
@@ -136,16 +143,29 @@ var packs = {
         return create(pile);
     },
 
+   /**
+    * 1 iterations of common card
+    * 1 iterations of uncommon card
+    * 4 iterations of rare cards
+    * 5 iterations of epic cards
+    * 1 iterations of legendary card
+    */
     master: function() {
         var pile = base(common, 1)
                     .concat(base(uncommon, 1))
-                    .concat(base(rare, 5))
+                    .concat(base(rare, 4))
                     .concat(base(epic, 5))
                     .concat(base(legendary, 1));
 
         return create(pile);
     },
 
+   /**
+    * 1 iterations of uncommon card
+    * 2 iterations of rare cards
+    * 3 iterations of epic cards
+    * 4 iterations of legendary cards
+    */
     smogon: function() {
         var pile = base(uncommon, 1)
                     .concat(base(rare, 2))
@@ -155,10 +175,15 @@ var packs = {
         return create(pile);
     },
 
+   /**
+    * 1 iterations of rare card
+    * 1 iterations of epic card
+    * 6 iterations of legendary cards
+    */
     infinite: function() {
         var pile = base(rare, 1)
                     .concat(base(epic, 1))
-                    .concat(base(legendary, 5));
+                    .concat(base(legendary, 6));
 
         return create(pile);
     }
