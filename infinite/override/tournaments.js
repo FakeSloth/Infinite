@@ -49,13 +49,15 @@ Tournament.prototype.onTournamentEnd = function() {
         var firstMoney = Math.round(tourSize);
         var secondMoney = Math.round(firstMoney / 2);
 
+        Economy.give(wid, firstMoney);
         this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(winner) + '</font> has won ' + 
             '<font color="' + color + '">' + firstMoney + '</font>' + Economy.currency(firstMoney) + ' for winning the tournament!</b>');
         // annouces the winner and runnerUp if runnerUp exists
-        if (runnerUp) this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(runnerUp) + '</font> has won ' + 
+        if (runnerUp) {
+            Economy.give(rid, secondMoney);
+            this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(runnerUp) + '</font> has won ' + 
             '<font color="' + color + '">' + secondMoney + '</font>' + Economy.currency(secondMoney) + ' for winning the tournament!</b>');
+        }
 
-        Economy.give(wid, firstMoney);
-        Economy.give(rid, secondMoney);
     }
 };
