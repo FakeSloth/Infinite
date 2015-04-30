@@ -1237,9 +1237,6 @@ exports.Formats = [
 					this.add('c|@Genesect|' + sentences[0]);
 				}
 			}
-			if (name === 'goddessbriyella') {
-				this.add('c|@Goddess Briyella|♥ ^_^ ♥');
-			}
 			if (name === 'hippopotas') {
 				this.add('-message', '@Hippopotas\'s Sand Stream whipped up a sandstorm!');
 			}
@@ -1434,8 +1431,8 @@ exports.Formats = [
 			if (name === 'astara') {
 				this.add('c|%Ast☆arA|I\'d rather take a nap, I hope you won\'t be a petilil shit, Eat some rare candies and get on my level.');
 			}
-			if (name === 'astyanax') {
-				this.add('c|%Astyanax|:^) Top kek');
+			if (name === 'asty') {
+				this.add('c|%Asty|:^) Top kek');
 			}
 			if (name === 'birkal') {
 				this.add('c|%Birkal|caw');
@@ -1822,9 +1819,6 @@ exports.Formats = [
 					this.add('c|@Genesect|' + sentences[0]);
 				}
 			}
-			if (name === 'goddessbriyella') {
-				this.add('c|@Goddess Briyella|...........');
-			}
 			if (name === 'hippopotas') {
 				this.add('-message', 'The sandstorm subsided.');
 			}
@@ -1997,8 +1991,8 @@ exports.Formats = [
 				sentences = ['/me twerks into oblivion', 'good night ♥', 'Astara Vista Baby'];
 				this.add('c|%Ast☆arA|' + sentences[this.random(3)]);
 			}
-			if (name === 'astyanax') {
-				this.add('c|%Astyanax|:^( Bottom kek');
+			if (name === 'asty') {
+				this.add('c|%Asty|:^( Bottom kek');
 			}
 			if (name === 'birkal') {
 				this.add('c|%Birkal|//birkal');
@@ -2725,17 +2719,6 @@ exports.Formats = [
 					if (target.fainted || target.hp <= 0) this.boost({atk:2, spa:2, spe:1}, pokemon, pokemon, move);
 				};
 			}
-			if (move.id === 'earthpower' && name === 'goddessbriyella') {
-				move.name = 'Earth Drain';
-				move.basePower = 80;
-				move.drain = [3, 4];
-				move.flags = {heal: 1};
-				move.onTryHit = function (target, source) {
-					this.attrLastMove('[still]');
-					this.add('-anim', source, "Giga Drain", target);
-				};
-				move.ignoreImmunity = {'Ground': true};
-			}
 			if (move.id === 'partingshot' && name === 'hippopotas') {
 				move.name = 'Hazard Pass';
 				delete move.boosts;
@@ -3383,7 +3366,7 @@ exports.Formats = [
 					this.useMove('substitute', target, target);
 				};
 			}
-			if (move.id === 'toxic' && name === 'astyanax') {
+			if (move.id === 'toxic' && name === 'asty') {
 				move.name = 'Amphibian Toxin';
 				move.accuracy = 100;
 				move.self = {boosts:{atk:-1, spa:-1}};
