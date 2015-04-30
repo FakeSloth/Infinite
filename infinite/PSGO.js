@@ -18,6 +18,8 @@
  * Common - 1
  */
 
+var crypto = require('crypto');
+
 var cards = {
     common: {
         'aron': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_49.png', points: 65},
@@ -98,10 +100,6 @@ var packs = {
         pile.push(legendary[randIndex(legendary)]);
 
         return create(pile);
-        // ^ note this is the model
-        // do the view with some function like createView()!
-        // or do this logic in the command, probably best in the command
-        // do 3-5 second time delay before popping up cards got after the marquee
     },
 
    /**
@@ -176,6 +174,7 @@ exports.packs = packs;
 function generate(cards, rarity) {
     var group = [];
     for (var i in cards) {
+        cards[i].id = crypto.randomBytes(12).toString('hex');
         cards[i].name = i;
         cards[i].rarity = rarity;
         group.push(cards[i]);
@@ -225,4 +224,3 @@ function create(pile) {
     } 
     return pack;
 }
-
