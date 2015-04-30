@@ -54,14 +54,13 @@ module.exports = {
         }.bind(this));
     },
 
+    open: 'openpack',
+    openpacks: 'openpack',
     openpack: function(target, room, user) {
         if (!this.canBroadcast()) return;
         if (!target) {
-            this.sendReply('/openpack [pack]');
-            this.sendReply('note this is just for testing, you can open any pack');
-            this.sendReply('availiable packs:');
-            this.sendReply(Object.keys(packs).join(', '));
-            return;
+            this.sendReply('/openpack [pack] - Open a Pokemon Card Pack. Alias: /open, /openpacks');
+            return this.sendReply('Availiable Packs: ' + Object.keys(packs).join(', '));
         }
         if (packsKeys.indexOf(target.toLowerCase()) < 0) return this.sendReply('This pack does not exist.');
         console.log(JSON.stringify(users));
