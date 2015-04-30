@@ -32,7 +32,6 @@ var cards = {
     },
     uncommon: {
         'combusken': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_28.png', points: 210},
-        'delcatty': {card: 'http://assets17.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_31.png', points: 80},
         'grovyle': {card: 'http://assets17.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_31.png', points: 170},
         'hariyama': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_33.png', points: 240},
         'kirlia': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_34.png', points: 200},
@@ -49,7 +48,6 @@ var cards = {
     },
     epic: {
         'black kyurem': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW58.png', points: 660},
-        'mewtwo': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 460},
         'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680}
     },
     legendary: {
@@ -74,11 +72,11 @@ var cards = {
 
 exports.cards = cards;
 
-var common = generate(cards.common, 'common');
-var uncommon = generate(cards.uncommon, 'uncommon');
-var rare = generate(cards.rare, 'rare');
-var epic = generate(cards.epic, 'epic');
-var legendary = generate(cards.legendary, 'legendary');
+var common = generate(cards.common, 'Common');
+var uncommon = generate(cards.uncommon, 'Uncommon');
+var rare = generate(cards.rare, 'Rare');
+var epic = generate(cards.epic, 'Epic');
+var legendary = generate(cards.legendary, 'Legendary');
 
 var packs = {
    /**
@@ -125,10 +123,10 @@ var packs = {
     },
 
     ultra: function() {
-        var pile = base(common, 5)
+        var pile = base(common, 3)
                     .concat(base(uncommon, 5))
                     .concat(base(rare, 5))
-                    .concat(base(epic, 1));
+                    .concat(base(epic, 2));
         for (i = 0; i < 3; i++) {
             pile.push(legendary[randIndex(legendary)]);
         }
