@@ -42,7 +42,7 @@ module.exports = {
     packs: 'pack',
     pack: function(target, room, user) {
         if (!this.canBroadcast()) return;
-        if (!users[user.userid]) return this.sendReply('You have no packs.');
+        if (!users[user.userid] || users[user.userid].length === 0) return this.sendReply('You have no packs.');
         var packs = {};
         users[user.userid].forEach(function(pack) {
             packs[pack] = (packs[pack] || 0) + 1;
@@ -121,6 +121,27 @@ module.exports = {
         Users.get(this.targetUsername).send(
             '|raw|' + user.name + ' has given you ' + pack + ' pack. \
             Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+    },
+
+    takepack: function(target, room, user) {
+        if (!user.can('takepack')) return false;
+        if (!target) return this.sendReply('/takepack [user], [pack] - Take a pack from a user.');
+
+        var parts = target.split(',');
+        this.splitTarget(parts[0]);
+        if (!parts[1]) return this.sendReply('/takepack [user], [pack] - Take a pack from a user.');
+        var pack = parts[1].toLowerCase().trim();
+        var packIndex = users[user.userid].indexOf(pack);
+
+        if (packsKeys.indexOf(pack) < 0) return this.sendReply('This pack does not exist.');
+        if (!this.targetUser) return this.sendReply('User ' + this.targetUsername + ' not found.');
+        if (!users[user.userid]) users[user.userid] = [];
+        if (packIndex < 0) return this.sendReply('This user does not have this pack.');
+
+        users[user.userid].splice(packIndex, 1);
+        console.log(JSON.stringify(users));
+        this.sendReply(this.targetUsername + ' losted ' + pack + ' pack. This user now has ' + users[user.userid].length + ' pack(s).');
+        Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[user.userid].length + ' pack(s).');
     }
 };
 
