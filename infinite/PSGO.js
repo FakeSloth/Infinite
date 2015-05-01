@@ -19,6 +19,7 @@
  */
 
 var crypto = require('crypto');
+var User = require('./mongo').User;
 
 var cards = {
     common: {
@@ -190,6 +191,30 @@ var packs = {
 };
 
 exports.packs = packs;
+
+function addCard(name, card) {
+    User.findOne({name: toId(name)})
+        .then(function(user) {
+            if (!user) {
+                user = new User({
+                    name: toId(name),
+                    cards: [card]
+                });
+                return user.save(function(err) {
+                    if (err) throw err;
+                });
+            }
+            user.cards.push(card);
+            user.markModified('cards');
+            user.save(function(err) {
+                if (err) throw err;
+            });
+        }, function(err) {
+            if (err) throw err;
+        }).done();
+}
+
+exports.addCard = addCard;
 
 /**
  * Generate a group of cards in the same rarity.

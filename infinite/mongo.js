@@ -20,7 +20,8 @@ var userSchema = new mongoose.Schema({
     name: { type: String, lowercase: true, unique: true },
     money: { type: Number, default: 0 },
     symbol: String,
-    seen: Date
+    seen: Date,
+    cards: Array
 });
 
 var User = exports.userModel = mongoose.model('user', userSchema);

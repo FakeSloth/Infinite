@@ -1,5 +1,6 @@
 var Economy = require('../economy');
 var PSGO = require('../PSGO');
+var addCard = PSGO.addCard;
 var cards = PSGO.cards;
 var packs = PSGO.packs;
 var packsKeys = Object.keys(packs);
@@ -87,6 +88,7 @@ module.exports = {
         var pack = packs[packId]();
         var cardIndex = pack.length - 1;
         var card = pack[cardIndex];
+        addCard(user.userid, card);
 
         var display = '<marquee scrollamount="15" loop="2">';
         pack.forEach(function(card, index) {
