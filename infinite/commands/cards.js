@@ -2,6 +2,7 @@ var Economy = require('../economy');
 var PSGO = require('../PSGO');
 var addCard = PSGO.addCard;
 var getCards = PSGO.getCards;
+var Cards = PSGO.cards;
 var packs = PSGO.packs;
 var packsKeys = Object.keys(packs);
 
@@ -205,6 +206,36 @@ module.exports = {
             }.bind(this), function(err) {
                 if (err) throw err;
             }).done();
+    },
+
+    cardstats: 'psgostats',
+    psgostats: function(target, room, user) {
+        if (!user.can('cardstats')) return false;
+
+        var numCards = 0;
+
+        var stats = function(rarity) {
+            var names = Object.keys(Cards[rarity]);
+            var deck = [];
+            numCards += names.length;
+            names.forEach(function(name) {
+                deck.push(Cards[rarity][name]);
+            });
+            console.log(deck);
+            var total = deck.map(function(card) {
+                return card.points;
+            }).reduce(function(prev, curr) {
+                return prev + curr;
+            });
+            this.sendReply(toTitleCase(rarity) + ': ' + total + ' points / ' + deck.length + ' cards = ' + (total/deck.length) + ' average points');
+        };
+
+        stats.call(this, 'common');
+        stats.call(this, 'uncommon');
+        stats.call(this, 'rare');
+        stats.call(this, 'epic');
+        stats.call(this, 'legendary');
+        this.sendReply('Total Cards: ' + numCards);
     }
 };
 
