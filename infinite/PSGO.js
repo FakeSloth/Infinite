@@ -24,15 +24,29 @@ var User = require('./mongo').User;
 
 var cards = {
     common: {
+        'alomomola': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_81.png', points: 180},
         'aron': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_49.png', points: 65},
         'carvanha': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_51.png', points: 50},
+        'chansey': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_96.png', points: 200},
+        'druddigon': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_70.png', points: 200},
         'electrike': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_52.png', points: 60},
         'gulpin': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX14/EX14_EN_33.png', points: 90},
         'jigglypuff': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_87.png', points: 70},
+        'kangaskhan': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_71.png', points: 180},
         'koffing': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_54.png', points: 75},
+        'lapras': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_17.png', points: 170},
+        'mightyena': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/DC1/DC1_EN_18.png', points: 270},
         'mudkip': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_59.png', points: 60},
+        'poochyena': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_64.png', points: 70},
         'ralts': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_68.png', points: 90},
-        'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140}
+        'scyther': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_102.png', points: 150},
+        'skarmory': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_59.png', points: 220},
+        'sneasel': {card: 'http://assets15.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_103.png', points: 140},
+        'snorlax': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_81.png', points: 230},
+        'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140},
+        'throh': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_51.png', points: 240},
+        'treecko': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_76.png', points: 70},
+        'uraring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
     },
 
     uncommon: {
@@ -55,6 +69,7 @@ var cards = {
 
     epic: {
         'black kyurem': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW58.png', points: 660},
+        'dragonite': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_74.png', points: 840},
         'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680}
     },
     
@@ -63,7 +78,6 @@ var cards = {
         'charizard': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_100.png', points: 1050},
         'blastoise': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_142.png', points: 1050},
         'dragonite': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_108.png', points: 1020},
-        'dragonite2': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_74.png', points: 1020},
         'gengar': {card: 'http://assets13.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_114.png', points: 940},
         'lucario': {card: 'http://assets13.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_107.png', points: 1090},
         'manectric': {card: 'http://assets12.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_113.png', points: 990},
