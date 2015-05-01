@@ -202,7 +202,7 @@ module.exports = {
                     display += '<button name="send" value="/card ' + card.id + 
                         '"><img src="' + card.card + '" width="50" title="' + title +'"></button>';
                 });
-                display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;Total Points: ' + points;
+                display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;&nbsp;Total Points: ' + points;
                 this.sendReplyBox(display);
                 room.update();
             }.bind(this), function(err) {
