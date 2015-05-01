@@ -50,7 +50,6 @@ module.exports = {
         }.bind(this));
     },
 
-
     takebuck: 'takemoney',
     takebucks: 'takemoney',
     takemoney: function(target, room, user) {
@@ -113,7 +112,6 @@ module.exports = {
        if (!this.canBroadcast()) return;
        return this.sendReply('|raw|' + shopDisplay);
     },
-
 
     buy: function(target, room, user) {
         if (!target) return this.sendReply('/buy [command] - Buys an item from the shop.');
