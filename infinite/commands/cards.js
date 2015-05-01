@@ -1,7 +1,7 @@
 var Economy = require('../economy');
 var PSGO = require('../PSGO');
 var addCard = PSGO.addCard;
-var cards = PSGO.cards;
+var getCards = PSGO.getCards;
 var packs = PSGO.packs;
 var packsKeys = Object.keys(packs);
 
@@ -19,9 +19,6 @@ var shopDisplay = getShopDisplay(shop);
 // Storage for user's packs.
 var users = {};
 
-// temp card storage
-var cards = {};
-
 var colors = {
     Legendary: '#FF851B',
     Epic: 'purple',
@@ -35,22 +32,29 @@ module.exports = {
     card: function(target, room, user) {
         if (!this.canBroadcast()) return;
         if (!target) return this.sendReply('/card [card id] - Show a card. Alias: /cards');
-        if (!cards[user.userid]) cards[user.userid] = [];
-        if (!cards[user.userid].length === 0) return this.sendReply('You have no cards.');
 
         var match, cardInstance;
-        cards[user.userid].forEach(function(card) {
-            if (card.id === target) {
-                match = true;
-                cardInstance = card;
-            }
-        });
-
-        if (!match) {
-            return this.sendReply('Card not found.');
-        }
-
-        this.sendReplyBox(createCardDisplay(cardInstance));
+        getCards(user.userid)
+            .then(function(cards) {
+                if (!cards || cards.length === 0) {
+                    this.sendReply('You have no cards.');
+                    return room.update();
+                }
+                cards.forEach(function(card) {
+                    if (card.id === target) {
+                        match = true;
+                        cardInstance = card;
+                    }
+                });
+                if (!match) {
+                    this.sendReply('Card not found.');
+                    return room.update();
+                }
+                this.sendReplyBox(createCardDisplay(cardInstance));
+                room.update();
+            }.bind(this), function(err) {
+                if (err) throw err;
+            });
     },
 
     packs: 'pack',
@@ -77,14 +81,9 @@ module.exports = {
             return this.sendReply('Availiable Packs: ' + Object.keys(packs).join(', '));
         }
         if (packsKeys.indexOf(target.toLowerCase()) < 0) return this.sendReply('This pack does not exist.');
-        console.log(JSON.stringify(users));
         if (!users[user.userid] || users[user.userid].length === 0) return this.sendReply('You have no packs.');
 
         var packId = users[user.userid].splice(users[user.userid].indexOf(target.toLowerCase()), 1)[0];
-        console.log('========');
-        console.log(packId);
-        console.log('========');
-        console.log(JSON.stringify(users));
         var pack = packs[packId]();
         var cardIndex = pack.length - 1;
         var card = pack[cardIndex];
@@ -98,10 +97,6 @@ module.exports = {
                 display += '<blink><img src="' + card.card + '"></blink></marquee>';
             }
         });
-
-        if (!cards[user.userid]) cards[user.userid] = [];
-        cards[user.userid].push(card);
-        console.log(JSON.stringify(cards));
 
         var cardName = toTitleCase(card.name);
         var packName = toTitleCase(target.toLowerCase());
@@ -187,6 +182,30 @@ module.exports = {
             });
         });
     },
+
+    showcards: 'showcase',
+    showcase: function(target, room, user) {
+       if (!this.canBroadcast()) return;
+       getCards(user.userid)
+            .then(function(cards) {
+                if (!cards || cards.length === 0) {
+                    this.sendReply('You have no cards.');
+                    return room.update();
+                }
+                var display = '';
+                var title = '';
+                cards.forEach(function(card) {
+                    title = card.id + ' ' + toTitleCase(card.rarity) + ' ' + toTitleCase(card.name);
+                    display += '<button name="send" value="/card ' + card.id + 
+                        '"><img src="' + card.card + '" width="50" title="' + title +'"></button>';
+                });
+                display += '<br><br>Total Cards: ' + cards.length;
+                this.sendReplyBox(display);
+                room.update();
+            }.bind(this), function(err) {
+                if (err) throw err;
+            }).done();
+    }
 };
 
 /**
@@ -283,27 +302,4 @@ function findItem(item, money) {
         return price;
     }
     this.sendReply(item + ' not found in shop.');
-}
-
-/**
- * Handling the bought item from the shop.
- * 
- * @param {String} item
- * @param {Object} user
- */
-
-function handleBoughtItem(item, user) {
-    if (item === 'symbol') {
-        user.canCustomSymbol = true;
-        this.sendReply('You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.');
-        this.sendReply('You will have this until you log off for more than an hour.');
-        this.sendReply('If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.'); 
-   } else {
-        var msg = user.name + ' has bought ' + item + '.';
-        for (var i in Users.users) {
-            if (Users.users[i].group === '~') {
-                Users.users[i].send('|pm|~Shop Alert|' + Users.users[i].getIdentity() + '|' + msg);
-            }
-        } 
-   }
 }

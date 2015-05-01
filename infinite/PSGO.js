@@ -18,6 +18,7 @@
  * Common - 1
  */
 
+var Q = require('q');
 var crypto = require('crypto');
 var User = require('./mongo').User;
 
@@ -215,6 +216,20 @@ function addCard(name, card) {
 }
 
 exports.addCard = addCard;
+
+function getCards(name) {
+    var deferred = Q.defer();
+    User.findOne({name: toId(name)})
+        .then(function(user) {
+            if (!user) return deferred.resolve();
+            deferred.resolve(user.cards);
+        }, function(err) {
+            if (err) return deferred.reject(new Error(err));
+        });
+    return deferred.promise;
+}
+
+exports.getCards = getCards;
 
 /**
  * Generate a group of cards in the same rarity.
