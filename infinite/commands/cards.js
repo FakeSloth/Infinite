@@ -134,7 +134,7 @@ module.exports = {
         console.log(JSON.stringify(users));
         this.sendReply(this.targetUsername + ' was given ' + pack + ' pack. This user now has ' + users[user.userid].length + ' pack(s).');
         Users.get(this.targetUsername).send(
-            '|raw|' + user.name + ' has given you ' + pack + ' pack. \
+            '|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
             Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
     },
 
@@ -179,6 +179,7 @@ module.exports = {
                     Economy.currency(cost) + '. You now have ' + total + 
                     Economy.currency(total) + ' left. Use <button name="send" value="/openpack ' +
                     pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+                self.sendReply('You have until the server restarts to open your pack.');
                 if (!users[user.userid]) users[user.userid] = [];
                 users[user.userid].push(pack);
                 room.addRaw(user.name + ' has bought <b>' + target + ' pack </b> from the shop.');
