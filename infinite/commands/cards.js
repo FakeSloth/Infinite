@@ -187,10 +187,11 @@ module.exports = {
     showcards: 'showcase',
     showcase: function(target, room, user) {
        if (!this.canBroadcast()) return;
-       getCards(user.userid)
+       if (!target) target = user.name;
+       getCards(target)
             .then(function(cards) {
                 if (!cards || cards.length === 0) {
-                    this.sendReply('You have no cards.');
+                    this.sendReply((target === user.name ? 'You have' : target + ' has') + ' no cards.');
                     return room.update();
                 }
                 var display = '';
