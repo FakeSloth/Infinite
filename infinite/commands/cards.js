@@ -195,12 +195,14 @@ module.exports = {
                 }
                 var display = '';
                 var title = '';
+                var points = 0;
                 cards.forEach(function(card) {
+                    points += card.points;
                     title = card.id + ' ' + toTitleCase(card.rarity) + ' ' + toTitleCase(card.name);
                     display += '<button name="send" value="/card ' + card.id + 
                         '"><img src="' + card.card + '" width="50" title="' + title +'"></button>';
                 });
-                display += '<br><br>Total Cards: ' + cards.length;
+                display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;Total Points: ' + points;
                 this.sendReplyBox(display);
                 room.update();
             }.bind(this), function(err) {
