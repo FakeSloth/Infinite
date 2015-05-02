@@ -225,7 +225,7 @@ module.exports = {
                     display += '<button name="send" value="/card ' + card.id + ', ' + target + 
                         '"><img src="' + card.card + '" width="50" title="' + title +'"></button>';
                 });
-                display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;&nbsp;Total Points: ' + points;
+                display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;&nbsp;Total Points: ' + numberWithCommas(points);
                 this.sendReplyBox(display);
                 room.update();
             }.bind(this), function(err) {
@@ -371,4 +371,17 @@ function findItem(item, money) {
         return price;
     }
     this.sendReply(item + ' not found in shop.');
+}
+
+/**
+ * Add commas to a number.
+ *
+ * Example: 348549 => 348,549
+ *
+ * @param {Number} num
+ * @return {String}
+ */
+
+function numberWithCommas(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
