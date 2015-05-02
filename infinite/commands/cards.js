@@ -32,17 +32,27 @@ module.exports = {
     cards: 'card',
     card: function(target, room, user) {
         if (!this.canBroadcast()) return;
-        if (!target) return this.sendReply('/card [card id] - Show a card. Alias: /cards');
+        if (!target) return this.sendReply('/card [card id], [user (optional)] - Show a card. Alias: /cards');
+
+        var cardReference, userReference;
+        if (target.indexOf(',') >= 0) {
+            var parts = target.split(',');
+            cardReference = parts[0];
+            userReference = parts[1].trim();
+        } else {
+            cardReference = target;
+            userReference = user.name;
+        }
 
         var match, cardInstance;
-        getCards(user.userid)
+        getCards(userReference)
             .then(function(cards) {
                 if (!cards || cards.length === 0) {
                     this.sendReply('You have no cards.');
                     return room.update();
                 }
                 cards.forEach(function(card) {
-                    if (card.id === target) {
+                    if (card.id === cardReference) {
                         match = true;
                         cardInstance = card;
                     }
@@ -51,7 +61,11 @@ module.exports = {
                     this.sendReply('Card not found.');
                     return room.update();
                 }
-                this.sendReplyBox(createCardDisplay(cardInstance));
+                if (userReference === user.name) {
+                    this.sendReplyBox(createCardDisplay(cardInstance));
+                } else {
+                    this.sendReplyBox(createCardDisplay(cardInstance, userReference));
+                }
                 room.update();
             }.bind(this), function(err) {
                 if (err) throw err;
@@ -200,7 +214,7 @@ module.exports = {
                 cards.forEach(function(card) {
                     points += card.points;
                     title = card.id + ' ' + toTitleCase(card.rarity) + ' ' + toTitleCase(card.name);
-                    display += '<button name="send" value="/card ' + card.id + 
+                    display += '<button name="send" value="/card ' + card.id + ', ' + target + 
                         '"><img src="' + card.card + '" width="50" title="' + title +'"></button>';
                 });
                 display += '<br><br>Total Cards: ' + cards.length + '&nbsp;&nbsp;&nbsp;&nbsp;Total Points: ' + points;
@@ -246,17 +260,29 @@ module.exports = {
  * Make a display for a card.
  *
  * @param {Object} card
+ * @param {String} reference - user referred to get to set author
  * @return {String}
  */
 
-function createCardDisplay(card) {
-    return '<img src="' + card.card + '" title="' + card.id + '" align="left">\
-            <br><center><h1><u><b>' + toTitleCase(card.name) + '</b></u></h1>\
-            <br><br>\
-            <h2><font color="' + colors[card.rarity] + '">' + card.rarity + '</font></h2>\
-            <br><br><br>\
-            <font color="#AAA"><i>Points:</i></font><br>' + 
-            pointColor(card.points) + '</center><br clear="all">';
+function createCardDisplay(card, reference) {
+    if (!reference) {
+        return '<img src="' + card.card + '" title="' + card.id + '" align="left">\
+                <br><center><h1><u><b>' + toTitleCase(card.name) + '</b></u></h1>\
+                <br><br>\
+                <h2><font color="' + colors[card.rarity] + '">' + card.rarity + '</font></h2>\
+                <br><br><br>\
+                <font color="#AAA"><i>Points:</i></font><br>' + 
+                pointColor(card.points) + '</center><br clear="all">';
+    } else {
+        return '<img src="' + card.card + '" title="' + card.id + '" align="left">\
+                <br><center><h1><u><b>' + toTitleCase(card.name) + '</b></u></h1>\
+                <br>owned by <button name="send" value="/showcase ' + reference + '">' + reference + '</button>\
+                <br><br>\
+                <h2><font color="' + colors[card.rarity] + '">' + card.rarity + '</font></h2>\
+                <br><br><br>\
+                <font color="#AAA"><i>Points:</i></font><br>' + 
+                pointColor(card.points) + '</center><br clear="all">';
+    }
 }
 
 /**
@@ -309,7 +335,7 @@ function getShopDisplay(shop) {
                     </tr>';
         start++;
     }
-    display += '</tbody></table><center>To buy an item from the shop, use /buypack <em>pack</em>.</center>';
+    display += '</tbody></table><center>To buy a pack from the shop, use /buypack <em>pack</em>.</center>';
     return display;
 }
 
