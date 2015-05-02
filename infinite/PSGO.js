@@ -24,7 +24,6 @@ var User = require('./mongo').User;
 
 var cards = {
     common: {
-        'alomomola': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_81.png', points: 180},
         'aron': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_49.png', points: 65},
         'carvanha': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_51.png', points: 50},
         'chansey': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_96.png', points: 200},

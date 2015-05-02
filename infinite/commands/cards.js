@@ -124,12 +124,10 @@ module.exports = {
         var packName = toTitleCase(target.toLowerCase());
         this.sendReplyBox(display);
         setTimeout(function() {
-            room.addRaw(user.name + ' got <font color="' + colors[card.rarity] + '">' + card.rarity + '</font>' +
-            ' <b>' + cardName + '</b> from a <button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
-            room.update();
-            this.sendReplyBox('You got <font color="' + colors[card.rarity] + '">' + card.rarity + '</font>\
-            <button name="send" value="/card ' + card.id + '"><b>' + cardName + '</b></button> from a \
+            room.addRaw(user.name + ' got <font color="' + colors[card.rarity] + '">' + card.rarity + '</font>\
+            <button name="send" value="/card ' + card.id + ', ' + user.name + '"><b>' + cardName + '</b></button> from a \
             <button name="send" value="/buypack ' + packName + '">' + packName + ' Pack</button>.');
+            room.update();
         }.bind(this), 1000 * 18);
     },
 
@@ -235,6 +233,7 @@ module.exports = {
     cardstats: 'psgostats',
     psgostats: function(target, room, user) {
         if (!user.can('cardstats')) return false;
+        if (!this.canBroadcast()) return;
 
         var numCards = 0;
 
