@@ -14,6 +14,7 @@ module.exports = {
             <b>/emotes</b> - Get a list of emoticons.<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
+            <b>/richestusers</b> - Show the richest users.<br>\
             <b>/shop</b> - Displays the shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\

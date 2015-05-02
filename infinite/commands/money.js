@@ -1,5 +1,6 @@
 var Q = require('q');
 var Economy = require('../economy');
+var User = require('../mongo').userModel;
 
 var shop = [
     ['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
@@ -150,6 +151,37 @@ module.exports = {
         user.updateIdentity();
         user.hasCustomSymbol = false;
         this.sendReply('Your symbol has been reset.');
+    },
+
+    moneyladder: 'richestuser',
+    richladder: 'richestuser',
+    richestusers: 'richestuser',
+    richestuser: function(target, room) {
+        if (!this.canBroadcast()) return;
+        var self = this;
+        var display = '<center><u><b>Richest Users</b></u></center><br>\
+                 <table border="1" cellspacing="0" cellpadding="5" width="100%">\
+                   <tbody>\
+                     <tr>\
+                       <th>Rank</th>\
+                       <th>Username</th>\
+                       <th>Money</th>\
+                   </tr>'
+        User.find().sort({
+            money: -1
+        }).limit(10).exec(function(err, users) {
+            if (err) return;
+            users.forEach(function(user, index) {
+                display += '<tr>\
+                    <td>' + (index + 1) + '</td>\
+                    <td>' + user.name + '</td>\
+                    <td>' + user.money + '</td>\
+                  </tr>'
+            });
+            display += '</tbody></table>';
+            self.sendReply('|raw|' + display);
+            room.update();
+        });
     }
 };
 
