@@ -167,21 +167,23 @@ module.exports = {
                        <th>Username</th>\
                        <th>Money</th>\
                    </tr>';
-        User.find().sort({
-            money: -1
-        }).limit(10).exec(function(err, users) {
-            if (err) return;
-            users.forEach(function(user, index) {
-                display += '<tr>\
-                    <td>' + (index + 1) + '</td>\
-                    <td>' + user.name + '</td>\
-                    <td>' + user.money + '</td>\
-                  </tr>';
+        User
+            .find()
+            .sort({money: -1})
+            .limit(10)
+            .exec(function(err, users) {
+                if (err) return;
+                users.forEach(function(user, index) {
+                    display += '<tr>\
+                                    <td>' + (index + 1) + '</td>\
+                                    <td>' + user.name + '</td>\
+                                    <td>' + user.money + '</td>\
+                                </tr>';
+                });
+                display += '</tbody></table>';
+                self.sendReply('|raw|' + display);
+                room.update();
             });
-            display += '</tbody></table>';
-            self.sendReply('|raw|' + display);
-            room.update();
-        });
     },
 
     resetbuck: 'resetmoney',

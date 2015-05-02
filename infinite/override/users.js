@@ -1,3 +1,5 @@
+var userModel = require('../mongo').userModel;
+
 // Custom symbol and hiding
 
 Users.User.prototype.getIdentity = function(roomid) {
@@ -134,4 +136,25 @@ Users.Connection.prototype.onDisconnect = function () {
     if (connectedIps[this.ip] === 0) delete connectedIps[this.ip];
     if (this.user) this.user.onDisconnect(this);
     this.user = null;
+};
+
+Users.User.prototype.originalOnDisconnect = Users.User.prototype.onDisconnect;
+
+// Last seen a user
+Users.User.prototype.onDisconnect = function(connection) {
+    if (this.userid.indexOf('guest') >= 0) return this.originalOnDisconnect(connection);
+    var self = this;
+    userModel.findOne({name: this.userid}, function(err, user) {
+        if (err) throw err;
+        if (!user) {
+            user = new userModel({
+                name: self.userid,
+                seen: Date.now()
+            });
+            return user.save();
+        }
+        user.seen = Date.now();
+        user.save();
+    });
+    this.originalOnDisconnect(connection);
 };
