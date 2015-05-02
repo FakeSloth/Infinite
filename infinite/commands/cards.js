@@ -1,4 +1,5 @@
 var Economy = require('../economy');
+var User = require('../mongo').userModel;
 var PSGO = require('../PSGO');
 var addCard = PSGO.addCard;
 var getCards = PSGO.getCards;
@@ -262,6 +263,47 @@ module.exports = {
         stats.call(this, 'epic');
         stats.call(this, 'legendary');
         this.sendReply('Total Cards: ' + numCards);
+    },
+
+    cardsladder: 'psgoladder',
+    cardladder: 'psgoladder',
+    psgoladder: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        var list = [];
+        var self = this;
+        var display = '<center><u><b>Card Ladder</b></u></center><br>\
+                 <table border="1" cellspacing="0" cellpadding="5" width="100%">\
+                   <tbody>\
+                     <tr>\
+                       <th>Rank</th>\
+                       <th>Username</th>\
+                       <th>Points</th>\
+                   </tr>';
+        User.find(function(err, users) {
+            if (err) throw err;
+            users.forEach(function(user) {
+                var points = 0;
+                user.cards.forEach(function(card) {
+                    points += card.points;
+                });
+                list.push({name: user.name, points: points});
+            });
+            list = list.filter(function(user) {
+                return user.points > 0;
+            }).sort(function(a, b) {
+                return b.points - a.points;
+            });
+            list.forEach(function(user, index) {
+                display += '<tr>\
+                    <td>' + (index + 1) + '</td>\
+                    <td>' + user.name + '</td>\
+                    <td>' + user.points + '</td>\
+                  </tr>';
+            });
+            display += '</tbody></table><center>At the beginning of every month, the top users in this ladder get bucks. For more info, use <i>/psgohelp</i>.</center>';
+            self.sendReply('|raw|' + display);
+            room.update();
+        });
     }
 };
 
