@@ -249,9 +249,14 @@ exports.BattleScripts = {
 			}
 		}
 		if (move.ohko) { // bypasses accuracy modifiers
-			if (!target.volatiles['bounce'] && !target.volatiles['dig'] && !target.volatiles['dive'] && !target.volatiles['fly'] && !target.volatiles['shadowforce'] && !target.volatiles['skydrop']) {
+			if (!target.volatiles['bounce'] && !target.volatiles['dig'] && !target.volatiles['dive'] && !target.volatiles['fly'] && !target.volatiles['phantomforce'] && !target.volatiles['shadowforce'] && !target.volatiles['skydrop']) {
 				accuracy = 30;
-				if (pokemon.level > target.level) accuracy += (pokemon.level - target.level);
+				if (pokemon.level >= target.level) {
+					accuracy += (pokemon.level - target.level);
+				} else {
+					this.add('-immune', target, '[ohko]');
+					return false;
+				}
 			}
 		}
 		if (move.alwaysHit) {
@@ -314,6 +319,8 @@ exports.BattleScripts = {
 		}
 
 		if (target && pokemon !== target) target.gotAttacked(move, damage, pokemon);
+
+		if (move.ohko) this.add('-ohko');
 
 		if (!damage && damage !== 0) return damage;
 
@@ -1690,7 +1697,11 @@ exports.BattleScripts = {
 		} else if (template.evos.length) {
 			item = 'Eviolite';
 		} else if (hasMove['shellsmash']) {
-			item = 'White Herb';
+			if (ability === 'Solid Rock' && counter['priority']) {
+				item = 'Weakness Policy';
+			} else {
+				item = 'White Herb';
+			}
 		} else if (ability === 'Magic Guard' || ability === 'Sheer Force') {
 			item = 'Life Orb';
 		} else if (hasMove['bellydrum']) {
@@ -2825,7 +2836,11 @@ exports.BattleScripts = {
 		} else if (hasMove['reflect'] && hasMove['lightscreen']) {
 			item = 'Light Clay';
 		} else if (hasMove['shellsmash']) {
-			item = 'White Herb';
+			if (ability === 'Solid Rock' && counter['priority']) {
+				item = 'Weakness Policy';
+			} else {
+				item = 'White Herb';
+			}
 		} else if (hasMove['facade'] || ability === 'Poison Heal' || ability === 'Toxic Boost') {
 			item = 'Toxic Orb';
 		} else if (hasMove['raindance']) {
@@ -3281,12 +3296,6 @@ exports.BattleScripts = {
 				baseSignatureMove: 'geargrind', signatureMove: "Grind you're mum",
 				evs: {atk:252, spa:252, spe:4}, nature: 'Quiet'
 			},
-			'@Goddess Briyella': {
-				species: 'Floette-Eternal-Flower', ability: 'Magic Bounce', item: 'Big Root', gender: 'M',
-				moves: ['cottonguard', 'quiverdance', 'drainingkiss'],
-				baseSignatureMove: 'earthpower', signatureMove: "Earth Drain",
-				evs: {hp:252, spa:252, def:4}, nature: 'Modest'
-			},
 			'@Hippopotas': {
 				species: 'Hippopotas', ability: 'Regenerator', item: 'Eviolite', gender: 'M',
 				moves: ['haze', 'stealthrock', 'spikes', 'toxicspikes', 'stickyweb'],
@@ -3585,7 +3594,7 @@ exports.BattleScripts = {
 				baseSignatureMove: 'psywave', signatureMove: "Star Bolt Desperation",
 				evs: {hp:4, spa:252, spd:252}, nature: 'Modest'
 			},
-			'%Astyanax': {
+			'%Asty': {
 				species: 'Seismitoad', ability: 'Sap Sipper', item: 'Red Card', gender: 'M',
 				moves: ['earthquake', 'recover', 'icepunch'],
 				baseSignatureMove: 'toxic', signatureMove: "Amphibian Toxin",
@@ -3797,18 +3806,5 @@ exports.BattleScripts = {
 		}
 
 		return team;
-	},
-	randomFinalDestinationTeam: function (side) {
-		return [{species: 'Xerneas', name: 'Fox', ability: 'Fairy Aura', item: '', evs: {hp:4, atk:252, spd:252}, nature: 'Brave', moves: ['Outrage']}];
-	},
-	randomMrBonesWildRideTeam: function (mySides) {
-		return [
-			{species: 'Slowbro', name: 'Funbro #1', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']},
-			{species: 'Slowbro', name: 'Funbro #2', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']},
-			{species: 'Slowbro', name: 'Funbro #3', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']},
-			{species: 'Slowbro', name: 'Funbro #4', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']},
-			{species: 'Slowbro', name: 'Funbro #5', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']},
-			{species: 'Slowbro', name: 'Funbro #6', ability: 'Harvest', item: 'Leppa Berry', evs: {hp:252, def:128, spd:128}, nature: 'Bold', moves: ['healpulse', 'slackoff', 'recycle', 'block']}
-		];
 	}
 };

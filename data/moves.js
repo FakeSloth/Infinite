@@ -3932,14 +3932,16 @@ exports.BattleMovedex = {
 		priority: 2,
 		flags: {mirror: 1},
 		breaksProtect: true,
-		onHit: function (target, source) {
+		onHit: function (target) {
+			var feinted = false;
 			if (target.removeVolatile('protect') || target.removeVolatile('kingsshield') || target.removeVolatile('spikyshield')) {
-				this.add("-activate", target, "move: Feint");
+				feinted = true;
 			}
-			if (target.side !== source.side) {
-				target.side.removeSideCondition('quickguard');
-				target.side.removeSideCondition('wideguard');
-			}
+			if (target.side.removeSideCondition('quickguard')) feinted = true;
+			if (target.side.removeSideCondition('wideguard')) feinted = true;
+			if (target.removeVolatile('matblock')) feinted = true;
+			if (target.side.removeSideCondition('craftyshield')) feinted = true;
+			if (feinted) this.add('-activate', target, 'move: Feint');
 		},
 		secondary: false,
 		target: "normal",
@@ -7654,6 +7656,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source) {
 			source.addVolatile('lockon', target);
+			this.add('-activate', source, 'move: Lock-On', '[of] ' + target);
 		},
 		effect: {
 			noCopy: true, // doesn't get copied by Baton Pass
@@ -8533,6 +8536,7 @@ exports.BattleMovedex = {
 		},
 		onHit: function (target, source) {
 			source.addVolatile('lockon', target);
+			this.add('-activate', source, 'move: Mind Reader', '[of] ' + target);
 		},
 		secondary: false,
 		target: "normal",
