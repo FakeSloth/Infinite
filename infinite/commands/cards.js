@@ -140,14 +140,15 @@ module.exports = {
         this.splitTarget(parts[0]);
         if (!parts[1]) return this.sendReply('/givepack [user], [pack] - Give a user a pack. Alias: /givepacks');
         var pack = parts[1].toLowerCase().trim();
+        var userid = toId(this.targetUsername);
 
         if (packsKeys.indexOf(pack) < 0) return this.sendReply('This pack does not exist.');
         if (!this.targetUser) return this.sendReply('User ' + this.targetUsername + ' not found.');
-        if (!users[user.userid]) users[user.userid] = [];
+        if (!users[userid]) users[userid] = [];
 
-        users[user.userid].push(pack);
+        users[userid].push(pack);
         console.log(JSON.stringify(users));
-        this.sendReply(this.targetUsername + ' was given ' + pack + ' pack. This user now has ' + users[user.userid].length + ' pack(s).');
+        this.sendReply(this.targetUsername + ' was given ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
         Users.get(this.targetUsername).send(
             '|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
             Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
@@ -162,17 +163,18 @@ module.exports = {
         this.splitTarget(parts[0]);
         if (!parts[1]) return this.sendReply('/takepack [user], [pack] - Take a pack from a user. Alias: /takepacks');
         var pack = parts[1].toLowerCase().trim();
-        var packIndex = users[user.userid].indexOf(pack);
+        var packIndex = users[userid].indexOf(pack);
+        var userid = toId(this.targetUsername);
 
         if (packsKeys.indexOf(pack) < 0) return this.sendReply('This pack does not exist.');
         if (!this.targetUser) return this.sendReply('User ' + this.targetUsername + ' not found.');
-        if (!users[user.userid]) users[user.userid] = [];
+        if (!users[userid]) users[userid] = [];
         if (packIndex < 0) return this.sendReply('This user does not have this pack.');
 
-        users[user.userid].splice(packIndex, 1);
+        users[userid].splice(packIndex, 1);
         console.log(JSON.stringify(users));
-        this.sendReply(this.targetUsername + ' losted ' + pack + ' pack. This user now has ' + users[user.userid].length + ' pack(s).');
-        Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[user.userid].length + ' pack(s).');
+        this.sendReply(this.targetUsername + ' losted ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
+        Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[userid].length + ' pack(s).');
     },
 
     packshop: function(target, room, user) {
