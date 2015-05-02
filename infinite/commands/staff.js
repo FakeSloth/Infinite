@@ -101,5 +101,26 @@ module.exports = {
         buffer.voices = buffer.voices.join(', ');
 
         this.popupReply('Administrators:\n--------------------\n' + buffer.admins + '\n\nLeaders:\n-------------------- \n' + buffer.leaders + '\n\nModerators:\n-------------------- \n' + buffer.mods + '\n\nDrivers:\n--------------------\n' + buffer.drivers + '\n\nVoices:\n-------------------- \n' + buffer.voices + '\n\n\t\t\t\tTotal Staff Members: ' + numStaff);
-    }
+    },
+
+    clearall: function (target, room, user) {
+        if (!this.can('clearall')) return false;
+        if (room.battle) return this.sendReply('You cannot clearall in battle rooms.');
+        
+        var len = room.log.length;
+        var users = [];
+        while (len--) {
+            room.log[len] = '';
+        }
+        for (var u in room.users) {
+            users.push(u);
+            Users.get(u).leaveRoom(room, Users.get(u).connections[0]);
+        }
+        len = users.length;
+        setTimeout(function() {
+            while (len--) {
+                Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
+            }
+        }, 1000);
+    } 
 };
