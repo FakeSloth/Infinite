@@ -87,6 +87,7 @@ module.exports = {
     },
 
     u: 'ud',
+    urbandefine: 'ud',
     ud: function(target, room, user, connection, cmd) {
         var random;
         if (!target) {

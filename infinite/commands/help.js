@@ -62,6 +62,7 @@ module.exports = {
         handleAlias.call(this, '/trainercard, /tc, /trainercards, /eztc', target, match);
         handleAlias.call(this, '/moneyladder, /richladder, /richestuser, /richestusers', target, match);
         handleAlias.call(this, '/resetmoney, /resetbucks, /resetbuck', target, match);
+        handleAlias.call(this, '/redirect, /redirekt', target, match);
 
         if (!match.value) {
             this.sendReply('Alias not found for this command.');
