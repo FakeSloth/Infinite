@@ -206,6 +206,7 @@ module.exports = {
     },
 
     showcards: 'showcase',
+    showcard: 'showcard',
     showcase: function(target, room, user) {
        if (!this.canBroadcast()) return;
        if (!target) target = user.name;
