@@ -148,7 +148,6 @@ module.exports = {
         if (!users[userid]) users[userid] = [];
 
         users[userid].push(pack);
-        console.log(JSON.stringify(users));
         this.sendReply(this.targetUsername + ' was given ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
         Users.get(this.targetUsername).send(
             '|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
@@ -173,7 +172,6 @@ module.exports = {
         if (packIndex < 0) return this.sendReply('This user does not have this pack.');
 
         users[userid].splice(packIndex, 1);
-        console.log(JSON.stringify(users));
         this.sendReply(this.targetUsername + ' losted ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
         Users.get(this.targetUsername).send('|raw|' + user.name + ' has taken ' + pack + ' pack from you. You now have ' +  users[userid].length + ' pack(s).');
     },
@@ -185,7 +183,7 @@ module.exports = {
 
     buypacks: 'buypack',
     buypack: function(target, room, user) {
-        if (!target) return this.sendReply('/buypack - Buys a pack from the shop. Alias: /buypacks');
+        if (!target) return this.sendReply('/buypack - Buys a pack from the pack shop. Alias: /buypacks');
         var self = this;
         Economy.get(user.name).then(function(money) {
             var cost = findItem.call(self, target, money);
@@ -248,7 +246,6 @@ module.exports = {
             names.forEach(function(name) {
                 deck.push(Cards[rarity][name]);
             });
-            console.log(deck);
             var total = deck.map(function(card) {
                 return card.points;
             }).reduce(function(prev, curr) {
@@ -304,6 +301,42 @@ module.exports = {
             self.sendReply('|raw|' + display);
             room.update();
         });
+    },
+
+    cardhelp: 'psgohelp',
+    psgohelp: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        target = target.toLowerCase();
+        if (target === 'rank') {
+            return this.sendReplyBox('\
+                1st Place - 300 Bucks + (Total Points / 200 Points) Bucks<br>\
+                2nd Place - 150 Bucks + (Total Points / 200 Points) Bucks<br>\
+                3rd Place - 100 Bucks + (Total Points / 200 Points) Bucks<br>\
+                4th Place - 80 Bucks + (Total Points / 200 Points) Bucks<br>\
+                5th Place - 60 Bucks + (Total Points / 200 Points) Bucks<br>\
+                6th Place - 40 Bucks + (Total Points / 200 Points) Bucks<br>\ 
+                7th Place - 20 Bucks + (Total Points / 200 Points) Bucks<br>\
+                8th Place - 12 Bucks + (Total Points / 200 Points) Bucks<br>\
+                9th Place - 5 Bucks + (Total Points / 200 Points) Bucks<br>\
+                10th Place - 3 Bucks + (Total Points / 200 Points) Bucks\
+                ');
+        }
+        if (target === 'points') {
+            return this.sendReplyBox('\
+                Points are for determining how much a card is worth.<br>\
+                To calculate a card\'s point multiply its Rarity Points and HP and then add it\s attacks.<br>\
+                ');
+        }
+        this.sendReplyBox('\
+            <center><u><b>PSGO</b></u></center><br>\
+            PSGO is Trading Card Game based off of CS:GO opening cases. \
+            Currently, the main objective of the game is to get the best cards. \
+            The top 10 users every month who has the best cards in the <i>/cardladder</i> will \
+            win bucks. In future updates, there will be a metagame where you can use your cards to battle. \
+            For more information about PSGO:<br><br>\
+            /psgohelp rank - Tells you about how much the top 10 users get each month.
+            /psgohelp points - Information about what are points and how they are calculated.
+            ');
     }
 };
 

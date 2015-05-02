@@ -1,7 +1,7 @@
 /**
  * PG:GO
  * 
- * Trading Card Game based off CS:GO opening cases.
+ * Trading Card Game based off of CS:GO opening cases.
  *
  * A Card's worth is based on it's rarity and points.
  *

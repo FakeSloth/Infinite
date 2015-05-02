@@ -9,14 +9,22 @@ module.exports = {
             <b>/away</b> - Set yourself away.<br>\
             <b>/back</b> - Set yourself back from away.<br>\
             <b>/buy</b> <i>command</i> - Buys an item from the shop.<br>\
+            <b>/buypack</b> <i>pack</i> - Buys a pack from the pack shop.<br>\
+            <b>/card</b> <i>card id</i>, <i>user (optional)</i> - Show a card.<br>\
+            <b>/cardladder</b> - Displays the ladder for the top users with the best cards.<br>\
             <b>/customsymbol</b> <i>symbol</i> - Get a custom symbol.<br>\
             <b>/define</b> <i>word</i> - Shows the definition of a word.<br>\
             <b>/emotes</b> - Get a list of emoticons.<br>\
+            <b>/openpack</b> <i>pack</i> - Open a Pokemon Card Pack.<br>\
+            <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
+            <b>/packshop</b> - Displays the shop for packs.<br>\
             <b>/poof</b> - Disconnects the user and leaves a message in the room.<br>\
+            <b>/psgohelp</b> - Displays help for the card game <u>PSGO</u>.<br>\
+            <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
             <b>/richestusers</b> - Show the richest users.<br>\
-            <b>/shop</b> - Displays the shop.<br>\
+            <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\
             <b>/urbandefine</b> <i>word</i> - Shows the urban definition of the word.<br>\
