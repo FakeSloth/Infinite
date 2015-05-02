@@ -166,7 +166,7 @@ module.exports = {
                        <th>Rank</th>\
                        <th>Username</th>\
                        <th>Money</th>\
-                   </tr>'
+                   </tr>';
         User.find().sort({
             money: -1
         }).limit(10).exec(function(err, users) {
@@ -176,7 +176,7 @@ module.exports = {
                     <td>' + (index + 1) + '</td>\
                     <td>' + user.name + '</td>\
                     <td>' + user.money + '</td>\
-                  </tr>'
+                  </tr>';
             });
             display += '</tbody></table>';
             self.sendReply('|raw|' + display);

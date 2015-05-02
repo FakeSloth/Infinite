@@ -26,6 +26,7 @@ module.exports = {
         if (user.isStaff) {
             Users.get(user.userid).send('|raw|<div class="infobox">\
             <center><b><u>List of <i>staff</i> commands:</u></b></center><br>\
+            <b>/clearall</b> - Clear all messages in the room.<br>\
             <b>/endpoll</b> - End the poll in the room.<br>\
             <b>/givemoney</b> <i>name</i>, <i>amount</i> - Give a user a certain amount of money.<br>\
             <b>/hide</b> - Hide your staff symbol.<br>\
