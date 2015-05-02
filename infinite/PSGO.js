@@ -35,6 +35,7 @@ var cards = {
         'koffing': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_54.png', points: 75},
         'lapras': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_17.png', points: 170},
         'mightyena': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/DC1/DC1_EN_18.png', points: 270},
+        'machamp': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_46.png', points: 250},
         'mudkip': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_59.png', points: 60},
         'poochyena': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_64.png', points: 70},
         'ralts': {card: 'http://assets2.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_68.png', points: 90},
@@ -42,6 +43,7 @@ var cards = {
         'skarmory': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_59.png', points: 220},
         'sneasel': {card: 'http://assets15.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_103.png', points: 140},
         'snorlax': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_81.png', points: 230},
+        'steelix': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/PL2/PL2_EN_51.png', points: 300},
         'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140},
         'throh': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_51.png', points: 240},
         'treecko': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_76.png', points: 70},
@@ -49,11 +51,31 @@ var cards = {
     },
 
     uncommon: {
+        'avalaugg': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_31.png', points: 390},
+        'blissey': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/HGSS1/HGSS1_EN_36.png', points: 310},
         'combusken': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_28.png', points: 210},
+        'dragonite': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/PL3/PL3_EN_56.png', points: 380},
+        'delcatty': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_29.png', points: 250},
+        'diggersby': {card: 'http://assets5.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_112.png', points: 250},
+        'donphan': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/HGSS1/HGSS1_EN_40.png', points: 380},
+        'electrike': {card: 'http://assets16.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_30.png', points: 140},
+        'graveler': {card: 'http://assets15.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_46.png', points: 320},
         'grovyle': {card: 'http://assets17.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_31.png', points: 170},
+        'gyarados': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/EX3/EX3_EN_32.png', points: 290},
         'hariyama': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_33.png', points: 240},
+        'hippowdon': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/BW4/BW4_EN_66.png', points: 400},
+        'kingler': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_14.png', points: 320},
         'kirlia': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_34.png', points: 200},
-        'torchic': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_26.png', points: 110}
+        'lairon': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_37.png', points: 270},
+        'lickilicky': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_79.png', points: 380},
+        'linoone': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_38.png', points: 260},
+        'manectric': {card: 'http://assets25.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_39.png', points: 220},
+        'miltank': {card: 'http://assets16.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_83.png', points: 340},
+        'muk': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/PL1/PL1_EN_57.png', points: 300},
+        'torchic': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_26.png', points: 110},
+        'torkoal': {card: 'http://assets12.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_16.png', points: 300},
+        'vigoroth': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_47.png', points: 250},
+        'wobbuffet': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_36.png', points: 270}
     },
 
     rare: {
