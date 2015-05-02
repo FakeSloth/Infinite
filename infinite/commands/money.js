@@ -182,6 +182,26 @@ module.exports = {
             self.sendReply('|raw|' + display);
             room.update();
         });
+    },
+
+    resetbuck: 'resetmoney',
+    resetbucks: 'resetmoney',
+    resetmoney: function(target, room, user) {
+        if (!user.can('resetmoney')) return false;
+        var self = this;
+        User.findOne({name: toId(target)}, function(err, user) {
+            if (err) throw err;
+            if (!user) {
+                self.sendReply(target + ' already has 0 bucks.');
+                return room.update();
+            }
+            user.money = 0;
+            user.save(function(err) {
+                if (err) throw err;
+                self.sendReply(target + ' now has 0 bucks.');
+                room.update();
+            });
+        });
     }
 };
 

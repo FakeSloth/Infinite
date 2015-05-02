@@ -30,6 +30,7 @@ module.exports = {
             <b>/hide</b> - Hide your staff symbol.<br>\
             <b>/pmall</b> <i>message</i> - Private message all users in the server.<br>\
             <b>/pmstaff</b> <i>message</i> - Private message all staff.<br>\
+            <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
             <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/poll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a poll where users can vote on an option.<br>\
             <b>/show</b> - Show your staff symbol.<br>\
@@ -58,6 +59,8 @@ module.exports = {
         handleAlias.call(this, '/pmallstaff, /pmallstaff', target, match);
         handleAlias.call(this, '/pmroom, /rmall', target, match);
         handleAlias.call(this, '/trainercard, /tc, /trainercards, /eztc', target, match);
+        handleAlias.call(this, '/moneyladder, /richladder, /richestuser, /richestusers', target, match);
+        handleAlias.call(this, '/resetmoney, /resetbucks, /resetbuck', target, match);
 
         if (!match.value) {
             this.sendReply('Alias not found for this command.');
