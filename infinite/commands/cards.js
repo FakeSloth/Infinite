@@ -75,9 +75,15 @@ module.exports = {
     packs: 'pack',
     pack: function(target, room, user) {
         if (!this.canBroadcast()) return;
-        if (!users[user.userid] || users[user.userid].length === 0) return this.sendReply('You have no packs.');
+        if (!target) target = user.name;
+        target = toId(target);
+
+        if (!users[target] || users[target].length === 0) {
+            return this.sendReply((target === user.userid ? 'You have' : target + ' has') + ' no packs.');
+        }
+
         var packs = {};
-        users[user.userid].forEach(function(pack) {
+        users[target].forEach(function(pack) {
             packs[pack] = (packs[pack] || 0) + 1;
         });
         var pKeys = Object.keys(packs);
@@ -97,6 +103,7 @@ module.exports = {
         }
         if (packsKeys.indexOf(target.toLowerCase()) < 0) return this.sendReply('This pack does not exist.');
         if (!users[user.userid] || users[user.userid].length === 0) return this.sendReply('You have no packs.');
+        if (users[user.userid].indexOf(target.toLowerCase()) < 0) return this.sendReply('You do not have this pack.');
 
         var packId = users[user.userid].splice(users[user.userid].indexOf(target.toLowerCase()), 1)[0];
         var pack = packs[packId]();
