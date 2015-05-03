@@ -21,6 +21,20 @@ var shopDisplay = getShopDisplay(shop);
 // Storage for user's packs.
 var users = {};
 
+/**
+ * Give a random pack in a tournament.
+ *
+ * @param {String} userid
+ * @param {String} pack
+ */
+
+global.GiveTourPack = function(userid) {
+    if (!users[userid]) users[userid] = [];
+    var randPack = packsKeys(Math.floor(Math.random() * packsKeys.length));
+    users[userid].push(packs[randPack]());
+    return randPack;
+};
+
 var colors = {
     Legendary: '#FF851B',
     Epic: 'purple',
