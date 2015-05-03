@@ -51,14 +51,13 @@ Tournament.prototype.onTournamentEnd = function() {
         Economy.give(wid, firstMoney);
         var pack = GiveTourPack(wid);
         this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(winner) + '</font> has won ' + 
-            '<font color="' + color + '">' + firstMoney + '</font>' + Economy.currency(firstMoney) + ' and ' + pack + ' pack for winning the tournament!</b>');
-        Users.get(wid).send('|raw|Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
+            '<font color="' + color + '">' + firstMoney + '</font>' + Economy.currency(firstMoney) + ' and a <font color="' + color + '">' + pack + '</font> pack for winning the tournament!</b>');
+        Users.get(winner).send('|raw|Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
         // annouces the winner and runnerUp if runnerUp exists
         if (runnerUp) {
             Economy.give(rid, secondMoney);
             this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(runnerUp) + '</font> has won ' + 
             '<font color="' + color + '">' + secondMoney + '</font>' + Economy.currency(secondMoney) + ' for winning the tournament!</b>');
         }
-
     }
 };
