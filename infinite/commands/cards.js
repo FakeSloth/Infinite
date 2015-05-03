@@ -344,15 +344,27 @@ module.exports = {
                 A user\'s total points is measure <b>without duplicates</b>.\
                 ');
         }
+        if (target === 'rarity') {
+            return this.sendReplyBox('\
+                Card\'s rarity is ranked by this ordered:<br>\
+                Legendary - 5 rarity points<br>\
+                Epic - 4 rarity points<br>\
+                Rare - 3 rarity points<br>\
+                Uncommon - 2 rarity points<br>\
+                Common - 1 rarity point\
+                ');
+        }
         this.sendReplyBox('\
             <center><u><b>PSGO</b></u></center><br>\
             PSGO is Trading Card Game based off of CS:GO opening cases. \
             Currently, the main objective of the game is to get the best cards. \
             The top 10 users every month who has the best cards in the <i>/cardladder</i> will \
-            win bucks. In future updates, there will be a metagame where you can use your cards to battle. \
+            win bucks. In future updates, there will be a metagame where you can use your cards to battle \
+            and a marketplace for users to sell and buy cards. \
             For more information about PSGO:<br><br>\
             /psgohelp rank - Tells you about how much the top 10 users get each month.\
             /psgohelp points - Information about what are points and how they are calculated.\
+            /psgohelp rarity - Tell information about a rarity of cards.\
             ');
     }
 };
