@@ -15,6 +15,7 @@ module.exports = {
             <b>/customsymbol</b> <i>symbol</i> - Get a custom symbol.<br>\
             <b>/define</b> <i>word</i> - Shows the definition of a word.<br>\
             <b>/emotes</b> - Get a list of emoticons.<br>\
+            <b>/hangman</b> help - Help on hangman specific commands.<br>\
             <b>/openpack</b> <i>pack</i> - Open a Pokemon Card Pack.<br>\
             <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
             <b>/packshop</b> - Displays the shop for packs.<br>\
