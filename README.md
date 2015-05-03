@@ -9,9 +9,28 @@ Infinite's Pokemon Showdown Server
 Prerequisites
 -------------
 
-<img src="http://nodejs.org/images/logos/nodejs.png" height="50"> [Node.js](http://nodejs.org)
-
-<img src="http://www.mongodb.com/sites/mongodb.com/files/media/mongodb-logo-rgb.jpeg" height="50"> [MongoDB](http://www.mongodb.org/downloads)
+<table>
+  <tr>
+    <td>
+      <b>Node.js</b>
+    </td>
+    <td>
+      <b>MongoDB</b>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <a href="http://nodejs.org">
+        <img src="http://nodejs.org/images/logos/nodejs.png" height="50" title="Node.js">
+      </a>
+    </td>
+    <td>
+      <a href="http://www.mongodb.org/downloads">
+        <img src="http://www.mongodb.com/sites/mongodb.com/files/media/mongodb-logo-rgb.jpeg" height="50" title="MongoDB">
+      </a>
+    </td>
+  </tr>
+</table>
 
 Getting Started
 ---------------
