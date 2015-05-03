@@ -23,7 +23,7 @@ module.exports = (function() {
         'Sanic': 'http://i.imgur.com/Y6etmna.png',
         'trumpW': 'https://static-cdn.jtvnw.net/emoticons/v1/35218/1.0',
         'wtfman': 'http://i.imgur.com/kwR8Re9.png',
-        'xD': 'http://i.imgur.com/V728AvL.png',
+        'xaa': 'http://i.imgur.com/V728AvL.png',
         'yayface': 'http://i.imgur.com/anY1jf8.png',
         'yesface': 'http://i.imgur.com/k9YCF6K.png'
     };
