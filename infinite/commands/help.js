@@ -23,6 +23,7 @@ module.exports = {
             <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
+            <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
             <b>/richestusers</b> - Show the richest users.<br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\

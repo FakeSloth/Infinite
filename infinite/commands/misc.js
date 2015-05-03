@@ -1,8 +1,11 @@
 /**
  * Miscellaneous commands
  *
- * Contains poof, redirekt, and emoticons.
+ * Contains poof, redirekt, emoticons, seen
  */
+
+var moment = require('moment');
+var User = require('../mongo').userModel;
 
 var emotes = require('../emoticons').emotes;
 
@@ -65,6 +68,23 @@ module.exports = {
     },
 
     redirekt: 'redir',
+
+    seen: function(target, room) {
+        if (!this.canBroadcast()) return;
+        if (!target) return this.sendReply('/seen [username] - Shows when the user last connected on the server.');
+        var user = Users.get(target);
+        if (user && user.connected) return this.sendReplyBox(target + ' is <b>currently online</b>.');
+        var self = this;
+        User.findOne({name: toId(target)}, function(err, user) {
+            if (err) throw err;
+            if (!user || !user.seen) {
+                self.sendReplyBox(target + ' has never been online on this server.');
+                return room.update();
+            }
+            self.sendReplyBox(target + ' was last seen <b>' + moment(user.seen).fromNow() + '</b>.');
+            room.update();
+        });
+    },
 
     toggleemotes: 'toggleemoticons',
     toggleemoticons: function(target, room, user) {
