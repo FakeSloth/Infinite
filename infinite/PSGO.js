@@ -301,10 +301,11 @@ function generate(cards, rarity) {
  */
 function base(group, iterations) {
     var pack = [];
+    var addCard = function(card) {
+        pack.push(card);
+    };
     for (var i = 0; i < iterations; i++) {
-        group.forEach(function(card) {
-            pack.push(card);
-        });
+        group.forEach(addCard);
     }
     return pack;
 }
