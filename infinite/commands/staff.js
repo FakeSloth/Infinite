@@ -60,47 +60,31 @@ module.exports = {
         }
     },
 
-    stafflist: function (target, room, user) {
-        var buffer = {
-            admins: [],
-            leaders: [],
-            mods: [],
-            drivers: [],
-            voices: []
-        };
-
-        var staffList = fs.readFileSync(path.join(__dirname, '../../', 'config/usergroups.csv'), 'utf8').split('\n');
-        var numStaff = 0;
-        var staff;
-
-        var len = staffList.length;
-        while (len--) {
-            staff = staffList[len].split(',');
-            if (staff.length >= 2) numStaff++;
-            if (staff[1] === '~') {
-                buffer.admins.push(staff[0]);
-            }
-            if (staff[1] === '&') {
-                buffer.leaders.push(staff[0]);
-            }
-            if (staff[1] === '@') {
-                buffer.mods.push(staff[0]);
-            }
-            if (staff[1] === '%') {
-                buffer.drivers.push(staff[0]);
-            }
-            if (staff[1] === '+') {
-                buffer.voices.push(staff[0]);
+    stafflist: 'authority',
+    auth: 'authority',
+    authlist: 'authority',
+    authority: function (target, room, user, connection) {
+        var rankLists = {};
+        var ranks = Object.keys(Config.groups);
+        for (var u in Users.usergroups) {
+            var rank = Users.usergroups[u].charAt(0);
+            // In case the usergroups.csv file is not proper, we check for the server ranks.
+            if (ranks.indexOf(rank) > -1) {
+                var name = Users.usergroups[u].substr(1);
+                if (!rankLists[rank]) rankLists[rank] = [];
+                if (name) rankLists[rank].push(((Users.getExact(name) && Users.getExact(name).connected) ? '**' + name + '**' : name));
             }
         }
 
-        buffer.admins = buffer.admins.join(', ');
-        buffer.leaders = buffer.leaders.join(', ');
-        buffer.mods = buffer.mods.join(', ');
-        buffer.drivers = buffer.drivers.join(', ');
-        buffer.voices = buffer.voices.join(', ');
+        var buffer = [];
+        Object.keys(rankLists).sort(function (a, b) {
+            return (Config.groups[b] || {rank: 0}).rank - (Config.groups[a] || {rank: 0}).rank;
+        }).forEach(function (r) {
+            buffer.push((Config.groups[r] ? r + Config.groups[r].name + "s (" + rankLists[r].length + ")" : r) + ":\n" + rankLists[r].sort().join(", "));
+        });
 
-        this.popupReply('Administrators:\n--------------------\n' + buffer.admins + '\n\nLeaders:\n-------------------- \n' + buffer.leaders + '\n\nModerators:\n-------------------- \n' + buffer.mods + '\n\nDrivers:\n--------------------\n' + buffer.drivers + '\n\nVoices:\n-------------------- \n' + buffer.voices + '\n\n\t\t\t\tTotal Staff Members: ' + numStaff);
+        if (!buffer.length) buffer = "This server has no auth.";
+        connection.popup(buffer.join("\n\n"));
     },
 
     clearall: function (target, room, user) {
