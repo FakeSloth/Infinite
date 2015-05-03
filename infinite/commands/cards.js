@@ -30,7 +30,7 @@ var users = {};
 
 global.GiveTourPack = function(userid) {
     if (!users[userid]) users[userid] = [];
-    var randPack = packsKeys(Math.floor(Math.random() * packsKeys.length));
+    var randPack = packsKeys[Math.floor(Math.random() * packsKeys.length)];
     users[userid].push(packs[randPack]());
     return randPack;
 };
