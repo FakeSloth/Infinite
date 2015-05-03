@@ -325,7 +325,7 @@ module.exports = {
                 display += '<tr>\
                     <td>' + (index + 1) + '</td>\
                     <td>' + user.name + '</td>\
-                    <td>' + user.points + '</td>\
+                    <td>' + numberWithCommas(user.points) + '</td>\
                   </tr>';
             });
             display += '</tbody></table><center>At the beginning of every month, the top users in this ladder get bucks. For more info, use <i>/psgohelp</i>.</center>';
