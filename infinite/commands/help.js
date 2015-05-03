@@ -38,14 +38,18 @@ module.exports = {
             <b>/clearall</b> - Clear all messages in the room.<br>\
             <b>/endpoll</b> - End the poll in the room.<br>\
             <b>/givemoney</b> <i>name</i>, <i>amount</i> - Give a user a certain amount of money.<br>\
+            <b>/givepack</b> <i>user</i>, <i>pack</i> - Give a user a pack.<br>\
             <b>/hide</b> - Hide your staff symbol.<br>\
             <b>/pmall</b> <i>message</i> - Private message all users in the server.<br>\
             <b>/pmstaff</b> <i>message</i> - Private message all staff.<br>\
             <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
             <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/poll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a poll where users can vote on an option.<br>\
+            <b>/psgostats</b> - Get stats about PSGO.<br>\
+            <b>/reload</b> <i>file directory</i> - Reload a certain file.<br>\
             <b>/show</b> - Show your staff symbol.<br>\
             <b>/takemoney</b> <i>user</i>, <i>amount</i> - Take a certain amount of money from a user.<br>\
+            <b>/takepack</b> <i>user</i>, <i>pack</i> - Take a pack from a user.<br>\
             <b>/trainercard</b> <i>help</i> - Makes adding trainer cards EZ.<br>\
                 </div>');
         }
