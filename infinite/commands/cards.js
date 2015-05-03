@@ -306,6 +306,7 @@ module.exports = {
             }).sort(function(a, b) {
                 return b.points - a.points;
             });
+            list = list.splice(0, 10);
             list.forEach(function(user, index) {
                 display += '<tr>\
                     <td>' + (index + 1) + '</td>\
