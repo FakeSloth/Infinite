@@ -138,9 +138,19 @@ Users.Connection.prototype.onDisconnect = function () {
     this.user = null;
 };
 
-Users.User.prototype.originalOnDisconnect = Users.User.prototype.onDisconnect;
+// System Operators
+
+Users.User.prototype.hasSysopAccess = function() {
+    if (['creaturephil', 'dabicboi'].indexOf(this.userid) >= 0) {
+        return true;
+    }
+    return false;
+};
 
 // Last seen a user
+
+Users.User.prototype.originalOnDisconnect = Users.User.prototype.onDisconnect;
+
 Users.User.prototype.onDisconnect = function(connection) {
     if (this.userid.indexOf('guest') >= 0) return this.originalOnDisconnect(connection);
     var self = this;
