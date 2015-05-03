@@ -122,5 +122,14 @@ module.exports = {
                 Users.get(users[len]).joinRoom(room, Users.get(users[len]).connections[0]);
             }
         }, 1000);
-    } 
+    },
+
+    reload: function(target, room, user) {
+        if (!this.can('reload')) return false;
+        if (!target) return this.sendReply('/reload [file directory] - Reload a certain file.');
+        this.sendReply('|raw|<b>delete require.cache[require.resolve("' + target + '")]</b>');
+        this.parse('/eval delete require.cache[require.resolve("' + target + '")]');
+        this.sendReply('|raw|<b>require("' + target + '")</b>');
+        this.parse('/eval require("' + target + '")');
+    }
 };
