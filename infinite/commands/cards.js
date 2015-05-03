@@ -218,7 +218,15 @@ module.exports = {
                 var display = '';
                 var title = '';
                 var points = 0;
+                var names = [];
+                var cs = [];
                 cards.forEach(function(card) {
+                    if (names.indexOf(card.name) < 0) {
+                        names.push(card.name);
+                        cs.push(card);
+                    }
+                });
+                cs.forEach(function(card) {
                     points += card.points;
                     title = card.id + ' ' + toTitleCase(card.rarity) + ' ' + toTitleCase(card.name);
                     display += '<button name="send" value="/card ' + card.id + ', ' + target + 
@@ -280,7 +288,15 @@ module.exports = {
             if (err) throw err;
             users.forEach(function(user) {
                 var points = 0;
+                var names = [];
+                var cards = [];
                 user.cards.forEach(function(card) {
+                    if (names.indexOf(card.name) < 0) {
+                        names.push(card.name);
+                        cards.push(card);
+                    }
+                });
+                cards.forEach(function(card) {
                     points += card.points;
                 });
                 list.push({name: user.name, points: points});
@@ -314,7 +330,7 @@ module.exports = {
                 3rd Place - 100 Bucks + (Total Points / 200 Points) Bucks<br>\
                 4th Place - 80 Bucks + (Total Points / 200 Points) Bucks<br>\
                 5th Place - 60 Bucks + (Total Points / 200 Points) Bucks<br>\
-                6th Place - 40 Bucks + (Total Points / 200 Points) Bucks<br>\ 
+                6th Place - 40 Bucks + (Total Points / 200 Points) Bucks<br>\
                 7th Place - 20 Bucks + (Total Points / 200 Points) Bucks<br>\
                 8th Place - 12 Bucks + (Total Points / 200 Points) Bucks<br>\
                 9th Place - 5 Bucks + (Total Points / 200 Points) Bucks<br>\
@@ -325,6 +341,7 @@ module.exports = {
             return this.sendReplyBox('\
                 Points are for determining how much a card is worth.<br>\
                 To calculate a card\'s point multiply its Rarity Points and HP and then add it\s attacks.<br>\
+                A user\'s total points is measure <b>without duplicates</b>.\
                 ');
         }
         this.sendReplyBox('\
@@ -334,8 +351,8 @@ module.exports = {
             The top 10 users every month who has the best cards in the <i>/cardladder</i> will \
             win bucks. In future updates, there will be a metagame where you can use your cards to battle. \
             For more information about PSGO:<br><br>\
-            /psgohelp rank - Tells you about how much the top 10 users get each month.
-            /psgohelp points - Information about what are points and how they are calculated.
+            /psgohelp rank - Tells you about how much the top 10 users get each month.\
+            /psgohelp points - Information about what are points and how they are calculated.\
             ');
     }
 };
