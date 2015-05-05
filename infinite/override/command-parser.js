@@ -11,7 +11,7 @@ if (!CommandParser.originalParse) {
 }
 
 CommandParser.parse = function(message, room, user, connection, levelsDeep) {
-    if (!room.allowEmoticons || (message.charAt(0) === '/' && message.charAt(1) !== '/')) {
+    if (room.disableEmoticons || (message.charAt(0) === '/' && message.charAt(1) !== '/')) {
         return CommandParser.originalParse(message, room, user, connection, levelsDeep + 1);
     }
     message = CommandParser.originalParse(message, room, user, connection, levelsDeep);

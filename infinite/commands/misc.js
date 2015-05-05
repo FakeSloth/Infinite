@@ -86,10 +86,12 @@ module.exports = {
         });
     },
 
+    toggleemote: 'toggleemoticons',
     toggleemotes: 'toggleemoticons',
+    toggleemoticon: 'toggleemoticon',
     toggleemoticons: function(target, room, user) {
         if (!user.can('toggleemoticons')) return false;
-        room.allowEmoticons = !room.allowEmoticons;
+        room.disableEmoticons = !room.disableEmoticons;
         this.sendReply('Allowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
     }    
 };
