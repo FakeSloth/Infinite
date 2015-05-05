@@ -12,7 +12,9 @@ npm-debug.log
 # editor temp files
 *~
 .idea/
-
+/static/
+/static/*
+/static/**/*
 tmp/**/*
 *.lock
 *.DS_Store
