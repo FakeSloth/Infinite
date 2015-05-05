@@ -45,6 +45,7 @@ module.exports = {
             <b>/psgostats</b> - Get stats about PSGO.<br>\
             <b>/reload</b> <i>file directory</i> - Reload a certain file.<br>\
             <b>/show</b> - Show your staff symbol.<br>\
+            <b>/strawpoll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a strawpoll, declares the link to all rooms and pm all users in the server.<br>\
             <b>/toggleemoticons</b> - Toggle emoticons on or off.<br>\
             <b>/takemoney</b> <i>user</i>, <i>amount</i> - Take a certain amount of money from a user.<br>\
             <b>/takepack</b> <i>user</i>, <i>pack</i> - Take a pack from a user.<br>\
@@ -53,7 +54,7 @@ module.exports = {
         }
         if (!target || target === '1') {
             return this.sendReplyBox('\
-            <center><b><u>List of commands:</u></b> (1/3)</center><br>\
+            <center><b><u>List of commands (1/3):</u></b></center><br>\
             <b>/away</b> - Set yourself away.<br>\
             <b>/back</b> - Set yourself back from away.<br>\
             <b>/buy</b> <i>command</i> - Buys an item from the shop.<br>\
@@ -69,7 +70,7 @@ module.exports = {
         }
         if (target === '2') {
             return this.sendReplyBox('\
-            <center><b><u>List of commands:</u></b> (2/3)</center><br>\
+            <center><b><u>List of commands (2/3):</u></b></center><br>\
             <b>/openpack</b> <i>pack</i> - Open a Pokemon Card Pack.<br>\
             <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
             <b>/packshop</b> - Displays the shop for packs.<br>\
@@ -85,7 +86,7 @@ module.exports = {
         }
         if (target === '3') {
             return this.sendReplyBox('\
-            <center><b><u>List of commands:</u></b> (3/3)</center><br>\
+            <center><b><u>List of commands (3/3):</u></b></center><br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\

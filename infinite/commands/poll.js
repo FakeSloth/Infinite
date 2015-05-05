@@ -1,3 +1,5 @@
+var request = require('request');
+
 module.exports = {
     poll: function(target, room, user) {
         if (!this.can('broadcast', null, room)) return;
@@ -106,5 +108,58 @@ module.exports = {
     hv: 'helpvotes',
     helpvotes: function(target, room, user) {
         return this.parse('/wall Remember to **vote** even if you don\'t want to battle; that way you\'re still voting for what tier battles you want to watch!');
+    },
+
+    strawpoll: function(target, room, user) {
+        if (!this.can('strawpoll')) return;
+        if (!target || target.split(',').length < 2) return this.sendReply('/strawpoll [question], [option 1], [option 2]... - Create a strawpoll, declares the link to all rooms and pm all users in the server.');
+
+        var formData = {
+            title:  target.split(',')[0],
+            options: target.split(',').slice(1).map(function(option) {
+                return option.trim()
+            })
+        };
+
+        var hash;
+        request.post({url:'http://strawpoll.me/api/v2/polls', form: formData}, function(err, res, body) {
+            hash = body.split(':')[1].slice(0, -1);
+            for (var id in Rooms.rooms) {
+                if (id !== 'global') {
+                    Rooms.rooms[id].addRaw('\
+                        <div class="broadcast-blue">\
+                        <center><h1>' + formData.title + '</h1>\
+                        <h2><a href="http://strawpoll.me/' + hash + '">\
+                        http://strawpoll.me/' + hash +
+                        '</a></h2></center><br>\
+                        </div>\
+                        ');
+                    Rooms.rooms[id].update();
+                }
+            }
+            for (var name in Users.users) {
+                Users.users[name].send('|pm|~StrawPoll| ' + Users.users[name].userid + '|' + formData.title + ': http://strawpoll.me/' + hash);
+            }
+        });
+
+        var fiveMinutes = 1000 * 60 * 5;
+        setTimeout(function() {
+            for (var id in Rooms.rooms) {
+                if (id !== 'global') {
+                    Rooms.rooms[id].addRaw('\
+                        <div class="broadcast-blue">\
+                        <center><h1>' + formData.title + '\'s Results</h1>\
+                        <h2><a href="http://strawpoll.me/' + hash + '/r">\
+                        http://strawpoll.me/' + hash + '/r\
+                        </a></h2></center><br>\
+                        </div>\
+                        ');
+                    Rooms.rooms[id].update();
+                }
+            }
+            for (var name in Users.users) {
+                Users.users[name].send('|pm|~StrawPoll| ' + Users.users[name].userid + '|' + formData.title + '\'s Results: http://strawpoll.me/' + hash + '/r');
+            }
+        }, fiveMinutes);
     }
 };
