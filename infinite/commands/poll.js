@@ -117,7 +117,7 @@ module.exports = {
         var formData = {
             title:  target.split(',')[0],
             options: target.split(',').slice(1).map(function(option) {
-                return option.trim()
+                return option.trim();
             })
         };
 

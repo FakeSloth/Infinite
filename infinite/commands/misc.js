@@ -3,6 +3,8 @@
  */
 
 var moment = require('moment');
+var color = require('../color');
+var Economy = require('../economy');
 var User = require('../mongo').userModel;
 
 var emotes = require('../emoticons').emotes;
@@ -135,6 +137,11 @@ module.exports = {
         if (!this.can('poofoff')) return false;
         Config.poofOff = false;
         return this.sendReply("Poof is now enabled.");
+    },
+
+    profile: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        this.sendReply('|raw|Use <b>/wallet</b> instead. For more commands use <b>/cmds<b>.');
     },
 
     redirekt: 'redir',
