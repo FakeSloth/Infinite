@@ -97,7 +97,7 @@ module.exports = {
     },
 
     tpoll: 'tierpoll',
-    tierpoll: 'tierpoll',
+    tierspoll: 'tierpoll',
     tierpoll: function(target, room, user) {
         if (!this.can('announce')) return;
         this.parse('/poll Tournament Tier, abcab ubers, abcab ou, randbats, ou, ubers, uu, ru, nu, pu, lc, customgame, random doubles, doubles, stabmons, almostanyability, challenge cup, cc1v1, 1v1, cc hackmons, hackmons, balanced hackmons, inverse battle, ou mono, tier shift, mediocremons, random triples, random mono, hidden type, inheritance, Anything goes, Triples, random triples, stabmons, gen1random, super staff bros');
