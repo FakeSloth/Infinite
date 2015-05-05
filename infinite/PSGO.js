@@ -20,7 +20,9 @@
 
 var Q = require('q');
 var crypto = require('crypto');
-var User = require('./mongo').User;
+var mongo = require('./mongo');
+var User = mongo.User;
+var userModel = mongo.userModel;
 
 var cards = {
     common: {
@@ -238,7 +240,7 @@ function addCard(name, card) {
     User.findOne({name: toId(name)})
         .then(function(user) {
             if (!user) {
-                user = new User({
+                user = new userModel({
                     name: toId(name),
                     cards: [card]
                 });
