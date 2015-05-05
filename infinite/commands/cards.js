@@ -43,7 +43,7 @@ var colors = {
     Common: 'black'
 };
 
-module.exports = {
+var commands = {
     cards: 'card',
     card: function(target, room, user) {
         if (!this.canBroadcast()) return;
