@@ -89,9 +89,6 @@ exports.BattleAbilities = {
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'Air Lock');
 		},
-		onAnyModifyPokemon: function (pokemon) {
-			pokemon.ignore['WeatherTarget'] = true;
-		},
 		onAnyTryWeather: false,
 		id: "airlock",
 		name: "Air Lock",
@@ -325,9 +322,6 @@ exports.BattleAbilities = {
 		shortDesc: "While this Pokemon is active, the effects of weather conditions are disabled.",
 		onStart: function (pokemon) {
 			this.add('-ability', pokemon, 'Cloud Nine');
-		},
-		onAnyModifyPokemon: function (pokemon) {
-			pokemon.ignore['WeatherTarget'] = true;
 		},
 		onAnyTryWeather: false,
 		id: "cloudnine",
@@ -2342,7 +2336,7 @@ exports.BattleAbilities = {
 		onModifyMove: function (move, pokemon) {
 			if (move.secondaries) {
 				delete move.secondaries;
-				move.negateSecondary = true;
+				// Actual negation of `AfterMoveSecondary` effects implemented in scripts.js
 				pokemon.addVolatile('sheerforce');
 			}
 		},
