@@ -5,7 +5,6 @@ module.exports = {
         if (!this.canBroadcast()) return;
         this.sendReplyBox('\
             <center><b><u>List of commands:</u></b></center><br>\
-            <b>/alias</b> <i>command</i> - Get all alias of a command.<br>\
             <b>/away</b> - Set yourself away.<br>\
             <b>/back</b> - Set yourself back from away.<br>\
             <b>/buy</b> <i>command</i> - Buys an item from the shop.<br>\
@@ -54,51 +53,5 @@ module.exports = {
             <b>/trainercard</b> <i>help</i> - Makes adding trainer cards EZ.<br>\
                 </div>');
         }
-    },
-
-    alias: function(target, room, user) {
-        if (!this.canBroadcast()) return;
-        if (!target) return this.sendReply('/alias [command] - Get all aliases of a command.');
-        var match = { value: false };
-
-        handleAlias.call(this, '/serverhelp, /infinitehelp, /cmds', target, match);
-        handleAlias.call(this, '/emoticons, /emotes', target, match);
-        handleAlias.call(this, '/def, /define', target, match);
-        handleAlias.call(this, '/u, /ud', target, match);
-        handleAlias.call(this, '/wallet, /purse, /atm', target, match);
-        handleAlias.call(this, '/givemoney, /givebucks, /givebuck', target, match);
-        handleAlias.call(this, '/takemoney, /takebucks, /takebuck', target, match);
-        handleAlias.call(this, '/transfermoney, /transferbucks, /transferbuck, /transfer', target, match);
-        handleAlias.call(this, '/resetsymbol, /resetcustomsymbol', target, match);
-        handleAlias.call(this, '/pollremind, /pr', target, match);
-        handleAlias.call(this, '/pmall, /masspm', target, match);
-        handleAlias.call(this, '/pmallstaff, /pmallstaff', target, match);
-        handleAlias.call(this, '/pmroom, /rmall', target, match);
-        handleAlias.call(this, '/trainercard, /tc, /trainercards, /eztc', target, match);
-        handleAlias.call(this, '/moneyladder, /richladder, /richestuser, /richestusers', target, match);
-        handleAlias.call(this, '/resetmoney, /resetbucks, /resetbuck', target, match);
-        handleAlias.call(this, '/redirect, /redirekt', target, match);
-
-        if (!match.value) {
-            this.sendReply('Alias not found for this command.');
-        }
     }
 };
-
-/**
- * Handle the alias of the command.
- * 
- * @param {String} commands
- * @param {String} cmd
- * @param {Object} match
- */
-
-function handleAlias(commands, cmd, match) {
-    if (match.value) return;
-    if (commands.indexOf(cmd) >= 0) {
-        match.value = true;
-        this.sendReplyBox(commands);
-    } else {
-       match.value = false; 
-    }
-}
