@@ -19,7 +19,6 @@ function usersToNames(users) {
     });
 }
 
-
 if (!Tournament.prototype.onOriginalTournamentEnd) {
     Tournament.prototype.onOriginalTournamentEnd = Tournament.prototype.onTournamentEnd;
 }
@@ -48,15 +47,9 @@ Tournament.prototype.onTournamentEnd = function() {
         var firstMoney = Math.round(tourSize);
         var secondMoney = Math.round(firstMoney / 2);
 
-        Economy.give(wid, firstMoney);
-        this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(winner) + '</font> has won ' + 
-            '<font color="' + color + '">' + firstMoney + '</font>' + Economy.currency(firstMoney) + ' for winning the tournament!</b>');
-
-        /*
         var pack = GiveTourPack(wid);
         this.room.addRaw('<b><font color="' + color + '">' + Tools.escapeHTML(winner) + '</font> has won ' + 
             '<font color="' + color + '">' + firstMoney + '</font>' + Economy.currency(firstMoney) + ' and a <button name="send" value="/openpack ' + pack + '">' + pack + '</button> pack for winning the tournament!</b>');
-        */
         
         // annouces the winner and runnerUp if runnerUp exists
         if (runnerUp) {
