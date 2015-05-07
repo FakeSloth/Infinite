@@ -11,17 +11,7 @@ var shop = [
     ['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 50],
     ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100],
     ['Tacosaur', 'Your name gets added to /tacosaur.', 150],
-    ['Félicette', 'Backdoor Access: Félicette! Back by popular demand!', 300],
-];
-var shop = [
-    ['Symbol', 'Buys a custom symbol to go infront of name and puts you at top of userlist. (Temporary until restart, certain symbols are blocked)', 5],
-    ['Fix', 'Buys the ability to alter your current custom avatar or trainer card. (don\'t buy if you have neither)', 10],
-    ['Avatar', 'Buys an custom avatar to be applied to your name (You supply. Images larger than 80x80 may not show correctly)', 50],
-    ['Trainer', 'Buys a trainer card which shows information through a command. (You supply, can be refused)', 50],
-    ['Declare', 'Globally declare a message to the whole server! [Can be refused](A small blue message that every chatroom can see; Uses: League Advertisements, Celebrations, ETC)"', 50],
-    ['Room', 'Buys a chatroom for you to own. (within reason, can be refused)', 100],
-    ['Tacosaur', 'Your name gets added to /tacosaur.', 150],
-    ['PM', 'Backdoor Access: Félicette! Back by popular demand!', 300]
+    ['Félicette', 'Backdoor Access: Félicette! Back by popular demand!', 300]
 ];
 
 var shopDisplay = getShopDisplay(shop);
@@ -213,6 +203,33 @@ module.exports = {
                 room.update();
             });
         });
+    },
+
+    shopdeclare: function (target, room, user) {
+        if (!user.canShopDeclare) return this.sendReply('You need to buy this item from the shop to use.');
+        if (!target) return this.sendReply('/shopdeclare [message] - Send message to all rooms.');
+
+        for (var id in Rooms.rooms) {
+            if (id !== 'global') {
+                Rooms.rooms[id].addRaw('<div class="broadcast-blue"><b>' + target + '</b></div>');
+            }
+        }
+        this.logModCommand(user.name + " globally declared " + target);
+        user.canShopDeclare = false;
+    },
+
+    shoppm: function (target, room, user) {
+        if (!user.canShopPM) return this.sendReply('You need to buy this item from the shop to use.');
+        if (!target) return this.sendReply('/shoppm [message] - PM all users in the server.');
+        if (target.indexOf('/html') >= 0) return this.sendReply('Cannot contain /html.');
+
+        var pmName = '~Global PM from ' + user.name +' [Do not reply]';
+
+        for (var name in Users.users) {
+            var message = '|pm|' + pmName + '|' + Users.users[name].getIdentity() + '|' + target;
+            Users.users[name].send(message);
+        }
+        user.canShopPM = false;
     }
 };
 
@@ -282,6 +299,12 @@ function handleBoughtItem(item, user) {
         this.sendReply('You have purchased a custom symbol. You can use /customsymbol to get your custom symbol.');
         this.sendReply('You will have this until you log off for more than an hour.');
         this.sendReply('If you do not want your custom symbol anymore, you may use /resetsymbol to go back to your old symbol.'); 
+   } else if (item === 'declare') {
+        user.canShopDeclare = true;
+        this.sendReply('You have purchased a declare. You can use /shopdeclare to declare your message.');
+   } else if (item === 'pm') {
+        user.canShopPM = true;
+        this.sendReply('You have purchased a pm. You can use /shoppm to declare your message.');
    } else {
         var msg = user.name + ' has bought ' + item + '.';
         for (var i in Users.users) {
