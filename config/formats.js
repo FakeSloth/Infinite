@@ -322,7 +322,7 @@ exports.Formats = [
 		gameType: 'triples',
 		ruleset: ['HP Percentage Mod', 'Sleep Clause Mod', 'Cancel Mod'],
 		onBegin: function () {
-			this.add('raw|<b><font color="red">IMPORTANT!</font></b> All moves on this seasonal are custom. Use the command /seasonaldata or /sdata to know what they do.');
+			this.add('raw|<b><font color="red">IMPORTANT!</font></b> All moves on this seasonal are custom. Use the command /seasonaldata or /sdata or /sdt to know what they do.');
 			this.add('raw|More information can be found <a href="http://www.smogon.com/forums/threads/3491902/page-12#post-6202283">here</a>');
 		},
 		onModifyMove: function (move) {
@@ -436,7 +436,7 @@ exports.Formats = [
 
 		mod: 'tiershift',
 		ruleset: ['OU'],
-		banlist: ['Chatter']
+		banlist: ['Shadow Tag', 'Chatter']
 	},
 	{
 		name: "PU",
@@ -516,7 +516,7 @@ exports.Formats = [
 		mod: 'averagemons',
 		searchShow: false,
 		ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Evasion Abilities Clause', 'Swagger Clause', 'Team Preview'],
-		banlist: ['Sableye', 'Shedinja', 'Smeargle',
+		banlist: ['Sableye + Prankster', 'Shedinja', 'Smeargle',
 			'DeepSeaScale', 'DeepSeaTooth', 'Eviolite', 'Gengarite', 'Kangaskhanite', 'Light Ball', 'Mawilite', 'Medichamite', 'Soul Dew', 'Thick Club',
 			'Arena Trap', 'Huge Power', 'Pure Power', 'Shadow Tag'
 		]
