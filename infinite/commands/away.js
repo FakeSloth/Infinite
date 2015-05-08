@@ -19,6 +19,7 @@ module.exports = {
     poop: 'away',
     away: function(target, room, user, connection, cmd) {
         if (!this.can('away')) return false;
+        if (!this.canTalk()) return;
         // unicode away message idea by Siiilver
         var t = 'Ⓐⓦⓐⓨ';
         var t2 = 'Away';
@@ -114,6 +115,7 @@ module.exports = {
     bac: 'back',
     back: function(target, room, user, connection) {
         if (!this.can('away')) return false;
+        if (!this.canTalk()) return;
 
         if (user.isAway) {
             if (user.name === user.originalName) {
