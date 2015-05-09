@@ -32,7 +32,13 @@ Users.User.prototype.getIdentity = function(roomid) {
 var Connection = Users.Connection;
 var User = Users.User;
 var connections = Users.connections;
-var connectedIps = Users.connectedIps = Object.create(null);
+var connectedIps = Users.connectedIps;
+var bannedIps = Users.bannedIps;
+var bannedUsers = Object.create(null);
+var lockedIps = Users.lockedIps;
+var lockedUsers = Object.create(null);
+var lockedRanges = Users.lockedRanges;
+var rangelockedUsers = Object.create(null);
 
 Users.socketConnect = function (worker, workerid, socketid, ip) {
     var id = '' + workerid + '-' + socketid;
