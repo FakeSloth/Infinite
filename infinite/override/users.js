@@ -34,9 +34,6 @@ var User = Users.User;
 var connections = Users.connections;
 var connectedIps = Users.connectedIps;
 var bannedIps = Users.bannedIps;
-var bannedUsers = Object.create(null);
-var lockedIps = Users.lockedIps;
-var lockedUsers = Object.create(null);
 var lockedRanges = Users.lockedRanges;
 var rangelockedUsers = Object.create(null);
 
