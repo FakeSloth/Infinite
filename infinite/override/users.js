@@ -33,8 +33,8 @@ var Connection = Users.Connection;
 var User = Users.User;
 var connections = Users.connections;
 var connectedIps = Users.connectedIps = Object.create(null);
-var bannedIps = Users.bannedIps = Object.create(null);;
-var lockedRanges = Users.lockedRanges = Object.create(null);;
+var bannedIps = Users.bannedIps = Object.create(null);
+var lockedRanges = Users.lockedRanges = Object.create(null);
 var rangelockedUsers = Object.create(null);
 
 Users.socketConnect = function (worker, workerid, socketid, ip) {

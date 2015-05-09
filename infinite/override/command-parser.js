@@ -5,13 +5,10 @@ var emotes = emoticons.emotes;
 var emotesKeys = emoticons.emotesKeys;
 var patternRegex = emoticons.patternRegex;
 
-const MAX_MESSAGE_LENGTH = 300;
-
-const BROADCAST_COOLDOWN = 20 * 1000;
-
-const MESSAGE_COOLDOWN = 5 * 60 * 1000;
-
-const MAX_PARSE_RECURSION = 10;
+var MAX_MESSAGE_LENGTH = 300;
+var BROADCAST_COOLDOWN = 20 * 1000;
+var MESSAGE_COOLDOWN = 5 * 60 * 1000;
+var MAX_PARSE_RECURSION = 10;
 
 var commands = CommandParser.commands;
 var modlog = CommandParser.modlog;
@@ -35,8 +32,9 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
         message = '/evalbattle ' + message.substr(4);
     }
 
+    var spaceIndex;
     if (message.charAt(0) === '/' && message.charAt(1) !== '/') {
-        var spaceIndex = message.indexOf(' ');
+        spaceIndex = message.indexOf(' ');
         if (spaceIndex > 0) {
             cmd = message.substr(1, spaceIndex - 1);
             target = message.substr(spaceIndex + 1);
@@ -45,7 +43,7 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
             target = '';
         }
     } else if (message.charAt(0) === '!') {
-        var spaceIndex = message.indexOf(' ');
+        spaceIndex = message.indexOf(' ');
         if (spaceIndex > 0) {
             cmd = message.substr(0, spaceIndex);
             target = message.substr(spaceIndex + 1);
@@ -76,7 +74,7 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
 
             var newCmd = target;
             var newTarget = '';
-            var spaceIndex = target.indexOf(' ');
+            spaceIndex = target.indexOf(' ');
             if (spaceIndex > 0) {
                 newCmd = target.substr(0, spaceIndex);
                 newTarget = target.substr(spaceIndex + 1);
@@ -211,7 +209,7 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
                 var tags = html.toLowerCase().match(/<\/?(div|a|button|b|i|u|center|font)\b/g);
                 if (tags) {
                     var stack = [];
-                    for (var i = 0; i < tags.length; i++) {
+                    for (i = 0; i < tags.length; i++) {
                         var tag = tags[i];
                         if (tag.charAt(1) === '/') {
                             if (!stack.length) {
@@ -240,13 +238,14 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
             },
             splitTarget: function (target, exactName) {
                 var commaIndex = target.indexOf(',');
+                var targetUser;
                 if (commaIndex < 0) {
-                    var targetUser = Users.get(target, exactName);
+                    targetUser = Users.get(target, exactName);
                     this.targetUser = targetUser;
                     this.targetUsername = targetUser ? targetUser.name : target;
                     return '';
                 }
-                var targetUser = Users.get(target.substr(0, commaIndex), exactName);
+                targetUser = Users.get(target.substr(0, commaIndex), exactName);
                 if (!targetUser) {
                     targetUser = null;
                 }
