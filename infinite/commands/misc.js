@@ -169,7 +169,12 @@ module.exports = {
     toggleemoticons: function(target, room, user) {
         if (!user.can('toggleemoticons')) return false;
         room.disableEmoticons = !room.disableEmoticons;
-        this.sendReply('Allowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
+        this.sendReply('Disallowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
+        if (room.disableEmoticons) {
+            this.add("|raw|<div class=\"broadcast-red\"><b>Emoticons are disabled!</b><br />Emoticons will not work.</div>");
+        } else {
+            this.add("|raw|<div class=\"broadcast-blue\"><b>Emoticons are enabled!</b><br />Emoticons will work now.</div>");
+        }
     }    
 };
 
