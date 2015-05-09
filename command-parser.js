@@ -355,18 +355,18 @@ var parse = exports.parse = function (message, room, user, connection, levelsDee
 								this.sendReply("Extraneous </" + tag.substr(2) + "> without an opening tag.");
 								return false;
 							}
-							if (tag.substr(2) !== stack.pop()) {
+							/* if (tag.substr(2) !== stack.pop()) {
 								this.sendReply("Missing </" + tag.substr(2) + "> or it's in the wrong place.");
 								return false;
-							}
+							} */
 						} else {
 							stack.push(tag.substr(1));
 						}
 					}
-					if (stack.length) {
+					/* if (stack.length) {
 						this.sendReply("Missing </" + stack.pop() + ">.");
 						return false;
-					}
+					} */
 				}
 
 				return true;
