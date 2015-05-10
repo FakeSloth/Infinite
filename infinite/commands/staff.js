@@ -108,12 +108,36 @@ module.exports = {
         }, 1000);
     },
 
-    reload: function(target, room, user) {
-        if (!this.can('reload')) return false;
+    reloadfile: function(target, room, user) {
+        if (!this.can('reloadfile')) return false;
         if (!target) return this.sendReply('/reload [file directory] - Reload a certain file.');
         this.sendReply('|raw|<b>delete require.cache[require.resolve("' + target + '")]</b>');
         this.parse('/eval delete require.cache[require.resolve("' + target + '")]');
         this.sendReply('|raw|<b>require("' + target + '")</b>');
         this.parse('/eval require("' + target + '")');
+    },
+
+    reload: function (target, room, user) {
+        if (!this.can('reload')) return;
+
+        this.sendReply('hi');
+        try {
+            this.sendReply('Reloading Commands...');
+            var cmds = path.join(process.cwd(), './infinite/commands/');
+            fs.readdirSync(cmds).forEach(function (file) {
+                if (file.substr(-3) === '.js') {
+                    delete require.cache[require.resolve(path.join(cmds, file))];
+                }
+            });
+            fs.readdirSync(cmds).forEach(function (file) {
+                if (file.substr(-3) === '.js') {
+                    Object.merge(CommandParser.commands, require(cmds + file));
+                }
+            });
+
+            return this.sendReply('|raw|<font color="green">These files have been reloaded.</font>');
+        } catch (e) {
+            return this.sendReply('|raw|<font color="red">Something failed while trying to reload files:</font> \n' + e.stack);
+        }
     }
 };

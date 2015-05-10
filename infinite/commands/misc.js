@@ -41,11 +41,12 @@ module.exports = {
             <b>/hide</b> - Hide your staff symbol.<br>\
             <b>/pmall</b> <i>message</i> - Private message all users in the server.<br>\
             <b>/pmstaff</b> <i>message</i> - Private message all staff.<br>\
-            <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
-            <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/poll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a poll where users can vote on an option.<br>\
             <b>/psgostats</b> - Get stats about PSGO.<br>\
-            <b>/reload</b> <i>file directory</i> - Reload a certain file.<br>\
+            <b>/reload</b> - Reload commands.<br>\
+            <b>/reloadfile</b> <i>file directory</i> - Reload a certain file.<br>\
+            <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
+            <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/show</b> - Show your staff symbol.<br>\
             <b>/strawpoll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a strawpoll, declares the link to all rooms and pm all users in the server.<br>\
             <b>/toggleemoticons</b> - Toggle emoticons on or off.<br>\
