@@ -92,6 +92,7 @@ module.exports = {
             <center><b><u>List of commands (3/3):</u></b></center><br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
+            <b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\
             <b>/urbandefine</b> <i>word</i> - Shows the urban definition of the word.<br>\
             <b>/wallet</b> <i>user</i> - Displays how much money a user has. Parameter is optional.<br><br>\
