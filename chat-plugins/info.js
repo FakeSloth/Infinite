@@ -96,38 +96,48 @@ var commands = exports.commands = {
 		"/whois [username] - Get details on a username: alts (Requires: % @ & ~), group, IP address (Requires: @ & ~), and rooms."],
 
 	ipsearchall: 'ipsearch',
+	hostsearch: 'ipsearch',
 	ipsearch: function (target, room, user, connection, cmd) {
+		if (!target.trim()) return this.parse('/help ipsearch');
 		if (!this.can('rangeban')) return;
 		var results = [];
-		this.sendReply("Users with IP " + target + ":");
 
-		var isRange;
-		if (target.slice(-1) === '*') {
-			isRange = true;
-			target = target.slice(0, -1);
-		}
 		var isAll = (cmd === 'ipsearchall');
 
-		if (isRange) {
+		if (/[a-z]/.test(target)) {
+			// host
+			this.sendReply("Users with host " + target + ":");
 			for (var userid in Users.users) {
 				var curUser = Users.users[userid];
-				if (curUser.group === '~') continue;
+				if (!curUser.latestHost || !curUser.latestHost.endsWith(target)) continue;
+				if (results.push((curUser.connected ? " \u25C9 " : " \u25CC ") + " " + curUser.name) > 100 && !isAll) {
+					return this.sendReply("More than 100 users match the specified IP range. Use /ipsearchall to retrieve the full list.");
+				}
+			}
+		} else if (target.slice(-1) === '*') {
+			// IP range
+			this.sendReply("Users in IP range " + target + ":");
+			target = target.slice(0, -1);
+			for (var userid in Users.users) {
+				var curUser = Users.users[userid];
 				if (!curUser.latestIp.startsWith(target)) continue;
-				if (results.push((curUser.connected ? " + " : "-") + " " + curUser.name) > 100 && !isAll) {
+				if (results.push((curUser.connected ? " \u25C9 " : " \u25CC ") + " " + curUser.name) > 100 && !isAll) {
 					return this.sendReply("More than 100 users match the specified IP range. Use /ipsearchall to retrieve the full list.");
 				}
 			}
 		} else {
+			this.sendReply("Users with IP " + target + ":");
 			for (var userid in Users.users) {
 				var curUser = Users.users[userid];
 				if (curUser.latestIp === target) {
-					results.push((curUser.connected ? " + " : "-") + " " + curUser.name);
+					results.push((curUser.connected ? " \u25C9 " : " \u25CC ") + " " + curUser.name);
 				}
 			}
 		}
 		if (!results.length) return this.sendReply("No results found.");
 		return this.sendReply(results.join('; '));
 	},
+	ipsearchhelp: ["/ipsearch [ip|range|host] - Find all users with specified IP, IP range, or host (Requires: & ~)"],
 
 	/*********************************************************
 	 * Shortcuts
@@ -1799,19 +1809,19 @@ var commands = exports.commands = {
 		}
 		if (target === 'all' || target === 'underused' || target === 'uu') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3530610/\">np: UU Stage 2.1</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3537422/\">np: UU Stage 3</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/uu/\">UU Banlist</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3523649/\">UU Viability Ranking</a><br />";
 		}
 		if (target === 'all' || target === 'rarelyused' || target === 'ru') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3533095/\">np: RU Stage 8</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3537443/\">np: RU Stage 9</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/ru/\">RU Banlist</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3523627/\">RU Viability Ranking</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3538036/\">RU Viability Ranking</a><br />";
 		}
 		if (target === 'all' || target === 'neverused' || target === 'nu') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3534671/\">np: NU Stage 5</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3537418/\">np: NU Stage 6</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/nu/\">NU Banlist</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3523692/\">NU Viability Ranking</a><br />";
 		}
