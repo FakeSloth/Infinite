@@ -2,7 +2,7 @@ var request = require('request');
 
 module.exports = {
     poll: function(target, room, user) {
-        if (!this.can('broadcast', null, room)) return;
+        if (!this.can('broadcast', null, room)) return this.sendReply('/poll - Access denied.');
         if (!Poll[room.id]) Poll.reset(room.id);
         if (Poll[room.id].question) return this.sendReply('There is currently a poll going on already.');
         if (!this.canTalk()) return;
@@ -56,7 +56,7 @@ module.exports = {
     },
 
     endpoll: function(target, room, user) {
-        if (!this.can('broadcast', null, room)) return;
+        if (!this.can('broadcast', null, room)) return this.sendReply('/endpoll - Access denied.');
         if (!Poll[room.id]) Poll.reset(room.id);
         if (!Poll[room.id].question) return this.sendReply('There is no poll to end in this room.');
 
@@ -101,7 +101,7 @@ module.exports = {
     tpoll: 'tierpoll',
     tierspoll: 'tierpoll',
     tierpoll: function(target, room, user) {
-        if (!this.can('announce')) return;
+        if (!this.can('announce')) return this.sendReply('/tierpoll - Access denied.');
         this.parse('/poll Tournament Tier, abcab ubers, abcab ou, randbats, ou, ubers, uu, ru, nu, pu, lc, customgame, random doubles, doubles, stabmons, almostanyability, challenge cup, cc1v1, 1v1, cc hackmons, hackmons, balanced hackmons, inverse battle, ou mono, tier shift, mediocremons, random triples, random mono, hidden type, inheritance, Anything goes, Triples, random triples, stabmons, gen1random, super staff bros');
     },
 
@@ -111,7 +111,7 @@ module.exports = {
     },
 
     strawpoll: function(target, room, user) {
-        if (!this.can('strawpoll')) return;
+        if (!this.can('strawpoll')) return this.sendReply('/strawpoll - Access denied.');
         if (!target || target.split(',').length < 2) return this.sendReply('/strawpoll [question], [option 1], [option 2]... - Create a strawpoll, declares the link to all rooms and pm all users in the server.');
 
         var formData = {
