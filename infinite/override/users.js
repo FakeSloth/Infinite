@@ -190,7 +190,7 @@ Users.User.prototype.originalRename = Users.User.prototype.rename;
 
 var users;
 if (Users.users) {
-    users = Users.users 
+    users = Users.users;
 } else {
     users = Users.users = Object.create(null);
 }
