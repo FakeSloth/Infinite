@@ -148,7 +148,7 @@ module.exports = {
 
     givepacks: 'givepack',
     givepack: function(target, room, user) {
-        if (!user.can('givepack')) return false;
+        if (!user.can('givepack')) return this.sendReply('/givepack - Access denied.');
         if (!target) return this.sendReply('/givepack [user], [pack] - Give a user a pack. Alias: /givepacks');
 
         var parts = target.split(',');
@@ -170,7 +170,7 @@ module.exports = {
 
     takepacks: 'takepack',
     takepack: function(target, room, user) {
-        if (!user.can('takepack')) return false;
+        if (!user.can('takepack')) return this.sendReply('/takepack - Access denied.');
         if (!target) return this.sendReply('/takepack [user], [pack] - Take a pack from a user. Alias: /takepacks');
 
         var parts = target.split(',');
@@ -256,7 +256,7 @@ module.exports = {
 
     cardstats: 'psgostats',
     psgostats: function(target, room, user) {
-        if (!user.can('cardstats')) return false;
+        if (!user.can('cardstats')) return this.sendReply('/psgostats - Access denied.');
         if (!this.canBroadcast()) return;
 
         var numCards = 0;
@@ -334,6 +334,7 @@ module.exports = {
         });
     },
 
+    psgo: 'psgohelp',
     cardhelp: 'psgohelp',
     psgohelp: function(target, room, user) {
         if (!this.canBroadcast()) return;

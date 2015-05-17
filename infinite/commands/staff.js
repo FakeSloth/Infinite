@@ -6,15 +6,59 @@ var path = require('path');
  */
 
 module.exports = {
+
+    globalpromote: 'promote',
+    promote: function (target, room, user, connection, cmd) {
+        if (!target) return this.parse('/help promote');
+
+        target = this.splitTarget(target, true);
+        var targetUser = this.targetUser;
+        var userid = toId(this.targetUsername);
+        var name = targetUser ? targetUser.name : this.targetUsername;
+
+        if (!userid) return this.parse('/help promote');
+        if (targetUser && !targetUser.registered) return this.sendReply("User '" + name + "' is not registered.");
+
+        var currentGroup = ((targetUser && targetUser.group) || Users.usergroups[userid] || ' ')[0];
+        var nextGroup = target ? target : Users.getNextGroupSymbol(currentGroup, cmd === 'demote', true);
+        if (target === 'deauth') nextGroup = Config.groupsranking[0];
+        if (!Config.groups[nextGroup]) {
+            return this.sendReply("Group '" + nextGroup + "' does not exist.");
+        }
+        if (Config.groups[nextGroup].roomonly) {
+            return this.sendReply("Group '" + nextGroup + "' does not exist as a global rank.");
+        }
+
+        var groupName = Config.groups[nextGroup].name || "regular user";
+        if (currentGroup === nextGroup) {
+            return this.sendReply("User '" + name + "' is already a " + groupName);
+        }
+        if (!user.canPromote(currentGroup, nextGroup)) {
+            return this.sendReply("/" + cmd + " - Access denied.");
+        }
+
+        if (!Users.setOfflineGroup(name, nextGroup)) {
+            return this.sendReply("/promote - WARNING: This user is offline and could be unregistered. Use /forcepromote if you're sure you want to risk it.");
+        }
+        if (Config.groups[nextGroup].rank < Config.groups[currentGroup].rank) {
+            this.privateModCommand("(" + name + " was demoted to " + groupName + " by " + user.name + ".)");
+            if (targetUser) targetUser.popup("You were demoted to " + groupName + " by " + user.name + ".");
+        } else {
+            this.addModCommand("" + name + " was promoted to " + groupName + " by " + user.name + ".");
+        }
+
+        if (targetUser) targetUser.updateIdentity();
+    },
+
     hide: function(target, room, user) {
-        if (!this.can('lock')) return false;
+        if (!this.can('lock')) return this.sendReply('/hide - Access denied.');
         user.hiding = true;
         user.updateIdentity();
         this.sendReply('You have hidden your staff symbol.');
     },
 
     show: function(target, room, user) {
-        if (!this.can('lock')) return false;
+        if (!this.can('lock')) return this.sendReply('/show - Access denied.');
         user.hiding = false;
         user.updateIdentity();
         this.sendReply('You have revealed your staff symbol.');
@@ -22,7 +66,7 @@ module.exports = {
 
     masspm: 'pmall',
     pmall: function (target, room, user) {
-        if (!this.can('pmall')) return false;
+        if (!this.can('pmall')) return this.sendReply('/pmall - Access denied.');
         if (!target) return this.sendReply('/pmall [message] - PM all users in the server.');
 
         var pmName = '~Server PM [Do not reply]';
@@ -33,10 +77,11 @@ module.exports = {
         }
     },
 
+    staffpm: 'pmallstaff',
     pmstaff: 'pmallstaff',
     pmallstaff: function (target, room, user) {
+        if (!this.can('pmstaff')) return this.sendReply('/pmstaff - Access denied.');
         if (!target) return this.sendReply('/pmallstaff [message] - Sends a PM to every staff member online.');
-        if (!this.can('pmall')) return false;
 
         var pmName = '~Staff PM [Do not reply]';
 
@@ -49,7 +94,7 @@ module.exports = {
 
     pmroom: 'rmall',
     rmall: function (target, room, user) {
-        if(!this.can('ban')) return false;
+        if(!this.can('ban')) return this.sendReply('/rmall - Access denied.');
         if (!target) return this.sendReply('/rmall [message] - Sends a pm to all users in the room.');
 
         var pmName = '~Room PM [Do not reply]';
@@ -88,7 +133,7 @@ module.exports = {
     },
 
     clearall: function (target, room, user) {
-        if (!this.can('clearall')) return false;
+        if (!this.can('clearall')) return this.sendReply('/clearall - Access denied.');
         if (room.battle) return this.sendReply('You cannot clearall in battle rooms.');
         
         var len = room.log.length;
@@ -109,7 +154,7 @@ module.exports = {
     },
 
     reloadfile: function(target, room, user) {
-        if (!this.can('reloadfile')) return false;
+        if (!this.can('reloadfile')) return this.sendReply('/reloadfile - Access denied.');
         if (!target) return this.sendReply('/reload [file directory] - Reload a certain file.');
         this.sendReply('|raw|<b>delete require.cache[require.resolve("' + target + '")]</b>');
         this.parse('/eval delete require.cache[require.resolve("' + target + '")]');
@@ -118,7 +163,7 @@ module.exports = {
     },
 
     reload: function (target, room, user) {
-        if (!this.can('reload')) return;
+        if (!this.can('reload')) return this.sendReply('/reload - Access denied.');
 
         this.sendReply('hi');
         try {
