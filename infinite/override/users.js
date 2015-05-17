@@ -33,9 +33,21 @@ var Connection = Users.Connection;
 var User = Users.User;
 var connections = Users.connections;
 var connectedIps = Users.connectedIps = Object.create(null);
-var bannedIps = Users.bannedIps = Object.create(null);
-var lockedRanges = Users.lockedRanges = Object.create(null);
+var bannedIps;
+var lockedRanges;
 var rangelockedUsers = Object.create(null);
+
+if (Users.bannedIps) {
+    bannedIps = Users.bannedIps;
+} else {
+    bannedIps = Users.bannedIps = Object.create(null);
+}
+
+if (Users.lockedRanges) {
+    lockedRanges = Users.lockedRanges;
+} else {
+    lockedRanges = Users.lockedRanges = Object.create(null);
+}
 
 Users.socketConnect = function (worker, workerid, socketid, ip) {
     var id = '' + workerid + '-' + socketid;
@@ -176,7 +188,12 @@ Users.User.prototype.onDisconnect = function(connection) {
 
 Users.User.prototype.originalRename = Users.User.prototype.rename;
 
-var users = Users.users = Object.create(null);
+var users;
+if (Users.users) {
+    users = Users.users 
+} else {
+    users = Users.users = Object.create(null);
+}
 
 Users.User.prototype.rename = function(name, token, auth, connection) {
     for (var i in this.roomCount) {
