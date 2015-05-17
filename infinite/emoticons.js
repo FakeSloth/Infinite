@@ -2,7 +2,7 @@ module.exports = (function() {
     var emotes = {
         '#freewolf': 'http://i.imgur.com/ybxWXiG.png',
         'feelsbd': 'http://i.imgur.com/YyEdmwX.png',
-        'feelsdd': 'http://i.imgur.com/fXtdLtV.png',
+      //  'feelsdd': 'http://i.imgur.com/fXtdLtV.png',
         'feelsgd': 'http://i.imgur.com/Jf0n4BL.png',
         'feelsgn': 'http://i.imgur.com/juJQh0J.png',
         'feelsmd': 'http://i.imgur.com/DJHMdSw.png',
@@ -11,7 +11,7 @@ module.exports = (function() {
         'feelspika': 'http://i.imgur.com/mBq3BAW.png',
         'feelspink': 'http://i.imgur.com/jqfB8Di.png',
         'feelsrs': 'http://i.imgur.com/qGEot0R.png',
-        'feelssc': 'http://i.imgur.com/cm6oTZ1.png',
+       // 'feelssc': 'http://i.imgur.com/cm6oTZ1.png',
         'fukya': 'http://i.imgur.com/ampqCZi.gif',
         'funnylol': 'http://i.imgur.com/SlzCghq.png',
         'hmmface': 'http://i.imgur.com/Z5lOwfZ.png',

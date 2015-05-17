@@ -41,11 +41,12 @@ module.exports = {
             <b>/hide</b> - Hide your staff symbol.<br>\
             <b>/pmall</b> <i>message</i> - Private message all users in the server.<br>\
             <b>/pmstaff</b> <i>message</i> - Private message all staff.<br>\
-            <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
-            <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/poll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a poll where users can vote on an option.<br>\
             <b>/psgostats</b> - Get stats about PSGO.<br>\
-            <b>/reload</b> <i>file directory</i> - Reload a certain file.<br>\
+            <b>/reload</b> - Reload commands.<br>\
+            <b>/reloadfile</b> <i>file directory</i> - Reload a certain file.<br>\
+            <b>/resetmoney</b> <i>name</i> - Reset the user\'s money to 0.<br>\
+            <b>/rmall</b> <i>message</i> - Private message all users in the room.<br>\
             <b>/show</b> - Show your staff symbol.<br>\
             <b>/strawpoll</b> <i>question</i>, <i>option 1</i>, <i>option 2</i>... - Create a strawpoll, declares the link to all rooms and pm all users in the server.<br>\
             <b>/toggleemoticons</b> - Toggle emoticons on or off.<br>\
@@ -91,6 +92,7 @@ module.exports = {
             <center><b><u>List of commands (3/3):</u></b></center><br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
+            <b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\
             <b>/urbandefine</b> <i>word</i> - Shows the urban definition of the word.<br>\
             <b>/wallet</b> <i>user</i> - Displays how much money a user has. Parameter is optional.<br><br>\
@@ -169,7 +171,12 @@ module.exports = {
     toggleemoticons: function(target, room, user) {
         if (!user.can('toggleemoticons')) return false;
         room.disableEmoticons = !room.disableEmoticons;
-        this.sendReply('Allowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
+        this.sendReply('Disallowing emoticons is set to ' + room.allowEmoticons + ' in this room.');
+        if (room.disableEmoticons) {
+            this.add("|raw|<div class=\"broadcast-red\"><b>Emoticons are disabled!</b><br />Emoticons will not work.</div>");
+        } else {
+            this.add("|raw|<div class=\"broadcast-blue\"><b>Emoticons are enabled!</b><br />Emoticons will work now.</div>");
+        }
     }    
 };
 

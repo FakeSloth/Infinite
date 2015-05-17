@@ -33,6 +33,9 @@ var Connection = Users.Connection;
 var User = Users.User;
 var connections = Users.connections;
 var connectedIps = Users.connectedIps = Object.create(null);
+var bannedIps = Users.bannedIps = Object.create(null);
+var lockedRanges = Users.lockedRanges = Object.create(null);
+var rangelockedUsers = Object.create(null);
 
 Users.socketConnect = function (worker, workerid, socketid, ip) {
     var id = '' + workerid + '-' + socketid;
@@ -167,4 +170,63 @@ Users.User.prototype.onDisconnect = function(connection) {
         user.save();
     });
     this.originalOnDisconnect(connection);
+};
+
+// Tells
+
+Users.User.prototype.originalRename = Users.User.prototype.rename;
+
+var users = Users.users = Object.create(null);
+
+Users.User.prototype.rename = function(name, token, auth, connection) {
+    for (var i in this.roomCount) {
+        var room = Rooms.get(i);
+        if (room && room.rated && (this.userid === room.rated.p1 || this.userid === room.rated.p2)) {
+            this.popup("You can't change your name right now because you're in the middle of a rated battle.");
+            return false;
+        }
+    }
+
+    var challenge = '';
+    if (connection) {
+        challenge = connection.challenge;
+    }
+
+    if (!name) name = '';
+    name = this.filterName(name);
+    var userid = toId(name);
+    if (this.registered) auth = false;
+
+    if (!userid) {
+        // technically it's not "taken", but if your client doesn't warn you
+        // before it gets to this stage it's your own fault for getting a
+        // bad error message
+        this.send('|nametaken|' + "|You did not specify a name or your name was invalid.");
+        return false;
+    } else {
+        if (userid === this.userid && !auth) {
+            return this.forceRename(name, this.registered);
+        }
+    }
+    if (users[userid] && !users[userid].registered && users[userid].connected && !auth) {
+        this.send('|nametaken|' + name + "|Someone is already using the name \"" + users[userid].name + "\".");
+        return false;
+    }
+
+    if (token && token.charAt(0) !== ';') {
+        var tokenSemicolonPos = token.indexOf(';');
+        var tokenData = token.substr(0, tokenSemicolonPos);
+        var tokenSig = token.substr(tokenSemicolonPos + 1);
+
+        this.renamePending = name;
+        var self = this;
+        Verifier.verify(tokenData, tokenSig, function (success, tokenData) {
+            self.finishRename(success, tokenData, token, auth, challenge);
+        });
+    } else {
+        this.send('|nametaken|' + name + "|Your authentication token was invalid.");
+    }
+
+    if (Tells.inbox[userid]) Tells.sendTell(userid, this);
+    return false;
 };
