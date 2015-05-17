@@ -340,11 +340,11 @@ var parse = exports.parse = function (message, room, user, connection, levelsDee
 						return false;
 					}
 				}
-				if (/>here.?</i.test(html) || /click here/i.test(html)) {
+				/* if (/>here.?</i.test(html) || /click here/i.test(html)) {
 					this.sendReply('Do not use "click here"');
 					return false;
 				}
-
+ */
 				// check for mismatched tags
 				var tags = html.toLowerCase().match(/<\/?(div|a|button|b|i|u|center|font)\b/g);
 				if (tags) {
