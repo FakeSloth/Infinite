@@ -334,6 +334,7 @@ module.exports = {
         });
     },
 
+    psgo: 'psgohelp',
     cardhelp: 'psgohelp',
     psgohelp: function(target, room, user) {
         if (!this.canBroadcast()) return;

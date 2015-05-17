@@ -33,6 +33,7 @@ module.exports = {
         }
     },
 
+    staffpm: 'pmallstaff',
     pmstaff: 'pmallstaff',
     pmallstaff: function (target, room, user) {
         if (!this.can('pmstaff')) return this.sendReply('/pmstaff - Access denied.');
