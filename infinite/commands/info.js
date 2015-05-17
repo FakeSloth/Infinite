@@ -32,20 +32,20 @@ module.exports = {
         if (!target) return this.sendReply('/regdate [username] - Get the registration date of a user.');
         var name = toId(target);
         if (regdateCache[name]) {
-           this.sendReplyBox(name + ' was registered on ' + regdateCache[name] + '.');
+           this.sendReplyBox(Tools.escapeHTML(name) + ' was registered on ' + regdateCache[name] + '.');
            return room.update();
         }
 
         request('http://pokemonshowdown.com/users/' + name, function(error, response, body) {
             if (error) console.log(error);
             if (response.statusCode !== 200) {
-                this.sendReplyBox(target + ' is not registered.');
+                this.sendReplyBox(Tools.escapeHTML(target) + ' is not registered.');
                 return room.update();
             }
             var $ = cheerio.load(body);
             var date = $('small').first().text().split(': ')[1];
             cacheRegdate(name, date);
-            this.sendReplyBox(target + ' was registered on ' + date + '.');
+            this.sendReplyBox(Tools.escapeHTML(target) + ' was registered on ' + date + '.');
             room.update();
         }.bind(this));
     },
