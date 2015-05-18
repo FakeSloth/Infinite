@@ -6,7 +6,6 @@ var path = require('path');
  */
 
 module.exports = {
-
     globalpromote: 'promote',
     promote: function (target, room, user, connection, cmd) {
         if (!target) return this.parse('/help promote');
