@@ -31,6 +31,7 @@ var cards = {
         'chansey': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_96.png', points: 200},
         'druddigon': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_70.png', points: 200},
         'electrike': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_52.png', points: 60},
+        'eevee': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BW5/BW5_EN_83.png', points: 80},
         'gulpin': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/EX14/EX14_EN_33.png', points: 90},
         'jigglypuff': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_87.png', points: 70},
         'kangaskhan': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_71.png', points: 180},
@@ -83,10 +84,15 @@ var cards = {
     rare: {
         'breloom': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_16.png', points: 280},
         'bronzong': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY21.png', points: 330},
+        'chesnaught': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW40.png', points: 570},
+        'crobat': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW51.png', points: 430},
         'donphan': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_17.png', points: 460},
         'emboar': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW21.png', points: 530},
+        'flygon': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW53.png', points: 500},
         'swalot': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_38.png', points: 460},
         'torchic': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/EX7/EX7_EN_108.png', points: 300},
+        'xerneas': {card: 'ttp://assets24.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY07.png', points: 880},
+        'yveltal': {card: 'http://assets25.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY08.png', points: 790},
         'zoroark': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW09.png', points: 300}
     },
 
