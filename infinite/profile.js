@@ -24,6 +24,7 @@ function Profile(isOnline, user, image) {
    this.user = user || null;
    this.image = image;
 
+   this.username = this.isOnline ? this.user.name : this.user;
    this.url = Config.avatarurl || '';
 }
 
@@ -111,7 +112,7 @@ Profile.prototype.avatar = function() {
         return img('http://play.pokemonshowdown.com/sprites/trainers/' + this.image + '.png');
     }
     for (var name in Config.customAvatars) {
-        if (this.user === name) {
+        if (this.username === name) {
             return img(this.url + '/avatars/' + Config.customAvatars[name]);
         }
     }
@@ -123,7 +124,7 @@ Profile.prototype.group = function() {
     if (this.isOnline && this.user.group === ' ') return label('Group') + 'Regular User';
     if (this.isOnline) return label('Group') + Config.groups[this.user.group].name;
     for (var name in Users.usergroups) {
-        if (toId(this.user) === name) {
+        if (toId(this.username) === name) {
             return label('Group') + Config.groups[Users.usergroups[name].charAt(0)].name;
         }
     }
@@ -135,8 +136,7 @@ Profile.prototype.money = function(amount) {
 };
 
 Profile.prototype.name = function() {
-    if (this.isOnline) return label('Name') + bold(font(color(toId(this.user.name)), this.user.name));
-    return label('Name') + bold(font(color(this.user), this.user));
+    return label('Name') + bold(font(color(toId(this.username)), this.username));
 };
 
 Profile.prototype.seen = function(timeAgo) {
@@ -146,8 +146,7 @@ Profile.prototype.seen = function(timeAgo) {
 };
 
 Profile.prototype.show = function(callback) {
-    var user = this.isOnline ? this.user.name : this.user; 
-    Q.all([Economy.get(user), seen(user)])
+    Q.all([Economy.get(this.username), seen(this.username)])
      .spread(function(amount, lastSeen) {
         callback(this.avatar() +
             SPACE + this.name() + BR +
