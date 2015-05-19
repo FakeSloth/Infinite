@@ -35,7 +35,7 @@ exports.commands = {
 				if (!user.can('broadcast', null, room)) return this.sendReply("/hangman create - Access denied.");
 				if (!room.hangmanEnabled) return this.sendReply("Hangman is disabled in this room.");
 				if (!targetSplit || !targetSplit[2]) return this.sendReply("Usage: /hangman [create], [word], [topic]");
-				var word = targetSplit[1];
+				var word = targetSplit[1].toLowerCase();
 				word = word.replace(/[^a-z]+/g, '');
 				if (word.length > 10) return this.sendReply("Words may not be longer than 10 characters.");
 				targetSplit.splice(0, 2);
