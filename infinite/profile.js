@@ -93,7 +93,7 @@ function label(text) {
 }
 
 /**
- * Q Wrapper for getting when a user was last seen in the
+ * Q Wrapper for getting a user when they were last seen in the
  * MongoDB database.
  *
  * @param {String} name
