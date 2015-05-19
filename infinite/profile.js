@@ -82,7 +82,7 @@ function img(link) {
  *
  * Example:
  * label('Name');
- * => '<b><font color="#24678d">Name:</font></b>'
+ * => '<b><font color="#24678d">Name:</font></b> '
  *
  * @param {String} text
  * @return {String}
