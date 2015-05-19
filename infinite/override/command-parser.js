@@ -345,7 +345,7 @@ var parse = CommandParser.parse = function (message, room, user, connection, lev
     message = message.replace(/\*\*([^< ](?:[^<]*?[^< ])?)\*\*/g, '<b>$1</b>');
 
     var group = user.getIdentity().charAt(0);
-    if (room.auth) group = room.auth[user.userid] || user.getIdentity().charAt(0);
+    if (room.auth) group = room.auth[user.userid] || group;
 
     room.addRaw(
         '<div class="chat"><small>' + group + '</small>' +
