@@ -150,7 +150,7 @@ module.exports = {
         if (!targetUser) {
             profile = new Profile(false, target);
         } else {
-            profile = new Profile(true, user, user.avatar);
+            profile = new Profile(true, targetUser, targetUser.avatar);
         }
         profile.show(function(display) {
             this.sendReplyBox(display);
