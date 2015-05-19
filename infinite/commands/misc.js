@@ -5,6 +5,7 @@
 var moment = require('moment');
 var color = require('../color');
 var Economy = require('../economy');
+var Profile = require('../profile');
 var User = require('../mongo').userModel;
 
 var emotes = require('../emoticons').emotes;
@@ -143,7 +144,15 @@ module.exports = {
 
     profile: function(target, room, user) {
         if (!this.canBroadcast()) return;
-        this.sendReply('|raw|Use <b>/wallet</b> instead. For more commands use <b>/cmds<b>.');
+        if (target.length >= 19) return this.sendReply('Usernames are required to be less than 19 characters long.');
+        var targetUser = this.targetUserOrSelf(target);
+        var profile;
+        if (!targetUser) {
+            profile = new Profile(false, target);
+        } else {
+            profile = new Profile(true, user, user.avatar);
+        }
+        this.sendReplyBox(profile.display());
     },
 
     redirekt: 'redir',
