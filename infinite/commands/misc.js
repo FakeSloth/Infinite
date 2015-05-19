@@ -152,7 +152,10 @@ module.exports = {
         } else {
             profile = new Profile(true, user, user.avatar);
         }
-        this.sendReplyBox(profile.display());
+        profile.show(function(display) {
+            this.sendReplyBox(display);
+            room.update();
+        }.bind(this));
     },
 
     redirekt: 'redir',

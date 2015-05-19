@@ -1,4 +1,8 @@
+var Economy = require('./economy');
+var Q = require('q');
+var User = require('./mongo').userModel;
 var color = require('./color');
+var moment = require('moment');
 
 module.exports = Profile;
 
@@ -20,7 +24,7 @@ function Profile(isOnline, user, image) {
    this.user = user || null;
    this.image = image;
 
-   this.url = '';
+   this.url = Config.avatarurl || '';
 }
 
 /**
@@ -83,6 +87,24 @@ function label(text) {
     return bold(font(profileColor, text + ':')) + SPACE;
 }
 
+/**
+ * Q Wrapper for getting when a user was last seen in the
+ * MongoDB database.
+ *
+ * @param {String} name
+ * @return {Promise}
+ */
+
+function seen(name) {
+    var deferred = Q.defer();
+    User.findOne({name: toId(name)}, function(err, user) {
+        if (err) return deferred.reject(new Error(err));
+        if (!user || !user.seen) return deferred.resolve(false);
+        return deferred.resolve(moment(user.seen).fromNow());
+    });
+    return deferred.promise;
+}
+
 Profile.prototype.avatar = function() {
     if (this.isOnline) {
         if (typeof this.image === 'string') return img(this.url + '/avatars/' + this.image);
@@ -100,22 +122,40 @@ Profile.prototype.avatar = function() {
 Profile.prototype.group = function() {
     if (this.isOnline && this.user.group === ' ') return label('Group') + 'Regular User';
     if (this.isOnline) return label('Group') + Config.groups[this.user.group].name;
-    for (var user in Users.usergroups) {
-        if (this.user === Users.usergroups[name]) {
+    for (var name in Users.usergroups) {
+        if (toId(this.user) === name) {
             return label('Group') + Config.groups[Users.usergroups[name].charAt(0)].name;
         }
     }
     return label('Group') + 'Regular User';
 };
 
-Profile.prototype.name = function() {
-    if (this.isOnline) return label('Name') + font(color(toId(this.user.name)), this.user.name);
-    return label('Name') + font(color(this.user), this.user);
+Profile.prototype.money = function(amount) {
+    return label('Money') + amount + Economy.currency(amount);
 };
 
-Profile.prototype.display = function() {
-    return this.avatar() +
-        SPACE + this.name() + BR +
-        SPACE + this.group() +
-        '<br clear="all">';
+Profile.prototype.name = function() {
+    if (this.isOnline) return label('Name') + bold(font(color(toId(this.user.name)), this.user.name));
+    return label('Name') + bold(font(color(this.user), this.user));
+};
+
+Profile.prototype.seen = function(timeAgo) {
+    if (this.isOnline) return label('Last Seen') + font('#2ECC40', 'Currently Online');
+    if (!timeAgo) return label('Last Seen') + 'Never';
+    return label('Last Seen') + timeAgo;
+};
+
+Profile.prototype.show = function(callback) {
+    var user = this.isOnline ? this.user.name : this.user; 
+    Q.all([Economy.get(user), seen(user)])
+     .spread(function(amount, lastSeen) {
+        callback(this.avatar() +
+            SPACE + this.name() + BR +
+            SPACE + this.group() + BR +
+            SPACE + this.money(amount) + BR +
+            SPACE + this.seen(lastSeen) +
+            '<br clear="all">');
+     }.bind(this), function(err) {
+        if (err) throw new Error(err);
+     }).done();
 };
