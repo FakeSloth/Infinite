@@ -48,7 +48,7 @@ module.exports = {
 
         Economy.give(this.targetUsername, amount).then(function(total) {
             this.sendReply(this.targetUsername + ' was given ' + currency  + '. This user now has ' + total + Economy.currency(total) + '.');
-            Users.get(this.targetUsername).send(user.name + ' has given you ' + currency + '. You now have ' + total + Economy.currency(total) + '.');
+            Users.get(this.targetUsername).connections[0].sendTo(room.id, user.name + ' has given you ' + currency + '. You now have ' + total + Economy.currency(total) + '.');
         }.bind(this));
     },
 
@@ -103,7 +103,7 @@ module.exports = {
             .spread(function(targetTotal, userTotal) {
                 self.sendReply('You have successfully transferred ' + currency + '. You now have ' + userTotal + Economy.currency(userTotal) + '.');
                 if (Users.get(targetName)) {
-                    Users.get(targetName).send(user.name + ' has transferred ' + currency + '. You now have ' + targetTotal + Economy.currency(targetTotal) + '.');
+                    Users.get(targetName).connections[0].sendTo(room.id, user.name + ' has transferred ' + currency + '. You now have ' + targetTotal + Economy.currency(targetTotal) + '.');
                 }
             }, function(err) {
                 if (err) console.error(err);

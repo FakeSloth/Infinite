@@ -163,7 +163,7 @@ module.exports = {
 
         users[userid].push(pack);
         this.sendReply(this.targetUsername + ' was given ' + pack + ' pack. This user now has ' + users[userid].length + ' pack(s).');
-        Users.get(this.targetUsername).send(
+        Users.get(this.targetUsername).connections[0].sendTo(room.id,
             '|raw|' + user.name + ' has given you ' + pack + ' pack. You have until the server restarts to open your pack. \
             Use <button name="send" value="/openpack ' + pack + '"><b>/openpack ' + pack + '</b></button> to open your pack.');
     },
