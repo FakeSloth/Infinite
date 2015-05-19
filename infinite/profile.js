@@ -80,6 +80,10 @@ function img(link) {
  * Uses to `profileColor` as a color.
  * Adds a colon at the end of the text and a SPACE at the end of the element.
  *
+ * Example:
+ * label('Name');
+ * => '<b><font color="#24678d">Name:</font></b>'
+ *
  * @param {String} text
  * @return {String}
  */
