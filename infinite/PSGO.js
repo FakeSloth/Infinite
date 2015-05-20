@@ -51,7 +51,7 @@ var cards = {
         'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140},
         'throh': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_51.png', points: 240},
         'treecko': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_76.png', points: 70},
-        'uraring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
+        'ursaring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
     },
 
     uncommon: {
