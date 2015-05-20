@@ -111,7 +111,6 @@ var cards = {
         'keldeo': {card: 'http://i.imgur.com/YTHzk1E.png', points: 710},
         'missingno': {card: 'http://i.imgur.com/ejCRbjw.png', points: 880},
         'regigigas': {card: 'http://i.imgur.com/drm4I3G.png', points: 940},
-        'scizor': {card: 'http://i.imgur.com/sazPXVi.gif', points: 650},
         'shadow lugia': {card: 'http://i.imgur.com/mbeqK6p.jpg', points: 2200},
         'typhlosion': {card: 'http://i.imgur.com/v8VlXGN.png', points: 730},
         'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680},

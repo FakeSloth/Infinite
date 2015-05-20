@@ -164,7 +164,6 @@ module.exports = {
     reload: function (target, room, user) {
         if (!this.can('reload')) return this.sendReply('/reload - Access denied.');
 
-        this.sendReply('hi');
         try {
             this.sendReply('Reloading Commands...');
             var cmds = path.join(process.cwd(), './infinite/commands/');
