@@ -9,7 +9,7 @@ var hangedMan =
 "___|___&nbsp;<br/>";
 
 exports.commands = {
-	hm: 'hangman',
+	hang: 'hangman',
 	hangman: function (target, room, user) {
 		if (!this.canTalk()) return this.sendReply("You are unable to talk in this room.");
 		if (!target) target = 'view';
@@ -22,7 +22,7 @@ exports.commands = {
 				if (!this.canBroadcast()) return false;
 				this.sendReplyBox(
 					"<b>Hangman commands:</b> <br />" +
-					"- /hm command - Short alias for /hangman.<br />" +
+					"- /hang command - Short alias for /hangman.<br />" +
 					"- /hangman new/create/start, [word], [topic] - Creates a game of hangman.<br />" +
 					"- /hangman view - Shows the current state of the hangman game.<br />" +
 					"- /hangman topic/changetopic, [newtopic] - Changes the topic of the hangman game.<br />" +
