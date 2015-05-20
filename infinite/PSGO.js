@@ -97,7 +97,7 @@ var cards = {
         'swalot': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_38.png', points: 460},
         'torchic': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/EX7/EX7_EN_108.png', points: 300},
         'typhlosion': {card: 'http://i.imgur.com/dXFsYrh.png?1', points: 750},
-        'xerneas': {card: 'ttp://assets24.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY07.png', points: 880},
+        'xerneas': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY07.png', points: 880},
         'yveltal': {card: 'http://assets25.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY08.png', points: 790},
         'zoroark': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW09.png', points: 300}
     },
