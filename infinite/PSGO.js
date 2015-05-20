@@ -51,7 +51,7 @@ var cards = {
         'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140},
         'throh': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_51.png', points: 240},
         'treecko': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_76.png', points: 70},
-        'uraring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
+        'ursaring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
     },
 
     uncommon: {
@@ -85,7 +85,7 @@ var cards = {
     rare: {
         'breloom': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_16.png', points: 280},
         'bronzong': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY21.png', points: 330},
-        'chesnaught': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW40.png', points: 570},
+        'chesnaught': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY0/XY0_EN_5.png', points: 570},
         'crobat': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW51.png', points: 430},
         'dark rayquaza': {card: 'http://i.imgur.com/56pgqNW.png?1', points: 570},
         'donphan': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_17.png', points: 460},
@@ -129,7 +129,7 @@ var cards = {
         'lysandre': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_104.png', points: 2000},
         'manectric': {card: 'http://assets12.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_113.png', points: 990},
         'mega charizard x': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_69.png', points: 1450},
-        'mega charizard y': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_100.png', points: 1450},
+        'mega charizard y': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_13.png', points: 1450},
         'mega blastoise': {card: 'http://assets6.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_30.png', points: 1280},
         'mega heracross': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_5.png', points: 1280},
         'mega kangaskhan': {card: 'http://assets13.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_109.png', points: 1430},
