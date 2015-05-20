@@ -1,4 +1,3 @@
-// jscs:disable
 var hangedMan =
 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_______&nbsp;<br />" +
 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|<br/>" +
@@ -61,8 +60,8 @@ exports.commands = {
 				room.add(
 					"|raw|<div class =\"infobox\"><div class=\"broadcast-green\"><center><font size=2><b>" + Tools.escapeHTML(user.name) +
 					"</b> started a game of hangman! The word has <b>" + word.length + "</b> letters.<br />" + room.hangman.guessWord.join(" ") +
-					"<br />Topic: " + Tools.escapeHTML(room.hangman.topic) + "</font><br>\
-					Use <b>/g <i>letter</i></b> to guess a letter and <b>/gw <i>word</i></b> to guess a word</div></div>"
+					"<br />Topic: " + Tools.escapeHTML(room.hangman.topic) + "</font><br>" +
+					"Use <b>/g <i>letter</i></b> to guess a letter and <b>/gw <i>word</i></b> to guess a word</div></div>"
 				);
 				room.update();
 				break;
@@ -128,8 +127,8 @@ exports.commands = {
 				if (room.hangman.guesses < 1) {
 					room.add(
 						"|raw|<div class=\"infobox\"><b>" + Tools.escapeHTML(user.name) + "</b> guessed the letter '" + letter + "', but it was not in the word.<br />" +
-						"You have failed to guess the word, so the man has been hanged.<br />\
-						The word was '" + room.hangman.word + "'.<br />" + hangedMan + "</div>"
+						"You have failed to guess the word, so the man has been hanged.<br />" +
+						"The word was '" + room.hangman.word + "'.<br />" + hangedMan + "</div>"
 					);
 					room.update();
 					delete room.hangman;
@@ -197,11 +196,11 @@ exports.commands = {
 		}
 	},
 
-	g: function(target, room, user) {
+	g: function (target, room, user) {
 		this.parse('/hangman guess,' + target);
 	},
 
-	gw: function(target, room, user) {
+	gw: function (target, room, user) {
 		this.parse('/hangman guessword,' + target);
 	}
 };
