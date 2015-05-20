@@ -69,7 +69,7 @@ module.exports = {
             <b>/define</b> <i>word</i> - Shows the definition of a word.<br>\
             <b>/emotes</b> - Get a list of emoticons.<br>\
             <b>/hangman</b> help - Help on hangman specific commands.<br><br>\
-            Use /serverhelp <i>number</i> to see more commands.\
+            Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '2') {
@@ -79,25 +79,26 @@ module.exports = {
             <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
             <b>/packshop</b> - Displays the shop for packs.<br>\
             <b>/poof</b> - Disconnects the user and leaves a message in the room.<br>\
+            <b>/profile</b> - Shows information regarding user\'s name, group, money, and when they were last seen.<br>\
             <b>/psgohelp</b> - Displays help for the card game <u>PSGO</u>.<br>\
             <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
-            <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
             <b>/richestusers</b> - Show the richest users.<br><br>\
-            Use /serverhelp <i>number</i> to see more commands.\
+            Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '3') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (3/3):</u></b></center><br>\
+            <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\
             <b>/urbandefine</b> <i>word</i> - Shows the urban definition of the word.<br>\
             <b>/wallet</b> <i>user</i> - Displays how much money a user has. Parameter is optional.<br><br>\
-            Use /serverhelp <i>number</i> to see more commands.\
+            Use /cmds <i>number</i> to see more commands.\
             ');
         }
     },
