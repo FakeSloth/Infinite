@@ -85,7 +85,7 @@ var cards = {
     rare: {
         'breloom': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_16.png', points: 280},
         'bronzong': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY21.png', points: 330},
-        'chesnaught': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW40.png', points: 570},
+        'chesnaught': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY0/XY0_EN_5.png', points: 570},
         'crobat': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW51.png', points: 430},
         'dark rayquaza': {card: 'http://i.imgur.com/56pgqNW.png?1', points: 570},
         'donphan': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_17.png', points: 460},
