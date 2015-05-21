@@ -389,7 +389,12 @@ module.exports = {
                         user.markModified('cards');
                         user.save();
                     });
-                    room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b></button>');
+                    // avoid spam in lobby
+                    if (room.id === 'lobby' && price < 15) {
+                        room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b></button>');
+                    } else {
+                        self.sendReply('You are selling this card for ' + price + Economy.currency(price) + '.');
+                    }
                     room.update();
                     cardInstance.cid = cardInstance.id;
                     delete cardInstance.id;
@@ -437,7 +442,12 @@ module.exports = {
                     };
                     // Add card to buyer
                     addCard(user.userid, card);
-                    room.addRaw('<b>' + user.name + '</b> has bought <button name="send" value="/card ' + card.id + ', ' + user.userid + '"<b><font color="' + colors[toTitleCase(card.rarity)] + '">' + toTitleCase(card.rarity) + '</font> ' + toTitleCase(card.name) + '</b></button> for <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b>.');
+                    // avoid spam in lobby
+                    if (room.id === 'lobby' && item.price < 25) {
+                        room.addRaw('<b>' + user.name + '</b> has bought <button name="send" value="/card ' + card.id + ', ' + user.userid + '"<b><font color="' + colors[toTitleCase(card.rarity)] + '">' + toTitleCase(card.rarity) + '</font> ' + toTitleCase(card.name) + '</b></button> for <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b>.');
+                    } else {
+                        self.sendReply('You bought this card successfully.');
+                    }
                     room.update();
                 });
         });
