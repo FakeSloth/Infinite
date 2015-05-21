@@ -69,7 +69,7 @@ module.exports = {
             <b>/customsymbol</b> <i>symbol</i> - Get a custom symbol.<br>\
             <b>/define</b> <i>word</i> - Shows the definition of a word.<br>\
             <b>/emotes</b> - Get a list of emoticons.<br>\
-            Use /cmds <i>number</i> to see more commands.\
+            <br>Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '2') {
@@ -86,22 +86,22 @@ module.exports = {
             <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
-            Use /cmds <i>number</i> to see more commands.\
+            <br>Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '3') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (3/3):</u></b></center><br>\
-            <b>/richestusers</b> - Show the richest users.<br><br>\
+            <b>/richestusers</b> - Show the richest users.<br>\
             <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
-            <b>/sell</b> <i>id</i> - Sells a card in the marketplace.<br>\
+            <b>/sell</b> <i>id</i> - Sells a card in the marketplace. Hover over your card to get the id.<br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br>\
             <b>/transfer</b> <i>user</i>, <i>amount</i> - Transfer a certain amount of money to a user.<br>\
             <b>/urbandefine</b> <i>word</i> - Shows the urban definition of the word.<br>\
-            <b>/wallet</b> <i>user</i> - Displays how much money a user has. Parameter is optional.<br><br>\
-            Use /cmds <i>number</i> to see more commands.\
+            <b>/wallet</b> <i>user</i> - Displays how much money a user has. Parameter is optional.<br>\
+            <br>Use /cmds <i>number</i> to see more commands.\
             ');
         }
     },

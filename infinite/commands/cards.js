@@ -346,14 +346,14 @@ module.exports = {
         var index = target.indexOf(',');
 
         if (!target || index < 0) {
-            return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Alias: /sellcard');
+            return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Hover over your card to get the id. Alias: /sellcard');
         }
 
         var parts = target.split(',');
         var id = parts[0];
         var price = Number(parts[1].trim());
 
-        if (!parts[1].trim()) return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Alias: /sellcard');
+        if (!parts[1].trim()) return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Hover over your card to get the id. Alias: /sellcard');
         if (isNaN(parts[1])) return this.sendReply('Must be a number.');
         if (String(parts[1]).indexOf('.') >= 0) return this.sendReply('Cannot contain a decimal.');
         if (price < 1) return this.sendReply('You can\'t sell less than one' + Economy.currency(price));
