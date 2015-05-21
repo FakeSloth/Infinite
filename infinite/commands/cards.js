@@ -341,6 +341,7 @@ module.exports = {
     },
 
     sell: 'sellcard',
+    sellitem: 'sellcard',
     sellcard: function(target, room, user) {
         var index = target.indexOf(',');
 
@@ -378,7 +379,17 @@ module.exports = {
                         this.sendReply('You do not have this card to sell.');
                         return room.update();
                     }
-                    room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b>.</button>');
+                    // remove card
+                    User.findOne({name: user.userid}, function(err, user) {
+                        if (err) throw err;
+                        var cards = user.cards.map(function(card) {
+                            return card.id;
+                        });
+                        user.cards.splice(cards.indexOf(id), 1);
+                        user.markModified('cards');
+                        user.save();
+                    });
+                    room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b></button>');
                     room.update();
                     cardInstance.cid = cardInstance.id;
                     delete cardInstance.id;
@@ -388,6 +399,48 @@ module.exports = {
                     newItem.save();
                 }.bind(this));
         }.bind(this));
+    },
+
+    buycard: 'buyitem',
+    buyitem: function(target, room, user) {
+        if (!target) return this.sendReply('/buycard [id] - Buy a card from the marketplace.');
+        var self = this;
+        MarketPlace.findOne({cid: target}, function(err, item) {
+            if (err) throw err;
+            if (!item) {
+                self.sendReply('This card is not listed on the marketplace.');
+                return room.update();
+            }
+            if (toId(item.owner) === user.userid) {
+                self.sendReply('You cannot buy from yourself.');
+                return room.update();
+            }
+            Economy.get(user.userid)
+                .then(function(amount) {
+                    if (amount < item.price) {
+                        self.sendReply('You do not have enough to buy this. You need ' + (item.price - amount) + Economy.currency(item.price - amount) + ' more.');
+                        return room.update();
+                    }
+                    Economy.give(item.owner, item.price);
+                    Economy.take(user.userid, item.price);
+                    // Remove from marketplace
+                    MarketPlace.findOne({cid: target}, function(err, item) {
+                        if (err) throw err;
+                        item.remove();
+                    });
+                    var card = {
+                        id: item.cid,
+                        card: item.card,
+                        name: item.name,
+                        rarity: item.rarity,
+                        points: item.points
+                    };
+                    // Add card to buyer
+                    addCard(user.userid, card);
+                    room.addRaw('<b>' + user.name + '</b> has bought <button name="send" value="/card ' + card.id + ', ' + user.userid + '"<b><font color="' + colors[toTitleCase(card.rarity)] + '">' + toTitleCase(card.rarity) + '</font> ' + toTitleCase(card.name) + '</b></button> for <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b>.');
+                    room.update();
+                });
+        });
     },
 
     psgo: 'psgohelp',
@@ -445,7 +498,7 @@ module.exports = {
  * Make a display for a card.
  *
  * @param {Object} card
- * @param {String} reference - user referred to get to set author
+ * @param {String} reference - user referred to get to set owner
  * @return {String}
  */
 
