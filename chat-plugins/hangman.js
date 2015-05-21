@@ -9,6 +9,7 @@ var hangedMan =
 "___|___&nbsp;<br/>";
 
 exports.commands = {
+	hm: 'hangman',
 	hangman: function (target, room, user) {
 		if (!this.canTalk()) return this.sendReply("You are unable to talk in this room.");
 		if (!target) target = 'view';
@@ -21,21 +22,23 @@ exports.commands = {
 				if (!this.canBroadcast()) return false;
 				this.sendReplyBox(
 					"<b>Hangman commands:</b> <br />" +
-					"- /hangman create/start, [word], [topic] - Creates a game of hangman.<br />" +
+					"- /hm command - Short alias for /hangman.<br />" +
+					"- /hangman new/create/start, [word], [topic] - Creates a game of hangman.<br />" +
 					"- /hangman view - Shows the current state of the hangman game.<br />" +
 					"- /hangman topic/changetopic, [newtopic] - Changes the topic of the hangman game.<br />" +
 					"- /hangman word - View the current word.<br />" +
-					"- /hangman guess, [letter] - Guess a letter.<br />" +
-					"- /hangman guessword, [word] - Guess the word.<br />" +
+					"- /hangman guess, [letter] - Guess a letter. Alias: /g<br />" +
+					"- /hangman guessword, [word] - Guess the word. Alias: /gw<br />" +
 					"- /hangman enable/disable - Enables/disables hangman in the current room."
 				);
 				break;
+			case 'new':
 			case 'start':
 			case 'create':
 				if (!user.can('broadcast', null, room)) return this.sendReply("/hangman create - Access denied.");
 				if (!room.hangmanEnabled) return this.sendReply("Hangman is disabled in this room.");
 				if (!targetSplit || !targetSplit[2]) return this.sendReply("Usage: /hangman [create], [word], [topic]");
-				var word = targetSplit[1];
+				var word = toId(targetSplit[1]);
 				word = word.replace(/[^a-z]+/g, '');
 				if (word.length > 10) return this.sendReply("Words may not be longer than 10 characters.");
 				targetSplit.splice(0, 2);
@@ -57,7 +60,8 @@ exports.commands = {
 				room.add(
 					"|raw|<div class =\"infobox\"><div class=\"broadcast-green\"><center><font size=2><b>" + Tools.escapeHTML(user.name) +
 					"</b> started a game of hangman! The word has <b>" + word.length + "</b> letters.<br />" + room.hangman.guessWord.join(" ") +
-					"<br />Topic: " + Tools.escapeHTML(room.hangman.topic) + "</font></center></div></div>"
+					"<br />Topic: " + Tools.escapeHTML(room.hangman.topic) + "</font><br>" +
+					"Use <b>/g <i>letter</i></b> to guess a letter and <b>/gw <i>word</i></b> to guess a word</div></div>"
 				);
 				room.update();
 				break;
@@ -123,7 +127,8 @@ exports.commands = {
 				if (room.hangman.guesses < 1) {
 					room.add(
 						"|raw|<div class=\"infobox\"><b>" + Tools.escapeHTML(user.name) + "</b> guessed the letter '" + letter + "', but it was not in the word.<br />" +
-						"You have failed to guess the word, so the man has been hanged.<br />" + hangedMan + "</div>"
+						"You have failed to guess the word, so the man has been hanged.<br />" +
+						"The word was '" + room.hangman.word + "'.<br />" + hangedMan + "</div>"
 					);
 					room.update();
 					delete room.hangman;
@@ -189,5 +194,13 @@ exports.commands = {
 				delete room.hangman;
 				break;
 		}
+	},
+
+	g: function (target, room, user) {
+		this.parse('/hangman guess,' + target);
+	},
+
+	gw: function (target, room, user) {
+		this.parse('/hangman guessword,' + target);
 	}
 };

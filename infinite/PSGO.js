@@ -29,6 +29,7 @@ var cards = {
         'aron': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_49.png', points: 65},
         'carvanha': {card: 'http://assets19.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_51.png', points: 50},
         'chansey': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_96.png', points: 200},
+        'charizard': {card: 'http://i.imgur.com/fYDsPia.png?1', points: 250},
         'druddigon': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_70.png', points: 200},
         'electrike': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_52.png', points: 60},
         'eevee': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BW5/BW5_EN_83.png', points: 80},
@@ -50,7 +51,7 @@ var cards = {
         'swalot': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/EX9/EX9_EN_40.png', points: 140},
         'throh': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/BW10/BW10_EN_51.png', points: 240},
         'treecko': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_76.png', points: 70},
-        'uraring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
+        'ursaring': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW11/BW11_EN_RC16.png', points: 280}
     },
 
     uncommon: {
@@ -84,22 +85,36 @@ var cards = {
     rare: {
         'breloom': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_16.png', points: 280},
         'bronzong': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY21.png', points: 330},
-        'chesnaught': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW40.png', points: 570},
+        'chesnaught': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY0/XY0_EN_5.png', points: 570},
         'crobat': {card: 'http://assets1.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW51.png', points: 430},
+        'dark rayquaza': {card: 'http://i.imgur.com/56pgqNW.png?1', points: 570},
         'donphan': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/EX1/EX1_EN_17.png', points: 460},
+        'edward elric': {card: 'http://i.imgur.com/ihUCQAV.png?2', points: 350},
         'emboar': {card: 'http://assets23.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW21.png', points: 530},
         'flygon': {card: 'http://assets3.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW53.png', points: 500},
+        'mew': {card: 'http://i.imgur.com/mdkENVn.jpg?2', points: 100},
+        'raichu': {card: 'http://i.imgur.com/rYu8Rs6.png?2', points: 320},
         'swalot': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_38.png', points: 460},
         'torchic': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/EX7/EX7_EN_108.png', points: 300},
-        'xerneas': {card: 'ttp://assets24.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY07.png', points: 880},
+        'typhlosion': {card: 'http://i.imgur.com/dXFsYrh.png?1', points: 750},
+        'xerneas': {card: 'http://assets24.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY07.png', points: 880},
         'yveltal': {card: 'http://assets25.pokemon.com/assets/cms2/img/cards/web/XYP/XYP_EN_XY08.png', points: 790},
         'zoroark': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW09.png', points: 300}
     },
 
     epic: {
+        'arceus': {card: 'http://i.imgur.com/kEI7oqy.png?1', points: 680},
         'black kyurem': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW58.png', points: 660},
         'dragonite': {card: 'http://assets18.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_74.png', points: 840},
-        'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680}
+        'genesect': {card: 'http://i.imgur.com/bxXGKBz.png?1', points: 740},
+        'honchkrow': {card: 'http://i.imgur.com/up7u00z.png?1', points: 700},
+        'keldeo': {card: 'http://i.imgur.com/YTHzk1E.png?1', points: 710},
+        'missingno': {card: 'http://i.imgur.com/ejCRbjw.png?1', points: 880},
+        'regigigas': {card: 'http://i.imgur.com/drm4I3G.png?1', points: 940},
+        'shadow lugia': {card: 'http://i.imgur.com/mbeqK6p.jpg?2', points: 2200},
+        'typhlosion': {card: 'http://i.imgur.com/v8VlXGN.png?1', points: 730},
+        'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680},
+        'zekrom': {card: 'http://i.imgur.com/HZZD8y5.png?1', points: 860}
     },
     
     legendary: {
@@ -114,13 +129,15 @@ var cards = {
         'lysandre': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_104.png', points: 2000},
         'manectric': {card: 'http://assets12.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_113.png', points: 990},
         'mega charizard x': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_69.png', points: 1450},
-        'mega charizard y': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_100.png', points: 1450},
+        'mega charizard y': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_13.png', points: 1450},
         'mega blastoise': {card: 'http://assets6.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_30.png', points: 1280},
         'mega heracross': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_5.png', points: 1280},
         'mega kangaskhan': {card: 'http://assets13.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_109.png', points: 1430},
         'mega manectric': {card: 'http://assets15.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_24.png', points: 1160},
+        'mega milotic': {card: 'http://i.imgur.com/kSGiGGB.png?1', points: 1280},
         'mega rayquaza': {card: 'http://assets20.pokemon.com/assets/cms2/img/cards/web/XY6/XY6_EN_61.png', points: 1450},
         'mega venusaur': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_2.png', points: 1270},
+        'mega zekrom': {card: 'http://i.imgur.com/QLZ7f47.jpg?1', points: 1450},
         'n': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW3/BW3_EN_101.png', points: 1700},
         'venusaur': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_141.png', points: 1060},
         'wailord': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_38.png', points: 1370}
