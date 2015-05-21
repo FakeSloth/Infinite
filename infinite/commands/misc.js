@@ -62,19 +62,21 @@ module.exports = {
             <b>/away</b> - Set yourself away.<br>\
             <b>/back</b> - Set yourself back from away.<br>\
             <b>/buy</b> <i>command</i> - Buys an item from the shop.<br>\
+            <b>/buycard</b> <i>id</i> - Buys a card from the marketplace.<br>\
             <b>/buypack</b> <i>pack</i> - Buys a pack from the pack shop.<br>\
             <b>/card</b> <i>card id</i>, <i>user (optional)</i> - Show a card.<br>\
             <b>/cardladder</b> - Displays the ladder for the top users with the best cards.<br>\
             <b>/customsymbol</b> <i>symbol</i> - Get a custom symbol.<br>\
             <b>/define</b> <i>word</i> - Shows the definition of a word.<br>\
             <b>/emotes</b> - Get a list of emoticons.<br>\
-            <b>/hangman</b> help - Help on hangman specific commands.<br><br>\
             Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '2') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (2/3):</u></b></center><br>\
+            <b>/hangman</b> help - Help on hangman specific commands.<br><br>\
+            <b>/marketplace</b> - Displays all listings of users selling cards.<br>\
             <b>/openpack</b> <i>pack</i> - Open a Pokemon Card Pack.<br>\
             <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
             <b>/packshop</b> - Displays the shop for packs.<br>\
@@ -84,14 +86,15 @@ module.exports = {
             <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
             <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
-            <b>/richestusers</b> - Show the richest users.<br><br>\
             Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '3') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (3/3):</u></b></center><br>\
+            <b>/richestusers</b> - Show the richest users.<br><br>\
             <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
+            <b>/sell</b> <i>id</i> - Sells a card in the marketplace.<br>\
             <b>/shop</b> - Displays the server\'s main shop.<br>\
             <b>/stafflist</b> - Shows the staff.<br>\
             <b>/tell</b> <i>username</i>, <i>message</i> - Send a message to an offline user that will be received when they log in.<br>\

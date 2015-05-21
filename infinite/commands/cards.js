@@ -503,8 +503,7 @@ module.exports = {
             PSGO is Trading Card Game based off of CS:GO opening cases. \
             Currently, the main objective of the game is to get the best cards. \
             The top 10 users every month who has the best cards in the <i>/cardladder</i> will \
-            win bucks. In future updates, there will be a metagame where you can use your cards to battle \
-            and a marketplace for users to sell and buy cards. \
+            win bucks. In future updates, there will be a metagame where you can use your cards to battle. \
             For more information about PSGO:<br><br>\
             /psgohelp rank - Tells you about how much the top 10 users get each month.\
             /psgohelp points - Information about what are points and how they are calculated.\
