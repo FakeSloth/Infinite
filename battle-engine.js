@@ -11,6 +11,7 @@
  */
 
 require('sugar');
+if (!global.Map) require('es6-shim');
 
 global.Config = require('./config/config.js');
 
@@ -2749,7 +2750,7 @@ Battle = (function () {
 					break;
 				}
 			}
-			if (center) this.add('-message', 'Automatic center!');
+			if (center) this.add('-center');
 		}
 		this.makeRequest('move');
 	};
