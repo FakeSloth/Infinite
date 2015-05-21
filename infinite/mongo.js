@@ -26,6 +26,8 @@ var userSchema = new mongoose.Schema({
 
 var User = exports.userModel = mongoose.model('user', userSchema);
 
+var day = 60 * 60 * 24;
+
 var marketplaceSchema = new mongoose.Schema({
     cid: { type: String, unique: true},
     card: String,
@@ -33,10 +35,11 @@ var marketplaceSchema = new mongoose.Schema({
     rarity: String,
     points: Number,
     owner: String,
-    price: Number
+    price: Number,
+    createdAt: { type: Date, expires: 7 * day, default: Date.now }
 });
 
-export.MarketPlace = mongoose.model('marketplace', marketplaceSchema);
+exports.MarketPlace = mongoose.model('marketplace', marketplaceSchema);
 
 exports.User = {
     /**

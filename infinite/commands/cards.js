@@ -1,5 +1,8 @@
 var Economy = require('../economy');
-var User = require('../mongo').userModel;
+var mongo = require('../mongo');
+var User = mongo.userModel;
+var MarketPlace = mongo.MarketPlace;
+var Item = MarketPlace;
 var PSGO = require('../PSGO');
 var addCard = PSGO.addCard;
 var getCards = PSGO.getCards;
@@ -34,6 +37,8 @@ global.GiveTourPack = function(userid) {
     users[userid].push(randPack);
     return toTitleCase(randPack);
 };
+
+var accent = '#088cc7';
 
 var colors = {
     Legendary: '#FF851B',
@@ -70,6 +75,7 @@ module.exports = {
                     if (card.id === cardReference) {
                         match = true;
                         cardInstance = card;
+                        return;
                     }
                 });
                 if (!match) {
@@ -332,6 +338,56 @@ module.exports = {
             self.sendReply('|raw|' + display);
             room.update();
         });
+    },
+
+    sell: 'sellcard',
+    sellcard: function(target, room, user) {
+        var index = target.indexOf(',');
+
+        if (!target || index < 0) {
+            return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Alias: /sellcard');
+        }
+
+        var parts = target.split(',');
+        var id = parts[0];
+        var price = Number(parts[1].trim());
+
+        if (!parts[1].trim()) return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Alias: /sellcard');
+        if (isNaN(parts[1])) return this.sendReply('Must be a number.');
+        if (String(parts[1]).indexOf('.') >= 0) return this.sendReply('Cannot contain a decimal.');
+        if (price < 1) return this.sendReply('You can\'t sell less than one' + Economy.currency(price));
+
+        MarketPlace.findOne({cid: id}, function(err, item) {
+            if (err) throw err;
+            if (item) return this.sendReply('You are already selling this.');
+            getCards(user.name)
+                .then(function(cards) {
+                    if (!cards || cards.length === 0) {
+                        this.sendReply('You have no cards to sell.');
+                        return room.update();
+                    }
+                    var match = false, cardInstance;
+                    cards.forEach(function(card) {
+                        if (card.id === id) {
+                            match = true;
+                            cardInstance = card;
+                            return;
+                        }
+                    });
+                    if (!match) {
+                        this.sendReply('You do not have this card to sell.');
+                        return room.update();
+                    }
+                    room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b>.</button>');
+                    room.update();
+                    cardInstance.cid = cardInstance.id;
+                    delete cardInstance.id;
+                    cardInstance.owner = user.name;
+                    cardInstance.price = price;
+                    var newItem = new Item(cardInstance);
+                    newItem.save();
+                }.bind(this));
+        }.bind(this));
     },
 
     psgo: 'psgohelp',
