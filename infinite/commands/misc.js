@@ -75,7 +75,7 @@ module.exports = {
         if (target === '2') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (2/3):</u></b></center><br>\
-            <b>/hangman</b> help - Help on hangman specific commands.<br><br>\
+            <b>/hangman</b> help - Help on hangman specific commands.<br>\
             <b>/marketplace</b> - Displays all listings of users selling cards.<br>\
             <b>/openpack</b> <i>pack</i> - Open a Pokemon Card Pack.<br>\
             <b>/packs</b> <i>user</i> - Shows how many packs a user has.<br>\
@@ -85,13 +85,13 @@ module.exports = {
             <b>/psgohelp</b> - Displays help for the card game <u>PSGO</u>.<br>\
             <b>/showcase</b> <i>user</i> - Shows the cards a user has collected<br>\
             <b>/regdate</b> <i>user</i> - Gets registration date of the user.<br>\
-            <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
             <br>Use /cmds <i>number</i> to see more commands.\
             ');
         }
         if (target === '3') {
             return this.sendReplyBox('\
             <center><b><u>List of commands (3/3):</u></b></center><br>\
+            <b>/resetsymbol</b> - Reset custom symbol if you have one.<br>\
             <b>/richestusers</b> - Show the richest users.<br>\
             <b>/seen</b> <i>username</i> - Shows when the user last connected on the server.<br>\
             <b>/sell</b> <i>id</i> - Sells a card in the marketplace. Hover over your card to get the id.<br>\
