@@ -443,6 +443,25 @@ module.exports = {
         });
     },
 
+    listings: 'marketplace',
+    marketplace: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        MarketPlace.find(function(err, items) {
+            if (err) throw err;
+            if (items.length <= 0) {
+                this.sendReply('MarketPlace is empty.');
+                return room.update();
+            }
+            var display = '<center><u><b>MarketPlace</b></u><br><br>';
+            items.forEach(function(item) {
+                display += '<p><button name="send" value="/buyitem ' + item.cid + '">' + item.cid + ' <b><font color="' + colors[toTitleCase(item.rarity)] + '">' + toTitleCase(item.rarity) + '</font> ' + toTitleCase(item.name) + '</b> owned by <b>' + item.owner + '</b> - <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b></button></p>';
+            });
+            display += '<br>Use /buycard <i>id</i> to buy the card.</center>';
+            this.sendReplyBox(display);
+            room.update();
+        }.bind(this));
+    },
+
     psgo: 'psgohelp',
     cardhelp: 'psgohelp',
     psgohelp: function(target, room, user) {
