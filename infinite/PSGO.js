@@ -124,6 +124,7 @@ var cards = {
         'shadow lugia': {card: 'http://i.imgur.com/mbeqK6p.jpg?2', points: 2200},
         'typhlosion': {card: 'http://i.imgur.com/v8VlXGN.png?1', points: 730},
         'white kyurem': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BWP/BWP_EN_BW59.png', points: 680},
+        'victini': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/BW8/BW8_EN_131.png', points: 800},
         'zekrom': {card: 'http://i.imgur.com/HZZD8y5.png?1', points: 860}
     },
     
