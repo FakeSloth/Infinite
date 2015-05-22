@@ -390,7 +390,7 @@ module.exports = {
                         user.save();
                     });
                     // avoid spam in lobby
-                    if (room.id === 'lobby' && price < 15) {
+                    if (room.id === 'lobby' && price < 10) {
                         self.sendReply('You are selling this card for ' + price + Economy.currency(price) + '.');
                     } else {
                         room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b></button>');
@@ -443,7 +443,7 @@ module.exports = {
                     // Add card to buyer
                     addCard(user.userid, card);
                     // avoid spam in lobby
-                    if (room.id === 'lobby' && item.price < 25) {
+                    if (room.id === 'lobby' && item.price < 10) {
                         self.sendReply('You bought this card successfully.');
                     } else {
                         room.addRaw('<b>' + user.name + '</b> has bought <button name="send" value="/card ' + card.id + ', ' + user.userid + '"<b><font color="' + colors[toTitleCase(card.rarity)] + '">' + toTitleCase(card.rarity) + '</font> ' + toTitleCase(card.name) + '</b></button> for <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b>.');
