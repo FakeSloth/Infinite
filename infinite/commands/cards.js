@@ -1,5 +1,8 @@
 var Economy = require('../economy');
-var User = require('../mongo').userModel;
+var mongo = require('../mongo');
+var User = mongo.userModel;
+var MarketPlace = mongo.MarketPlace;
+var Item = MarketPlace;
 var PSGO = require('../PSGO');
 var addCard = PSGO.addCard;
 var getCards = PSGO.getCards;
@@ -34,6 +37,8 @@ global.GiveTourPack = function(userid) {
     users[userid].push(randPack);
     return toTitleCase(randPack);
 };
+
+var accent = '#088cc7';
 
 var colors = {
     Legendary: '#FF851B',
@@ -70,6 +75,7 @@ module.exports = {
                     if (card.id === cardReference) {
                         match = true;
                         cardInstance = card;
+                        return;
                     }
                 });
                 if (!match) {
@@ -334,6 +340,138 @@ module.exports = {
         });
     },
 
+    sell: 'sellcard',
+    sellitem: 'sellcard',
+    sellcard: function(target, room, user) {
+        var index = target.indexOf(',');
+
+        if (!target || index < 0) {
+            return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Hover over your card to get the id. Alias: /sellcard');
+        }
+
+        var parts = target.split(',');
+        var id = parts[0];
+        var price = Number(parts[1].trim());
+
+        if (!parts[1].trim()) return this.sendReply('/sell [id], [price] - Sell card in the marketplace. Hover over your card to get the id. Alias: /sellcard');
+        if (isNaN(parts[1])) return this.sendReply('Must be a number.');
+        if (String(parts[1]).indexOf('.') >= 0) return this.sendReply('Cannot contain a decimal.');
+        if (price < 1) return this.sendReply('You can\'t sell less than one' + Economy.currency(price));
+
+        MarketPlace.findOne({cid: id}, function(err, item) {
+            if (err) throw err;
+            if (item) return this.sendReply('You are already selling this.');
+            getCards(user.name)
+                .then(function(cards) {
+                    if (!cards || cards.length === 0) {
+                        this.sendReply('You have no cards to sell.');
+                        return room.update();
+                    }
+                    var match = false, cardInstance;
+                    cards.forEach(function(card) {
+                        if (card.id === id) {
+                            match = true;
+                            cardInstance = card;
+                            return;
+                        }
+                    });
+                    if (!match) {
+                        this.sendReply('You do not have this card to sell.');
+                        return room.update();
+                    }
+                    // remove card
+                    User.findOne({name: user.userid}, function(err, user) {
+                        if (err) throw err;
+                        var cards = user.cards.map(function(card) {
+                            return card.id;
+                        });
+                        user.cards.splice(cards.indexOf(id), 1);
+                        user.markModified('cards');
+                        user.save();
+                    });
+                    // avoid spam in lobby
+                    if (room.id === 'lobby' && price < 15) {
+                        self.sendReply('You are selling this card for ' + price + Economy.currency(price) + '.');
+                    } else {
+                        room.addRaw('<button name="send" value="/buyitem ' + cardInstance.id + '"><b>' + user.name + '</b> is selling <b><font color="' + colors[toTitleCase(cardInstance.rarity)] + '">' + toTitleCase(cardInstance.rarity) + '</font> ' + toTitleCase(cardInstance.name) + '</b> for <b><font color="' + accent + '">' + price + Economy.currency(price) + '</font><b></button>');
+                    }
+                    room.update();
+                    cardInstance.cid = cardInstance.id;
+                    delete cardInstance.id;
+                    cardInstance.owner = user.name;
+                    cardInstance.price = price;
+                    var newItem = new Item(cardInstance);
+                    newItem.save();
+                }.bind(this));
+        }.bind(this));
+    },
+
+    buycard: 'buyitem',
+    buyitem: function(target, room, user) {
+        if (!target) return this.sendReply('/buycard [id] - Buy a card from the marketplace.');
+        var self = this;
+        MarketPlace.findOne({cid: target}, function(err, item) {
+            if (err) throw err;
+            if (!item) {
+                self.sendReply('This card is not listed on the marketplace.');
+                return room.update();
+            }
+            if (toId(item.owner) === user.userid) {
+                self.sendReply('You cannot buy from yourself.');
+                return room.update();
+            }
+            Economy.get(user.userid)
+                .then(function(amount) {
+                    if (amount < item.price) {
+                        self.sendReply('You do not have enough to buy this. You need ' + (item.price - amount) + Economy.currency(item.price - amount) + ' more.');
+                        return room.update();
+                    }
+                    Economy.give(item.owner, item.price);
+                    Economy.take(user.userid, item.price);
+                    // Remove from marketplace
+                    MarketPlace.findOne({cid: target}, function(err, item) {
+                        if (err) throw err;
+                        item.remove();
+                    });
+                    var card = {
+                        id: item.cid,
+                        card: item.card,
+                        name: item.name,
+                        rarity: item.rarity,
+                        points: item.points
+                    };
+                    // Add card to buyer
+                    addCard(user.userid, card);
+                    // avoid spam in lobby
+                    if (room.id === 'lobby' && item.price < 25) {
+                        self.sendReply('You bought this card successfully.');
+                    } else {
+                        room.addRaw('<b>' + user.name + '</b> has bought <button name="send" value="/card ' + card.id + ', ' + user.userid + '"<b><font color="' + colors[toTitleCase(card.rarity)] + '">' + toTitleCase(card.rarity) + '</font> ' + toTitleCase(card.name) + '</b></button> for <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b>.');
+                    }
+                    room.update();
+                });
+        });
+    },
+
+    listings: 'marketplace',
+    marketplace: function(target, room, user) {
+        if (!this.canBroadcast()) return;
+        MarketPlace.find(function(err, items) {
+            if (err) throw err;
+            if (items.length <= 0) {
+                this.sendReply('MarketPlace is empty.');
+                return room.update();
+            }
+            var display = '<center><u><b>MarketPlace</b></u><br><br>';
+            items.forEach(function(item) {
+                display += '<p><button name="send" value="/buyitem ' + item.cid + '">' + item.cid + ' <b><font color="' + colors[toTitleCase(item.rarity)] + '">' + toTitleCase(item.rarity) + '</font> ' + toTitleCase(item.name) + '</b> owned by <b>' + item.owner + '</b> - <b><font color="' + accent + '">' + item.price + Economy.currency(item.price) + '</font><b></button></p>';
+            });
+            display += '<br>Use /buycard <i>id</i> to buy the card.</center>';
+            this.sendReplyBox(display);
+            room.update();
+        }.bind(this));
+    },
+
     psgo: 'psgohelp',
     cardhelp: 'psgohelp',
     psgohelp: function(target, room, user) {
@@ -375,8 +513,7 @@ module.exports = {
             PSGO is Trading Card Game based off of CS:GO opening cases. \
             Currently, the main objective of the game is to get the best cards. \
             The top 10 users every month who has the best cards in the <i>/cardladder</i> will \
-            win bucks. In future updates, there will be a metagame where you can use your cards to battle \
-            and a marketplace for users to sell and buy cards. \
+            win bucks. In future updates, there will be a metagame where you can use your cards to battle. \
             For more information about PSGO:<br><br>\
             /psgohelp rank - Tells you about how much the top 10 users get each month.\
             /psgohelp points - Information about what are points and how they are calculated.\
@@ -389,7 +526,7 @@ module.exports = {
  * Make a display for a card.
  *
  * @param {Object} card
- * @param {String} reference - user referred to get to set author
+ * @param {String} reference - user referred to get to set owner
  * @return {String}
  */
 

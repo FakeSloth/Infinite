@@ -26,6 +26,18 @@ var userSchema = new mongoose.Schema({
 
 var User = exports.userModel = mongoose.model('user', userSchema);
 
+var marketplaceSchema = new mongoose.Schema({
+    cid: { type: String, unique: true},
+    card: String,
+    name: String,
+    rarity: String,
+    points: Number,
+    owner: String,
+    price: Number,
+});
+
+exports.MarketPlace = mongoose.model('marketplace', marketplaceSchema);
+
 exports.User = {
     /**
      * Promise wrapper for User.findOne.
