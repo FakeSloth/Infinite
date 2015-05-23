@@ -170,16 +170,13 @@ var legendary = generate(cards.legendary, 'Legendary');
 var packs = {
    /**
     * 10 iterations of common cards
-    * 5 uncommon cards
+    * 1 iterations of uncommon cards
     * 3 rare cards
     * 1 epic card
     * 1 legendary card
     */
     poke: function() {
-        var pile = base(common, 10);
-        for (var i = 0; i < 5; i++) {
-            pile.push(uncommon[randIndex(uncommon)]);
-        }
+        var pile = base(common, 10).concat(base(uncommon, 1));
         for (i = 0; i < 3; i++) {
             pile.push(rare[randIndex(rare)]);
         }
@@ -190,19 +187,23 @@ var packs = {
     },
 
    /**
-    * 6 iterations of common cards
+    * 5 iterations of common cards
     * 3 iterations of uncommon cards
     * 5 rare cards
-    * 1 epic card
-    * 1 legendary card
+    * 10 epic cards
+    * 10 legendary cards
     */
     great: function() {
         var pile = base(common, 6).concat(base(uncommon, 3));
         for (i = 0; i < 5; i++) {
             pile.push(rare[randIndex(rare)]);
         }
-        pile.push(epic[randIndex(epic)]);
-        pile.push(legendary[randIndex(legendary)]);
+        for (i = 0; i < 10; i++) {
+            pile.push(epic[randIndex(epic)]);
+        }
+        for (i = 0; i < 10; i++) {
+            pile.push(legendary[randIndex(legendary)]);
+        }
 
         return create(pile);
     },
@@ -210,16 +211,16 @@ var packs = {
    /**
     * 3 iterations of common cards
     * 5 iterations of uncommon cards
-    * 5 iterations of rare cards
+    * 6 iterations of rare cards
     * 2 iterations of epic cards
-    * 3 legendary cards
+    * 5 legendary cards
     */
     ultra: function() {
         var pile = base(common, 3)
                     .concat(base(uncommon, 5))
                     .concat(base(rare, 5))
                     .concat(base(epic, 2));
-        for (i = 0; i < 3; i++) {
+        for (i = 0; i < 5; i++) {
             pile.push(legendary[randIndex(legendary)]);
         }
 
@@ -229,7 +230,7 @@ var packs = {
    /**
     * 1 iterations of common card
     * 1 iterations of uncommon card
-    * 4 iterations of rare cards
+    * 3 iterations of rare cards
     * 5 iterations of epic cards
     * 1 iterations of legendary card
     */
@@ -244,10 +245,9 @@ var packs = {
     },
 
    /**
-    * 1 iterations of uncommon card
-    * 2 iterations of rare cards
+    * 1 iterations of rare cards
     * 3 iterations of epic cards
-    * 4 iterations of legendary cards
+    * 3 iterations of legendary cards
     */
     smogon: function() {
         var pile = base(uncommon, 1)
@@ -260,8 +260,8 @@ var packs = {
 
    /**
     * 1 iterations of rare card
-    * 1 iterations of epic card
-    * 6 iterations of legendary cards
+    * 2 iterations of epic card
+    * 5 iterations of legendary cards
     */
     infinite: function() {
         var pile = base(rare, 1)
