@@ -357,6 +357,7 @@ module.exports = {
         if (isNaN(parts[1])) return this.sendReply('Must be a number.');
         if (String(parts[1]).indexOf('.') >= 0) return this.sendReply('Cannot contain a decimal.');
         if (price < 1) return this.sendReply('You can\'t sell less than one' + Economy.currency(price));
+        if (price > 1000) return this.sendReply('You cannot sell your card for more than 1000' + Economy.currency(price) + '.');
 
         MarketPlace.findOne({cid: id}, function(err, item) {
             if (err) throw err;
