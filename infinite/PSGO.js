@@ -133,7 +133,7 @@ var cards = {
         'az': {card: 'http://assets16.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_117.png', points: 1500},
         'camerupt': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_29.png', points: 1610},
         'charizard': {card: 'http://assets4.pokemon.com/assets/cms2/img/cards/web/XY2/XY2_EN_100.png', points: 1050},
-        'charizard base set': {card: 'http://i.imgur.com/2KBhEEV.png', points: 5000},
+        'charizard base set': {card: 'http://i.imgur.com/2KBhEEV.png', points: 3000},
         'blastoise': {card: 'http://assets8.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_142.png', points: 1050},
         'dragonite': {card: 'http://assets14.pokemon.com/assets/cms2/img/cards/web/XY3/XY3_EN_108.png', points: 1020},
         'gengar': {card: 'http://assets13.pokemon.com/assets/cms2/img/cards/web/XY4/XY4_EN_114.png', points: 940},
@@ -152,6 +152,8 @@ var cards = {
         'mega venusaur': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_2.png', points: 1270},
         'mega zekrom': {card: 'http://i.imgur.com/QLZ7f47.jpg?1', points: 1450},
         'n': {card: 'http://assets9.pokemon.com/assets/cms2/img/cards/web/BW3/BW3_EN_101.png', points: 1700},
+        'primal kyogre': {card: 'http://assets21.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_55.png', points: 2700},
+        'primal groudon': {card: 'http://assets25.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_86.png', points: 2800},
         'venusaur': {card: 'http://assets7.pokemon.com/assets/cms2/img/cards/web/XY1/XY1_EN_141.png', points: 1060},
         'wailord': {card: 'http://assets22.pokemon.com/assets/cms2/img/cards/web/XY5/XY5_EN_38.png', points: 1370}
     }
