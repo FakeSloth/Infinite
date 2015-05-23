@@ -218,7 +218,7 @@ var packs = {
     ultra: function() {
         var pile = base(common, 3)
                     .concat(base(uncommon, 5))
-                    .concat(base(rare, 5))
+                    .concat(base(rare, 6))
                     .concat(base(epic, 2));
         for (i = 0; i < 5; i++) {
             pile.push(legendary[randIndex(legendary)]);
@@ -250,10 +250,9 @@ var packs = {
     * 3 iterations of legendary cards
     */
     smogon: function() {
-        var pile = base(uncommon, 1)
-                    .concat(base(rare, 2))
+        var pile = base(rare, 2)
                     .concat(base(epic, 3))
-                    .concat(base(legendary, 4));
+                    .concat(base(legendary, 3));
 
         return create(pile);
     },
