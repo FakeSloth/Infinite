@@ -442,7 +442,7 @@ fs.readdirSync('./infinite/commands').forEach(function (file) {
 });
 
 if (!String.prototype.includes) {
-  String.prototype.includes = function() {
-    return String.prototype.indexOf.apply(this, arguments) !== -1;
-  };
+    String.prototype.includes = function () {
+        return String.prototype.indexOf.apply(this, arguments) !== -1;
+    };
 }
