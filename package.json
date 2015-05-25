@@ -63,7 +63,7 @@
     "gulp-jscs": "~1.6.0",
     "gulp-jshint": "git://github.com/spalger/gulp-jshint#c18df3a11",
     "gulp-replace": "~0.5.1",
-    "jshint-stylish": "~1.0.0",
+    "jshint-stylish": "~2.0.0",
     "lazypipe": "~0.2.2",
     "load-grunt-tasks": "^3.1.0",
     "merge-stream": "~0.1.7",
