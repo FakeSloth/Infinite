@@ -440,3 +440,9 @@ fs.readdirSync('./infinite/override').forEach(function (file) {
 fs.readdirSync('./infinite/commands').forEach(function (file) {
 	if (file.substr(-3) === '.js') Object.merge(CommandParser.commands, require('./infinite/commands/' + file));
 });
+
+if (!String.prototype.includes) {
+  String.prototype.includes = function() {
+    return String.prototype.indexOf.apply(this, arguments) !== -1;
+  };
+}
