@@ -202,15 +202,15 @@ var packs = {
     },
 
    /**
-    * 5 iterations of common cards
-    * 3 iterations of uncommon cards
-    * 5 rare cards
+    * 4 iterations of common cards
+    * 6 iterations of uncommon cards
+    * 10 rare cards
     * 10 epic cards
     * 10 legendary cards
     */
     great: function() {
-        var pile = base(common, 6).concat(base(uncommon, 3));
-        for (i = 0; i < 5; i++) {
+        var pile = base(common, 4).concat(base(uncommon, 6));
+        for (i = 0; i < 10; i++) {
             pile.push(rare[randIndex(rare)]);
         }
         for (i = 0; i < 10; i++) {
