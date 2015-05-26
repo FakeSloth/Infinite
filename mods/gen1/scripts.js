@@ -33,47 +33,32 @@ exports.BattleScripts = {
 		// Modified stats are declared in BattlePokemon object in battle-engine.js in about line 303.
 		modifyStat: function (stat, modifier) {
 			if (!(stat in this.stats)) return;
-			this.modifiedStats[stat] = this.battle.clampIntRange(Math.floor(this.modifiedStats[stat] * modifier), 1);
+			this.modifiedStats[stat] = this.battle.clampIntRange(Math.floor(this.modifiedStats[stat] * modifier), 1, 999);
 		},
 		// In generation 1, boosting function increases the stored modified stat and checks for opponent's status.
 		boostBy: function (boost) {
 			var changed = false;
 			for (var i in boost) {
-				var delta = boost[i];
-				this.boosts[i] += delta;
+				this.boosts[i] += boost[i];
 				if (this.boosts[i] > 6) {
-					delta -= this.boosts[i] - 6;
 					this.boosts[i] = 6;
 				}
 				if (this.boosts[i] < -6) {
-					delta -= this.boosts[i] - (-6);
 					this.boosts[i] = -6;
 				}
-				if (delta) {
+				if (this.boosts[i]) {
 					changed = true;
 					// Recalculate the modified stat
 					if (this.stats[i]) {
 						var stat = this.template.baseStats[i];
 						stat = Math.floor(Math.floor(2 * stat + this.set.ivs[i] + Math.floor(this.set.evs[i] / 4)) * this.level / 100 + 5);
 						this.modifiedStats[i] = this.stats[i] = Math.floor(stat);
-						if (delta >= 0) {
-							this.modifyStat(i, [1, 1.5, 2, 2.5, 3, 3.5, 4][delta]);
+						if (this.boosts[i] >= 0) {
+							this.modifyStat(i, [1, 1.5, 2, 2.5, 3, 3.5, 4][this.boosts[i]]);
 						} else {
-							this.modifyStat(i, [100, 66, 50, 40, 33, 28, 25][-delta] / 100);
+							this.modifyStat(i, [100, 66, 50, 40, 33, 28, 25][-this.boosts[i]] / 100);
 						}
 					}
-				}
-			}
-
-			// Check the status of the Pokémon whose turn is not.
-			if (this.side.foe.active[0] && this.side.foe.active[0].status) {
-				// If it's paralysed, quarter its speed.
-				if (this.side.foe.active[0].status === 'par') {
-					this.side.foe.active[0].modifyStat('spe', 0.25);
-				}
-				// If it's burned, halve its attack.
-				if (this.side.foe.active[0].status === 'brn') {
-					this.side.foe.active[0].modifyStat('atk', 0.5);
 				}
 			}
 			this.update();
@@ -481,6 +466,21 @@ exports.BattleScripts = {
 			}
 			if (moveData.boosts && !target.fainted) {
 				this.boost(moveData.boosts, target, pokemon, move);
+
+				// Check the status of the Pokémon whose turn is not.
+				// When a move that affects stat levels is used, if the Pokémon whose turn it is not right now is paralyzed or
+				// burned, the correspoding stat penalties will be applied again to that Pokémon.
+				if (pokemon.side.foe.active[0] && pokemon.side.foe.active[0].status) {
+					// If it's paralysed, quarter its speed.
+					if (pokemon.side.foe.active[0].status === 'par') {
+						pokemon.side.foe.active[0].modifyStat('spe', 0.25);
+					}
+					// If it's burned, halve its attack.
+					if (pokemon.side.foe.active[0].status === 'brn') {
+						pokemon.side.foe.active[0].modifyStat('atk', 0.5);
+					}
+					pokemon.side.foe.active[0].update();
+				}
 			}
 			if (moveData.heal && !target.fainted) {
 				var d = target.heal(Math.floor(target.maxhp * moveData.heal[0] / moveData.heal[1]));

@@ -249,7 +249,7 @@ exports.BattleScripts = {
 			}
 		}
 		if (move.ohko) { // bypasses accuracy modifiers
-			if (!target.volatiles['bounce'] && !target.volatiles['dig'] && !target.volatiles['dive'] && !target.volatiles['fly'] && !target.volatiles['phantomforce'] && !target.volatiles['shadowforce'] && !target.volatiles['skydrop']) {
+			if (!target.isSemiInvulnerable()) {
 				accuracy = 30;
 				if (pokemon.level >= target.level) {
 					accuracy += (pokemon.level - target.level);
@@ -314,7 +314,7 @@ exports.BattleScripts = {
 			totalDamage = damage;
 		}
 
-		if (move.recoil && (!pokemon.hasAbility('rockhead') || move.id === 'struggle')) {
+		if (move.recoil) {
 			this.damage(this.clampIntRange(Math.round(totalDamage * move.recoil[0] / move.recoil[1]), 1), pokemon, target, 'recoil');
 		}
 
