@@ -11,7 +11,7 @@
  */
 
 require('sugar');
-if (!global.Map) require('es6-shim');
+if (!''.includes) require('es6-shim');
 
 global.Config = require('./config/config.js');
 
@@ -1257,6 +1257,21 @@ BattlePokemon = (function () {
 		if (types.length) return types;
 		if (this.battle.gen >= 5) return ['Normal'];
 		return ['???'];
+	};
+	BattlePokemon.prototype.isGrounded = function () {
+		if (!this.hasType('Flying') && this.battle.runEvent('Immunity', this, null, null, 'Ground')) return true;
+		return !!(this.hasItem('ironball') || this.volatiles['ingrain'] || this.volatiles['smackdown'] || this.battle.getPseudoWeather('gravity'));
+	};
+	BattlePokemon.prototype.isSemiInvulnerable = function () {
+		if (this.volatiles['fly'] || this.volatiles['bounce'] || this.volatiles['skydrop'] || this.volatiles['dive'] || this.volatiles['dig'] || this.volatiles['phantomforce'] || this.volatiles['shadowforce']) {
+			return true;
+		}
+		for (var i = 0; i < this.side.foe.active.length; i++) {
+			if (this.side.foe.active[i].volatiles['skydrop'] && this.side.foe.active[i].volatiles['skydrop'].source === this) {
+				return true;
+			}
+		}
+		return false;
 	};
 	BattlePokemon.prototype.runEffectiveness = function (move) {
 		var totalTypeMod = 0;

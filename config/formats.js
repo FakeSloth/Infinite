@@ -55,7 +55,7 @@ exports.Formats = [
 		name: "Ubers",
 		section: "ORAS Singles",
 
-		ruleset: ['Pokemon', 'Standard Ubers', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Ban Mod'],
+		ruleset: ['Pokemon', 'Standard', 'Swagger Clause', 'Team Preview', 'Mega Rayquaza Ban Mod'],
 		banlist: []
 	},
 	{
@@ -82,6 +82,15 @@ exports.Formats = [
 		name: "RU",
 		section: "ORAS Singles",
 
+		searchShow: false,
+		ruleset: ['UU'],
+		banlist: ['UU', 'BL2', 'Galladite', 'Houndoominite', 'Pidgeotite']
+	},
+	{
+		name: "RU (suspect test)",
+		section: "ORAS Singles",
+
+		challengeShow: false,
 		ruleset: ['UU'],
 		banlist: ['UU', 'BL2', 'Galladite', 'Houndoominite', 'Pidgeotite']
 	},
@@ -89,6 +98,15 @@ exports.Formats = [
 		name: "NU",
 		section: "ORAS Singles",
 
+		searchShow: false,
+		ruleset: ['RU'],
+		banlist: ['RU', 'BL3', 'Cameruptite', 'Glalitite', 'Steelixite']
+	},
+	{
+		name: "NU (suspect test)",
+		section: "ORAS Singles",
+
+		challengeShow: false,
 		ruleset: ['RU'],
 		banlist: ['RU', 'BL3', 'Cameruptite', 'Glalitite', 'Steelixite']
 	},
@@ -162,25 +180,6 @@ exports.Formats = [
 		}
 	},
 	{
-		name: "[PGL] Little Cup",
-		section: "ORAS Singles",
-
-		maxForcedLevel: 5,
-		ruleset: ['Pokemon', 'Standard GBU', 'Team Preview GBU', 'Little Cup'],
-		banlist: ['Eviolite', 'Dragon Rage', 'Sonic Boom'],
-		requirePentagon: true,
-		validateTeam: function (team, format) {
-			if (team.length < 3) return ['You must bring at least three Pokémon.'];
-		},
-		onBegin: function () {
-			this.debug('cutting down to 3');
-			this.p1.pokemon = this.p1.pokemon.slice(0, 3);
-			this.p1.pokemonLeft = this.p1.pokemon.length;
-			this.p2.pokemon = this.p2.pokemon.slice(0, 3);
-			this.p2.pokemonLeft = this.p2.pokemon.length;
-		}
-	},
-	{
 		name: "Custom Game",
 		section: "ORAS Singles",
 
@@ -209,9 +208,21 @@ exports.Formats = [
 		section: "ORAS Doubles",
 
 		gameType: 'doubles',
+		searchShow: false,
 		ruleset: ['Pokemon', 'Standard Doubles', 'Team Preview'],
 		banlist: ['Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo',
 			'Palkia', 'Rayquaza', 'Reshiram', 'Xerneas', 'Yveltal', 'Zekrom', 'Salamencite', 'Soul Dew', 'Dark Void',
+			'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder', 'Gravity ++ Spore'
+		]
+	},
+	{
+		name: "Doubles OU (suspect test)",
+		section: "ORAS Doubles",
+
+		gameType: 'doubles',
+		ruleset: ['Pokemon', 'Standard Doubles', 'Team Preview'],
+		banlist: ['Arceus', 'Dialga', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo',
+			'Palkia', 'Rayquaza', 'Reshiram', 'Xerneas', 'Yveltal', 'Zekrom', 'Soul Dew', 'Dark Void',
 			'Gravity ++ Grass Whistle', 'Gravity ++ Hypnosis', 'Gravity ++ Lovely Kiss', 'Gravity ++ Sing', 'Gravity ++ Sleep Powder', 'Gravity ++ Spore'
 		]
 	},
@@ -562,9 +573,10 @@ exports.Formats = [
 
 		ruleset: ['Pokemon', 'Standard', 'Baton Pass Clause', 'Swagger Clause', 'Team Preview'],
 		banlist: ['Ignore STAB Moves', 'Arceus', 'Blaziken', 'Deoxys', 'Deoxys-Attack', 'Dialga', 'Diggersby', 'Genesect', 'Giratina', 'Giratina-Origin',
-			'Groudon', 'Ho-Oh', 'Keldeo', 'Kyogre', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Palkia', 'Porygon-Z', 'Rayquaza',
-			'Reshiram', 'Shaymin-Sky', 'Sylveon', 'Xerneas', 'Yveltal', 'Zekrom', 'Aerodactylite', 'Altarianite', 'Gengarite', 'Kangaskhanite',
-			"King's Rock", 'Lopunnite', 'Lucarionite', 'Mawilite', 'Metagrossite', 'Razor Fang', 'Salamencite', 'Slowbronite', 'Soul Dew'
+			'Greninja', 'Groudon', 'Ho-Oh', 'Keldeo', 'Kyogre', 'Kyurem-Black', 'Kyurem-White', 'Lugia', 'Mewtwo', 'Palkia',
+			'Porygon-Z', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Sylveon', 'Xerneas', 'Yveltal', 'Zekrom', 'Aerodactylite', 'Altarianite',
+			'Gengarite', 'Kangaskhanite', "King's Rock", 'Lopunnite', 'Lucarionite', 'Mawilite', 'Metagrossite', 'Razor Fang', 'Salamencite', 'Slowbronite',
+			'Soul Dew'
 		]
 	},
 	{
@@ -590,46 +602,6 @@ exports.Formats = [
 			'DeepSeaScale', 'DeepSeaTooth', 'Eviolite', 'Gengarite', 'Kangaskhanite', 'Light Ball', 'Mawilite', 'Medichamite', 'Soul Dew', 'Thick Club',
 			'Arena Trap', 'Huge Power', 'Pure Power', 'Shadow Tag'
 		]
-	},
-	{
-		name: "Classic Hackmons",
-		section: "Other Metagames",
-
-		searchShow: false,
-		ruleset: ['HP Percentage Mod', 'Cancel Mod'],
-		validateSet: function (set) {
-			var template = this.getTemplate(set.species);
-			var item = this.getItem(set.item);
-			var problems = [];
-
-			if (set.species === set.name) delete set.name;
-			if (template.isNonstandard) {
-				problems.push(set.species + ' is not a real Pokemon.');
-			}
-			if (item.isNonstandard) {
-				problems.push(item.name + ' is not a real item.');
-			}
-			var ability = {};
-			if (set.ability) ability = this.getAbility(set.ability);
-			if (ability.isNonstandard) {
-				problems.push(ability.name + ' is not a real ability.');
-			}
-			if (set.moves) {
-				for (var i = 0; i < set.moves.length; i++) {
-					var move = this.getMove(set.moves[i]);
-					if (move.isNonstandard) {
-						problems.push(move.name + ' is not a real move.');
-					}
-				}
-				if (set.moves.length > 4) {
-					problems.push((set.name || set.species) + ' has more than four moves.');
-				}
-			}
-			if (set.level && set.level > 100) {
-				problems.push((set.name || set.species) + ' is higher than level 100.');
-			}
-			return problems;
-		}
 	},
 	{
 		name: "Hidden Type",

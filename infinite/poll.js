@@ -1,3 +1,13 @@
+// String includes polyfill
+// Why didn't I put this in app.js? Because Showdown's
+// style guide sucks. JSCS can't check correct indentation
+// for shit.
+if (!String.prototype.includes) {
+    String.prototype.includes = function () {
+        return String.prototype.indexOf.apply(this, arguments) !== -1;
+    };
+}
+
 module.exports = (function() {
     var Poll = {
         reset: function(roomId) {

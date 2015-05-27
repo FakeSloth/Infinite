@@ -61,7 +61,7 @@ exports.commands = {
 					"|raw|<div class =\"infobox\"><div class=\"broadcast-green\"><center><font size=2><b>" + Tools.escapeHTML(user.name) +
 					"</b> started a game of hangman! The word has <b>" + word.length + "</b> letters.<br />" + room.hangman.guessWord.join(" ") +
 					"<br />Topic: " + Tools.escapeHTML(room.hangman.topic) + "</font><br>" +
-					"Use <b>/g <i>letter</i></b> to guess a letter and <b>/gw <i>word</i></b> to guess a word</div></div>"
+					"Use <b>/g <i>letter</i></b> to guess a letter or <b>/gw <i>word</i></b> to guess a word</div></div>"
 				);
 				room.update();
 				break;

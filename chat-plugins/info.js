@@ -1573,12 +1573,13 @@ var commands = exports.commands = {
 			matched = true;
 			if (target !== 'all') buffer += "Battle with an inverted type chart.<br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3518146/\">Inverse Battle</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3526371/\">Inverse Battle Viability Ranking</a><br />";
 		}
 		if (target === 'all' || target === 'almostanyability' || target === 'aaa') {
 			matched = true;
 			if (target !== 'all') buffer += "Pokémon can use any ability, barring the few that are banned.<br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3528058/\">Almost Any Ability</a><br />";
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3517258/\">Almost Any Ability Viability Ranking</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3538917/\">Almost Any Ability Viability Ranking</a><br />";
 		}
 		if (target === 'all' || target === 'stabmons') {
 			matched = true;
@@ -1593,10 +1594,6 @@ var commands = exports.commands = {
 		if (target === 'all' || target === 'averagemons') {
 			matched = true;
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3526481/\">Averagemons</a><br />";
-		}
-		if (target === 'all' || target === 'classichackmons' || target === 'hackmons' || target === 'ch') {
-			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3521887/\">Classic Hackmons</a><br />";
 		}
 		if (target === 'all' || target === 'hiddentype' || target === 'ht') {
 			matched = true;
@@ -1822,7 +1819,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'all' || target === 'rarelyused' || target === 'ru') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3537443/\">np: RU Stage 9</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3538971/\">np: RU Stage 10</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/dex/xy/tags/ru/\">RU Banlist</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3538036/\">RU Viability Ranking</a><br />";
 		}
@@ -1840,7 +1837,7 @@ var commands = exports.commands = {
 		}
 		if (target === 'all' || target === 'doublesou' || target === 'doubles' || target === 'smogondoubles') {
 			matched = true;
-			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3525739/\">np: Doubles OU Stage 1.5</a><br />";
+			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3538960/\">np: Doubles OU Stage 2</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3498688/\">Doubles OU Banlist</a><br />";
 			buffer += "- <a href=\"https://www.smogon.com/forums/threads/3522814/\">Doubles OU Viability Ranking</a><br />";
 		}
