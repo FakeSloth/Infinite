@@ -126,6 +126,24 @@ module.exports = {
         room.addRaw('<strong><font color="' + colour + '">~~ ' + Tools.escapeHTML(message) + ' ~~</font></strong>');
         user.disconnectAll();
     },
+	
+	kick: function (target, room, user) {
+        if (!target) return this.parse('/help kick');
+        var targetUser = this.targetUser
+        if (!this.can('mute', targetUser, room)) return;
+
+        var targetUser = Users.get(target);
+        if (!targetUser) return this.sendReply('User ' + target + ' not found.');
+		var a = targetUser.name;
+                    if (a == "Da Bic Boi" || a == "Da Bic Boi - Ⓐⓦⓐⓨ" || a == "Infinite Bot" || a == "Infinite Bot - Ⓐⓦⓐⓨ" || a == "Infinite DDP Bot" || a== "Infinite DDP Bot - Ⓐⓦⓐⓨ" || a == "Not Da Bic Boi" || a == "Connor the Poodra" || a== "Not Da Bic Boi - Ⓐⓦⓐⓨ" ) {
+                            return this.sendReply('ACCESS DENIED.');
+                            }	
+        if (!Rooms.rooms[room.id].users[targetUser.userid]) return this.sendReply(target + ' is not in this room.');
+        targetUser.popup('You have been kicked from room ' + room.title + ' by ' + user.name + '.');
+        targetUser.leaveRoom(room);
+        room.add('|raw|' + targetUser.name + ' has been kicked from room by ' + user.name + '.');
+        this.logModCommand(user.name + ' kicked ' + targetUser.name + ' from ' + room.id);
+    },
 
     emotes: 'emoticons',
     emoticons: function() {
